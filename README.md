@@ -1,5 +1,5 @@
 # grunt-contrib-watch (not released)
-> Your description here (part of the [grunt-contrib](https://github.com/gruntjs/grunt-contrib) collection).  Submitted by [Sindre Sorhus](/sindresorhus).
+> Your description here (part of the [grunt-contrib](https://github.com/gruntjs/grunt-contrib) collection).  Submitted by ["Cowboy" Ben Alman](/cowboy).
 
 ## Getting Started
 Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-contrib-watch`

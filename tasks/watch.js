@@ -2,7 +2,7 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2012 Ben Alman, contributors
+ * Copyright (c) 2012 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  * https://github.com/gruntjs/grunt-contrib-watch/blob/master/LICENSE-MIT
  */
