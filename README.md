@@ -1,5 +1,6 @@
 # grunt-contrib-watch (not released)
-> Your description here (part of the [grunt-contrib](https://github.com/gruntjs/grunt-contrib) collection).  Submitted by ["Cowboy" Ben Alman](/cowboy).
+
+> Your description here.
 
 ## Getting Started
 Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-contrib-watch`
@@ -18,4 +19,8 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 
 ## Release History
 
-* 2012/08/xx - v0.2.0 - notation
+* 2012/09/xx - v0.2.0 - notation
+
+--
+
+Task submitted by ["Cowboy" Ben Alman](https://github.com/cowboy).

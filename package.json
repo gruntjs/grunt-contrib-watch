@@ -4,8 +4,8 @@
   "version": "0.2.0",
   "homepage": "https://github.com/gruntjs/grunt-contrib-watch",
   "author": {
-    "name": "Ben Alman",
-    "url": "http://benalman.com"
+    "name": "Grunt Team",
+    "url": "http://gruntjs.com/"
   },
   "repository": {
     "type": "git",
