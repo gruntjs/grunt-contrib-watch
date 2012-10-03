@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-watch",
-  "description": "Your description here.",
-  "version": "0.2.0",
+  "description": "Run tasks whenever watched files change.",
+  "version": "0.4.0",
   "homepage": "https://github.com/gruntjs/grunt-contrib-watch",
   "author": {
     "name": "Grunt Team",
@@ -28,7 +28,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "grunt-contrib-lib": "~0.2.0"
+    "grunt-contrib-lib": "~0.4.0a"
   },
   "devDependencies": {
     "grunt": "~0.3.15",
