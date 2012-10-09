@@ -99,14 +99,5 @@ exports.watch = (function() {
     test.done();
   };
 
-  _test.spawn = function(test) {
-    test.expect(2);
-    helpers.spawn({args:['lint', '--no-color']}, function(err, res, code) {
-      test.equals(code, 0);
-      test.ok((res.indexOf('Done, without errors.') !== -1), 'Lint task ran without errors.');
-      test.done();
-    });
-  };
-
   return _test;
 }());

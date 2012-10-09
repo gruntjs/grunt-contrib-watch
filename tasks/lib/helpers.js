@@ -12,8 +12,6 @@ exports.init = function(grunt) {
 
   var exports = {};
 
-  var path = require('path');
-
   // TODO: ditch this when grunt v0.4 is released
   grunt.util = grunt.util || grunt.utils;
 
@@ -48,34 +46,6 @@ exports.init = function(grunt) {
       }));
     }
     return ret;
-  };
-
-  // Helper for spawning tasks as child processes
-  exports.spawn = function spawn(opts, done) {
-    // Find the grunt bin command
-    opts.cmd = path.resolve(__dirname, '..', '..', 'node_modules', '.bin', 'grunt');
-    if (process.platform === 'win32') { opts.cmd += '.cmd'; }
-    // Append on passed args
-    opts.args = grunt.util._.chain(opts.args)
-      .union([].slice.call(process.argv, 3))
-      .without('watch')
-      .value();
-    // Set the base if it has not been specified
-    if (grunt.util._.indexOf(opts.args, '--base') === -1) {
-      opts.args.push('--base', process.cwd());
-    }
-    // Set the gruntfile if it has not been specified
-    var cfgName = '--config';
-    var gruntfile = 'grunt.js';
-    if (String(grunt.version).slice(0, 3) === '0.4') {
-      cfgName = '--gruntfile';
-      gruntfile = 'Gruntfile.js';
-    }
-    if (grunt.util._.indexOf(opts.args, cfgName) === -1) {
-      opts.args.push(cfgName, path.resolve(process.cwd(), gruntfile));
-    }
-    // Spawn the tasks
-    grunt.util.spawn(opts, done);
   };
 
   return exports;

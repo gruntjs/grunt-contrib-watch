@@ -15,6 +15,10 @@ module.exports = function(grunt) {
   var path = require('path');
   var gaze = require('gaze');
 
+  // Find the grunt bin
+  var gruntBin = path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt');
+  if (process.platform === 'win32') { gruntBin += '.cmd'; }
+
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     this.requiresConfig('watch');
     var helpers = require('./lib/helpers.js').init(grunt);
@@ -48,7 +52,11 @@ module.exports = function(grunt) {
       });
       changedFiles = Object.create(null);
       // Spawn the tasks as a child process
-      helpers.spawn({args:config.tasks}, function(err, res, code) {
+      grunt.util.spawn({
+        cmd: gruntBin,
+        opts: {cwd: process.cwd()},
+        args: grunt.util._.union(config.tasks, [].slice.call(process.argv, 3))
+      }, function(err, res, code) {
         if (code !== 0) { grunt.log.error(res.stderr); }
         grunt.log.writeln(res.stdout).writeln('').write(waiting);
       });
