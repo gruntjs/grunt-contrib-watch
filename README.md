@@ -5,7 +5,7 @@
 ## Getting Started
 Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-contrib-watch`
 
-Then add this line to your project's `grunt.js` gruntfile:
+Then add this line to your project's `Gruntfile.js` gruntfile:
 
 ```javascript
 grunt.loadNpmTasks('grunt-contrib-watch');
@@ -16,7 +16,7 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 
 ### Overview
 
-Inside your `grunt.js` file, add a section named `watch`. This section specifies the files to watch, tasks to run when an event occurs and the options used.
+Inside your `Gruntfile.js` file, add a section named `watch`. This section specifies the files to watch, tasks to run when an event occurs and the options used.
 
 ##### files ```string|array```
 
@@ -36,14 +36,14 @@ There are a number of options available. Please review the [minimatch options he
 
 ##### debounceDelay ```integer```
 
-How long to wait before emitting events in succession for the same filepath and status. For example if your `grunt.js` file was `changed`, a `changed` event will only fire again after the given milliseconds. *Default is 500ms.*
+How long to wait before emitting events in succession for the same filepath and status. For example if your `Gruntfile.js` file was `changed`, a `changed` event will only fire again after the given milliseconds. *Default is 500ms.*
 
 Example:
 ``` javascript
 watch: {
   scripts: {
     files: '**/*.js',
-    tasks: ['lint'],
+    tasks: ['jshint'],
     options: {
       debounceDelay: 250
     }
@@ -61,11 +61,11 @@ The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs
 watch: {
   scripts: {
     files: [
-      'grunt.js',
+      'Gruntfile.js',
       'tasks/**/*.js',
-      '<config:nodeunit.tasks>'
+      '<%= jshint.all %>'
     ],
-    tasks: ['lint', 'test']
+    tasks: ['jshint', 'nodeunit']
   }
 }
 ```
