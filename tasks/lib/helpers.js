@@ -60,6 +60,20 @@ exports.init = function(grunt) {
       .union([].slice.call(process.argv, 3))
       .without('watch')
       .value();
+    // Set the base if it has not been specified
+    if (grunt.util._.indexOf(opts.args, '--base') === -1) {
+      opts.args.push('--base', process.cwd());
+    }
+    // Set the gruntfile if it has not been specified
+    var cfgName = '--config';
+    var gruntfile = 'grunt.js';
+    if (String(grunt.version).slice(0, 3) === '0.4') {
+      cfgName = '--gruntfile';
+      gruntfile = 'Gruntfile.js';
+    }
+    if (grunt.util._.indexOf(opts.args, cfgName) === -1) {
+      opts.args.push(cfgName, path.resolve(process.cwd(), gruntfile));
+    }
     // Spawn the tasks
     grunt.util.spawn(opts, done);
   };
