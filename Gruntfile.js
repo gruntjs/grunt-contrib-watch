@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         src: ['<%= jshint.all %>'],
-        tasks: ['lint', 'nodeunit']
+        tasks: ['jshint', 'nodeunit']
       }
     },
 
