@@ -26,10 +26,8 @@ module.exports = function(grunt) {
 
     // Watch
     watch: {
-      scripts: {
-        src: ['<%= jshint.all %>'],
-        tasks: ['jshint', 'nodeunit']
-      }
+      files: ['<%= jshint.all %>'],
+      tasks: ['jshint', 'nodeunit']
     },
 
     // Unit tests.

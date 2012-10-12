@@ -9,9 +9,6 @@
 module.exports = function(grunt) {
   'use strict';
 
-  // TODO: ditch this when grunt v0.4 is released
-  grunt.util = grunt.util || grunt.utils;
-
   var path = require('path');
   var gaze = require('gaze');
 
@@ -21,8 +18,29 @@ module.exports = function(grunt) {
 
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     this.requiresConfig('watch');
-    var helpers = require('./lib/helpers.js').init(grunt);
-    var config = helpers.normalizeConfig(grunt.config('watch'), target || this.target);
+    var options = {};
+    // Build an array of files/tasks objects
+    var watch = grunt.config('watch');
+    var targets = target ? [target] : Object.keys(watch).filter(function(key) {
+      options = grunt.util._.extend(options, watch[key].options);
+      return typeof watch[key] !== 'string' && !Array.isArray(watch[key]);
+    });
+    targets = targets.map(function(target) {
+      // Fail if any required config properties have been omitted
+      target = ['watch', target];
+      this.requiresConfig(target.concat('files'), target.concat('tasks'));
+      return grunt.config(target);
+    }, this);
+
+    // Allow "basic" non-target format
+    if (typeof watch.files === 'string' || Array.isArray(watch.files)) {
+      targets.push({files: watch.files, tasks: watch.tasks});
+    }
+
+    grunt.verbose.writeflags(options, 'Options');
+
+    // Get a list of files to be watched
+    var patterns = grunt.util._.chain(targets).pluck('files').flatten().uniq().value();
     // Message to display when waiting for changes
     var waiting = 'Waiting...';
     // File changes to be logged.
@@ -30,20 +48,14 @@ module.exports = function(grunt) {
     // List of changed / deleted file paths.
     grunt.file.watchFiles = {changed: [], deleted: [], added: []};
 
-    grunt.verbose.writeflags(config.options, 'Options');
-
-    if (config.tasks.length < 1) {
-      grunt.log.error('Please specify tasks in your config.');
-      return false;
-    }
-
     // Call to close this task
     var done = this.async();
 
     // Run the tasks for the changed files
     var runTasks = grunt.util._.debounce(function runTasks() {
       grunt.log.ok();
-      Object.keys(changedFiles).forEach(function(filepath) {
+      var fileArray = Object.keys(changedFiles);
+      fileArray.forEach(function(filepath) {
         var status = changedFiles[filepath];
         // Log which file has changed, and how.
         grunt.log.ok('File "' + filepath + '" ' + status + '.');
@@ -51,19 +63,29 @@ module.exports = function(grunt) {
         grunt.file.watchFiles[status].push(filepath);
       });
       changedFiles = Object.create(null);
-      // Spawn the tasks as a child process
-      grunt.util.spawn({
-        cmd: gruntBin,
-        opts: {cwd: process.cwd()},
-        args: grunt.util._.union(config.tasks, [].slice.call(process.argv, 3))
-      }, function(err, res, code) {
-        if (code !== 0) { grunt.log.error(res.stderr); }
-        grunt.log.writeln(res.stdout).writeln('').write(waiting);
+      // For each specified target, test to see if any files matching that
+      // target's file patterns were modified.
+      targets.forEach(function(target) {
+        //console.log(target)
+        var files = grunt.file.expandFiles(target.files);
+        var intersection = grunt.util._.intersection(fileArray, files);
+        // Enqueue specified tasks if a matching file was found.
+        if (intersection.length > 0 && target.tasks) {
+          // Spawn the tasks as a child process
+          grunt.util.spawn({
+            cmd: gruntBin,
+            opts: {cwd: process.cwd()},
+            args: grunt.util._.union(target.tasks, [].slice.call(process.argv, 3))
+          }, function(err, res, code) {
+            if (code !== 0) { grunt.log.error(res.stderr); }
+            grunt.log.writeln(res.stdout).writeln('').write(waiting);
+          });
+        }
       });
     }, 250);
 
     // Start up watcher
-    gaze(config.src, config.options, function(err) {
+    gaze(patterns, options, function(err) {
       if (err) {
         grunt.log.error(err.message);
         return done();
