@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   'use strict';
 
   var path = require('path');
-  var gaze = require('gaze');
+  var Gaze = require('gaze').Gaze;
 
   // Find the grunt bin
   var gruntBin = path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt');
@@ -18,11 +18,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     this.requiresConfig('watch');
-    var options = {};
     // Build an array of files/tasks objects
     var watch = grunt.config('watch');
     var targets = target ? [target] : Object.keys(watch).filter(function(key) {
-      options = grunt.util._.extend(options, watch[key].options);
       return typeof watch[key] !== 'string' && !Array.isArray(watch[key]);
     });
     targets = targets.map(function(target) {
@@ -37,8 +35,6 @@ module.exports = function(grunt) {
       targets.push({files: watch.files, tasks: watch.tasks});
     }
 
-    grunt.verbose.writeflags(options, 'Options');
-
     // Get a list of files to be watched
     var patterns = grunt.util._.chain(targets).pluck('files').flatten().uniq().value();
     // Message to display when waiting for changes
@@ -50,9 +46,10 @@ module.exports = function(grunt) {
 
     // Call to close this task
     var done = this.async();
+    grunt.log.write(waiting);
 
     // Run the tasks for the changed files
-    var runTasks = grunt.util._.debounce(function runTasks() {
+    var runTasks = grunt.util._.debounce(function runTasks(tasks) {
       grunt.log.ok();
       var fileArray = Object.keys(changedFiles);
       fileArray.forEach(function(filepath) {
@@ -63,42 +60,37 @@ module.exports = function(grunt) {
         grunt.file.watchFiles[status].push(filepath);
       });
       changedFiles = Object.create(null);
-      // For each specified target, test to see if any files matching that
-      // target's file patterns were modified.
-      targets.forEach(function(target) {
-        //console.log(target)
-        var files = grunt.file.expandFiles(target.files);
-        var intersection = grunt.util._.intersection(fileArray, files);
-        // Enqueue specified tasks if a matching file was found.
-        if (intersection.length > 0 && target.tasks) {
-          // Spawn the tasks as a child process
-          grunt.util.spawn({
-            cmd: gruntBin,
-            opts: {cwd: process.cwd()},
-            args: grunt.util._.union(target.tasks, [].slice.call(process.argv, 3))
-          }, function(err, res, code) {
-            if (code !== 0) { grunt.log.error(res.stderr); }
-            grunt.log.writeln(res.stdout).writeln('').write(waiting);
-          });
-        }
+      // Spawn the tasks as a child process
+      grunt.util.spawn({
+        cmd: gruntBin,
+        opts: {cwd: process.cwd()},
+        args: grunt.util._.union(tasks, [].slice.call(process.argv, 3))
+      }, function(err, res, code) {
+        if (code !== 0) { grunt.log.error(res.stderr); }
+        grunt.log.writeln(res.stdout).writeln('').write(waiting);
       });
     }, 250);
 
-    // Start up watcher
-    gaze(patterns, options, function(err) {
-      if (err) {
-        grunt.log.error(err.message);
-        return done();
+    targets.forEach(function(target) {
+      if (typeof target.files === 'string') {
+        target.files = [target.files];
       }
-      grunt.log.write(waiting);
-      // On changed/added/deleted
-      this.on('all', function(status, filepath) {
-        filepath = path.relative(process.cwd(), filepath);
-        changedFiles[filepath] = status;
-        runTasks();
+      var patterns = grunt.util._.chain(target.files).flatten().uniq().value();
+      var options = target.options || {};
+      var gaze = new Gaze(patterns, options, function(err) {
+        if (err) {
+          grunt.log.error(err.message);
+          return done();
+        }
+        // On changed/added/deleted
+        this.on('all', function(status, filepath) {
+          filepath = path.relative(process.cwd(), filepath);
+          changedFiles[filepath] = status;
+          runTasks(target.tasks);
+        });
+        // On watcher error
+        this.on('error', function(err) { grunt.log.error(err); });
       });
-      // On watcher error
-      this.on('error', function(err) { grunt.log.error(err); });
     });
 
     // Keep the process alive
