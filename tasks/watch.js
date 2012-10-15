@@ -9,6 +9,9 @@
 module.exports = function(grunt) {
   'use strict';
 
+  // TODO: ditch this when grunt v0.4 is released
+  grunt.util = grunt.util || grunt.utils;
+
   var path = require('path');
   var Gaze = require('gaze').Gaze;
 
