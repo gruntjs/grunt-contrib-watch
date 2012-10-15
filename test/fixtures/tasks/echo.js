@@ -9,7 +9,7 @@
 module.exports = function(grunt) {
   'use strict';
   grunt.registerMultiTask('echo', 'A task that echos a message.', function() {
-  	var msg = this.data.message || 'I do absolutely nothing.';
-  	grunt.log.writeln(msg);
+    var msg = this.data.message || 'I do absolutely nothing.';
+    grunt.log.writeln(msg);
   });
 };
