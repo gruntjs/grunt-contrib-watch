@@ -17,6 +17,10 @@ module.exports = function(grunt) {
 
   // Find the grunt bin
   var gruntBin = path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt');
+  if (!grunt.file.exists(gruntBin)) {
+    // Use the globally installed grunt
+    gruntBin = path.resolve(path.dirname(process.execPath), 'grunt');
+  }
   if (process.platform === 'win32') { gruntBin += '.cmd'; }
 
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
