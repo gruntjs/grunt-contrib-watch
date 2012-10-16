@@ -38,8 +38,6 @@ module.exports = function(grunt) {
       targets.push({files: watch.files, tasks: watch.tasks});
     }
 
-    // Get a list of files to be watched
-    var patterns = grunt.util._.chain(targets).pluck('files').flatten().uniq().value();
     // Message to display when waiting for changes
     var waiting = 'Waiting...';
     // File changes to be logged.
