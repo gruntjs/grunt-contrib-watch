@@ -22,6 +22,9 @@ module.exports = function(grunt) {
     gruntBin = path.resolve(path.dirname(process.execPath), 'grunt');
   }
   if (process.platform === 'win32') { gruntBin += '.cmd'; }
+  if (!grunt.file.exists(gruntBin)) {
+    grunt.fatal('The Grunt binary could not be found. Please install grunt first with: npm install grunt');
+  }
 
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     this.requiresConfig('watch');
