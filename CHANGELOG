@@ -4,3 +4,8 @@ v0.1.0:
     - Release watch task.
     - Remove spawn from helper
     - Run on Grunt v0.4
+v0.1.1:
+  date: 2012-10-16
+  changes:
+    - Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found.
+    - Update to gaze 0.1.6
