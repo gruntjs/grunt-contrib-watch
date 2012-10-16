@@ -34,6 +34,23 @@ This controls how this task operates and should contain key:value pairs, see opt
 
 There are a number of options available. Please review the [minimatch options here](https://github.com/isaacs/minimatch#options). As well as some additional options as follows:
 
+##### interrupt ```boolean```
+
+As files are modified this watch task will spawn tasks in child processes. The default behavior will only spawn a new child process for tasks when the previous process has finished. Set the `interrupt` option to true to terminate the previous process and spawn a new one upon later changes.
+
+Example:
+``` javascript
+watch: {
+  scripts: {
+    files: '**/*.js',
+    tasks: ['jshint'],
+    options: {
+      interrupt: true
+    }
+  }
+}
+```
+
 ##### debounceDelay ```integer```
 
 How long to wait before emitting events in succession for the same filepath and status. For example if your `Gruntfile.js` file was `changed`, a `changed` event will only fire again after the given milliseconds. *Default is 500ms.*
