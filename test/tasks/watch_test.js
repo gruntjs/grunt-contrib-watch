@@ -20,13 +20,24 @@ function assertTask(task, options) {
   task = task || 'default';
   options = options || {};
 
-  // get grunt command
-  var gruntBin = path.resolve(__dirname, '..', '..', 'node_modules', '.bin', 'grunt');
+  // Find the grunt bin
+  var gruntBin = path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt');
+  if (!grunt.file.exists(gruntBin)) {
+    // Use the globally installed grunt
+    gruntBin = path.resolve(path.dirname(process.execPath), 'grunt');
+  }
   if (process.platform === 'win32') { gruntBin += '.cmd'; }
+  if (!grunt.file.exists(gruntBin)) {
+    grunt.fatal('The Grunt binary could not be found.');
+  }
 
   // get next/kill process trigger
   var trigger = options.trigger || 'Waiting...';
   delete options.trigger;
+
+  // CWD to spawn
+  var cwd = options.cwd || process.cwd();
+  delete options.cwd;
 
   // turn options into spawn options
   var spawnOptions = [];
@@ -38,7 +49,7 @@ function assertTask(task, options) {
 
   // Return an interface for testing this task
   function returnFunc(runs, done) {
-    var spawnGrunt = spawn(gruntBin, spawnOptions);
+    var spawnGrunt = spawn(gruntBin, spawnOptions, {cwd:cwd});
     var out = '';
 
     if (!grunt.util._.isArray(runs)) {
@@ -87,15 +98,11 @@ function assertTask(task, options) {
 exports.watchConfig = {
   oneTarget: function(test) {
     test.expect(2);
-    var base = path.resolve(fixtures, 'oneTarget');
-    var assertWatch = assertTask('watch', {
-      trigger: 'Waiting...',
-      base: base,
-      gruntfile: path.resolve(base, 'Gruntfile.js')
-    });
+    var cwd = path.resolve(fixtures, 'oneTarget');
+    var assertWatch = assertTask('watch', {cwd:cwd});
     assertWatch(function() {
       var write = 'var test = true;';
-      grunt.file.write(path.join(base, 'lib', 'one.js'), write);
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
     }, function(result) {
       test.ok(result.indexOf('File "lib/one.js" changed') !== -1, 'Watch should have fired when oneTarget/lib/one.js has changed.');
       test.ok(result.indexOf('I do absolutely nothing.') !== -1, 'echo task should have fired.');
@@ -104,15 +111,11 @@ exports.watchConfig = {
   },
   multiTargetsTriggerOneNotTwo: function(test) {
     test.expect(2);
-    var base = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = assertTask('watch', {
-      trigger: 'Waiting...',
-      base: base,
-      gruntfile: path.resolve(base, 'Gruntfile.js')
-    });
+    var cwd = path.resolve(fixtures, 'multiTargets');
+    var assertWatch = assertTask('watch', {cwd:cwd});
     assertWatch(function() {
       var write = 'var test = true;';
-      grunt.file.write(path.join(base, 'lib', 'one.js'), write);
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
     }, function(result) {
       test.ok(result.indexOf('one has changed') !== -1, 'Only task echo:one should of emit.');
       test.ok(result.indexOf('two has changed') === -1, 'Task echo:two should NOT emit.');
@@ -121,19 +124,46 @@ exports.watchConfig = {
   },
   multiTargetsTriggerBoth: function(test) {
     test.expect(2);
-    var base = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = assertTask('watch', {
-      trigger: 'Waiting...',
-      base: base,
-      gruntfile: path.resolve(base, 'Gruntfile.js')
-    });
+    var cwd = path.resolve(fixtures, 'multiTargets');
+    var assertWatch = assertTask('watch', {cwd:cwd});
     assertWatch(function() {
       var write = 'var test = true;';
-      grunt.file.write(path.join(base, 'lib', 'one.js'), write);
-      grunt.file.write(path.join(base, 'lib', 'two.js'), write);
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
+      // Needs to be in a timeout to get past debounce
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib', 'two.js'), write);
+      }, 500);
     }, function(result) {
       test.ok(result.indexOf('one has changed') !== -1, 'Task echo:one should of emit.');
       test.ok(result.indexOf('two has changed') !== -1, 'Task echo:two should of emit.');
+      test.done();
+    });
+  },
+  spawnOneAtATime: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'multiTargets');
+    var assertWatch = assertTask('watch', {cwd:cwd});
+    assertWatch(function() {
+      grunt.file.write(path.join(cwd, 'lib', 'wait.js'), 'var wait = false;');
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib', 'wait.js'), 'var wait = true;');
+      }, 500);
+    }, function(result) {
+      test.ok(result.indexOf('I waited 2s') !== -1, 'Task should have waited 2s and only spawned once.');
+      test.done();
+    });
+  },
+  interrupt: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'multiTargets');
+    var assertWatch = assertTask('watch', {cwd:cwd});
+    assertWatch(function() {
+      grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = false;');
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = true;');
+      }, 500);
+    }, function(result) {
+      test.ok(result.indexOf('has been interrupted') !== -1, 'Task should have been interrupted.');
       test.done();
     });
   }

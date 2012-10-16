@@ -9,6 +9,9 @@ module.exports = function(grunt) {
       tasks: ['echo']
     }
   });
+  // Load the echo task
   grunt.loadTasks('../tasks');
+  // Load this watch task
+  grunt.loadTasks('../../../tasks');
   grunt.registerTask('default', ['echo']);
 };

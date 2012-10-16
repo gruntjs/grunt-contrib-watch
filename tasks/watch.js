@@ -64,15 +64,15 @@ module.exports = function(grunt) {
     grunt.log.write(waiting);
 
     // Run the tasks for the changed files
-    var runTasks = grunt.util._.debounce(function runTasks(tasks, options) {
-      // If interrupted
-      if (options.interrupt && typeof spawned[tasks] === 'object') {
-        grunt.log.write('Previously spawned task has been interrupted...'.yellow);
-        spawned[tasks].kill('SIGINT');
-        delete spawned[tasks];
+    var runTasks = grunt.util._.debounce(function runTasks(i, tasks, options) {
+      // If interrupted, reset the spawned for a target
+      if (options.interrupt && typeof spawned[i] === 'object') {
+        grunt.log.writeln('').write('Previously spawned task has been interrupted...'.yellow);
+        spawned[i].kill('SIGINT');
+        delete spawned[i];
       }
       // Only spawn one at a time unless interrupt is specified
-      if (!spawned[tasks]) {
+      if (!spawned[i]) {
         grunt.log.ok();
         var fileArray = Object.keys(changedFiles);
         fileArray.forEach(function(filepath) {
@@ -85,22 +85,22 @@ module.exports = function(grunt) {
         // Reset changedFiles
         changedFiles = Object.create(null);
         // Spawn the tasks as a child process
-        spawned[tasks] = grunt.util.spawn({
+        spawned[i] = grunt.util.spawn({
           cmd: gruntBin,
           opts: {cwd: process.cwd()},
           args: grunt.util._.union(tasks, [].slice.call(process.argv, 3))
         }, function(err, res, code) {
           // Spawn is done
-          delete spawned[tasks];
+          delete spawned[i];
           grunt.log.writeln('').write(waiting);
         });
         // Display stdout/stderr immediately
-        spawned[tasks].stdout.on('data', function(buf) { grunt.log.write(String(buf)); });
-        spawned[tasks].stderr.on('data', function(buf) { grunt.log.error(String(buf)); });
+        spawned[i].stdout.on('data', function(buf) { grunt.log.write(String(buf)); });
+        spawned[i].stderr.on('data', function(buf) { grunt.log.error(String(buf)); });
       }
     }, 250);
 
-    targets.forEach(function(target) {
+    targets.forEach(function(target, i) {
       if (typeof target.files === 'string') {
         target.files = [target.files];
       }
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         this.on('all', function(status, filepath) {
           filepath = path.relative(process.cwd(), filepath);
           changedFiles[filepath] = status;
-          runTasks(target.tasks, options);
+          runTasks(i, target.tasks, options);
         });
         // On watcher error
         this.on('error', function(err) { grunt.log.error(err); });

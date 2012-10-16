@@ -36,7 +36,7 @@ There are a number of options available. Please review the [minimatch options he
 
 ##### interrupt ```boolean```
 
-As files are modified this watch task will spawn tasks in child processes. The default behavior will only spawn a new child process for tasks when the previous process has finished. Set the `interrupt` option to true to terminate the previous process and spawn a new one upon later changes.
+As files are modified this watch task will spawn tasks in child processes. The default behavior will only spawn a new child process per target when the previous process has finished. Set the `interrupt` option to true to terminate the previous process and spawn a new one upon later changes.
 
 Example:
 ``` javascript
