@@ -128,14 +128,11 @@ exports.watchConfig = {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
     var assertWatch = assertTask('watch', {cwd:cwd});
-    assertWatch(function() {
-      var write = 'var test = true;';
-      grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
-      // Needs to be in a timeout to get past debounce
-      setTimeout(function() {
-        grunt.file.write(path.join(cwd, 'lib', 'two.js'), write);
-      }, 500);
-    }, function(result) {
+    assertWatch([function() {
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var test = true;');
+    }, function() {
+      grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var test = true;');
+    }], function(result) {
       test.ok(result.indexOf('one has changed') !== -1, 'Task echo:one should of emit.');
       test.ok(result.indexOf('two has changed') !== -1, 'Task echo:two should of emit.');
       test.done();
