@@ -13,7 +13,12 @@ module.exports = function(grunt) {
   grunt.util = grunt.util || grunt.utils;
 
   var path = require('path');
+  var fs = require('fs');
   var Gaze = require('gaze').Gaze;
+
+  // In Nodejs 0.8.0, existsSync moved from path -> fs.
+  // TODO: When 0.4 is release, use grunt.file.exists
+  fs.existsSync = fs.existsSync || path.existsSync;
 
   // Default options for the watch task
   var defaults = {
@@ -26,10 +31,10 @@ module.exports = function(grunt) {
     path.resolve(path.dirname(process.execPath), 'grunt'),
     path.resolve(__dirname, '..', 'node_modules', '.bin', 'grunt'),
   ], function(bin) {
-    return grunt.file.exists(bin);
+    return fs.existsSync(bin);
   });
   if (process.platform === 'win32') { gruntBin += '.cmd'; }
-  if (!grunt.file.exists(gruntBin)) {
+  if (!fs.existsSync(gruntBin)) {
     grunt.fatal('The Grunt binary could not be found. Please install grunt first with: npm install grunt');
   }
 
