@@ -21,11 +21,13 @@ module.exports = function(grunt) {
   };
 
   // Find the grunt bin
-  var gruntBin = path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt');
-  if (!grunt.file.exists(gruntBin)) {
-    // Use the globally installed grunt
-    gruntBin = path.resolve(path.dirname(process.execPath), 'grunt');
-  }
+  var gruntBin = grunt.util._.find([
+    path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt'),
+    path.resolve(path.dirname(process.execPath), 'grunt'),
+    path.resolve(__dirname, '..', 'node_modules', '.bin', 'grunt'),
+  ], function(bin) {
+    return grunt.file.exists(bin);
+  });
   if (process.platform === 'win32') { gruntBin += '.cmd'; }
   if (!grunt.file.exists(gruntBin)) {
     grunt.fatal('The Grunt binary could not be found. Please install grunt first with: npm install grunt');

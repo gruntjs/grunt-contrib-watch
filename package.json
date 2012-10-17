@@ -25,7 +25,7 @@
     "node": "*"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test -v"
   },
   "dependencies": {
     "gaze": "~0.1.6"
@@ -34,7 +34,7 @@
     "grunt-contrib-jshint": "0.1.0",
     "grunt-contrib-nodeunit": "0.1.0",
     "grunt-contrib-internal": "*",
-    "grunt": "git://github.com/gruntjs/grunt.git#bcb41c762122c955d2d2c76ee118fba58cb5701a"
+    "grunt": "~0.4.0a"
   },
   "keywords": [
     "gruntplugin", "watch"
