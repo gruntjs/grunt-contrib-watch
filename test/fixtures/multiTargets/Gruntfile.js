@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       one: { message: 'one has changed' },
       two: { message: 'two has changed' },
       wait: { message: 'I waited 2s', wait: 2000 },
-      interrupt: { message: 'I was interrupted', wait: 2000 },
+      interrupt: { message: 'I was interrupted', wait: 5000 },
     },
     watch: {
       one: {
