@@ -34,7 +34,7 @@
     "grunt-contrib-jshint": "0.1.0",
     "grunt-contrib-nodeunit": "0.1.0",
     "grunt-contrib-internal": "*",
-    "grunt": "~0.4.0a"
+    "grunt": "git://github.com/gruntjs/grunt.git#bcb41c762122c955d2d2c76ee118fba58cb5701a"
   },
   "keywords": [
     "gruntplugin", "watch"
