@@ -14,6 +14,12 @@ if (grunt.task.searchDirs.length === 0) {
 // Where our fixtures are
 var fixtures = path.join(__dirname, '..', 'fixtures');
 
+// If verbose flag set, display output
+var verboseLog = function() {};
+if (grunt.util._.indexOf(process.argv, '-v') !== -1) {
+  verboseLog = function() { console.log.apply(null, arguments); };
+}
+
 // helper for creating assertTasks for testing tasks in child processes
 function assertTask(task, options) {
   var spawn = require('child_process').spawn;
@@ -106,6 +112,7 @@ exports.watchConfig = {
       var write = 'var test = true;';
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
     }, function(result) {
+      verboseLog(result);
       test.ok(result.indexOf('File "lib/one.js" changed') !== -1, 'Watch should have fired when oneTarget/lib/one.js has changed.');
       test.ok(result.indexOf('I do absolutely nothing.') !== -1, 'echo task should have fired.');
       test.done();
@@ -119,6 +126,7 @@ exports.watchConfig = {
       var write = 'var test = true;';
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
     }, function(result) {
+      verboseLog(result);
       test.ok(result.indexOf('one has changed') !== -1, 'Only task echo:one should of emit.');
       test.ok(result.indexOf('two has changed') === -1, 'Task echo:two should NOT emit.');
       test.done();
@@ -133,6 +141,7 @@ exports.watchConfig = {
     }, function() {
       grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var test = true;');
     }], function(result) {
+      verboseLog(result);
       test.ok(result.indexOf('one has changed') !== -1, 'Task echo:one should of emit.');
       test.ok(result.indexOf('two has changed') !== -1, 'Task echo:two should of emit.');
       test.done();
@@ -148,6 +157,7 @@ exports.watchConfig = {
         grunt.file.write(path.join(cwd, 'lib', 'wait.js'), 'var wait = true;');
       }, 500);
     }, function(result) {
+      verboseLog(result);
       test.ok(result.indexOf('I waited 2s') !== -1, 'Task should have waited 2s and only spawned once.');
       test.done();
     });
@@ -160,8 +170,9 @@ exports.watchConfig = {
       grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = false;');
       setTimeout(function() {
         grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = true;');
-      }, 500);
+      }, 1000);
     }, function(result) {
+      verboseLog(result);
       test.ok(result.indexOf('has been interrupted') !== -1, 'Task should have been interrupted.');
       test.done();
     });

@@ -12,9 +12,14 @@ module.exports = function(grunt) {
     var msg = this.data.message || 'I do absolutely nothing.';
     var wait = this.data.wait || 0;
     var done = this.async();
+
+    // After a given time print a message
     setTimeout(function() {
       grunt.log.writeln(msg);
       done();
     }, wait);
+
+    // Keep the process alive
+    setInterval(function() {}, 250);
   });
 };
