@@ -22,7 +22,7 @@
   ],
   "main": "grunt.js",
   "engines": {
-    "node": "*"
+    "node": ">= 0.8.0"
   },
   "scripts": {
     "test": "grunt test -v"
