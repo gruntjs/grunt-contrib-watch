@@ -1,17 +1,17 @@
-v0.1.0:
-  date: 2012-10-08
-  changes:
-    - Release watch task
-    - Remove spawn from helper
-    - Run on Grunt v0.4
-v0.1.1:
-  date: 2012-10-16
-  changes:
-    - Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found
-    - Update to gaze 0.1.6
 v0.1.2:
   date: 2012-10-17
   changes:
     - Only spawn a process per task one at a time
     - Add interrupt option to cancel previous spawned process
     - Grunt v0.3 compatibility changes
+v0.1.1:
+  date: 2012-10-16
+  changes:
+    - Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found
+    - Update to gaze 0.1.6
+v0.1.0:
+  date: 2012-10-08
+  changes:
+    - Release watch task
+    - Remove spawn from helper
+    - Run on Grunt v0.4
