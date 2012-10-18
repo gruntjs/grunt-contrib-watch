@@ -2,6 +2,11 @@
 
 There are a number of options available. Please review the [minimatch options here](https://github.com/isaacs/minimatch#options). As well as some additional options as follows:
 
+## files
+Type: `String|Array`
+
+This defines what file patterns this task will watch.  Can be a string or an array of files and/or minimatch patterns.
+
 ## tasks
 Type: `String|Array`
 
