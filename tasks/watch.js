@@ -27,6 +27,7 @@ module.exports = function(grunt) {
 
   // Find the grunt bin
   var gruntBin = grunt.util._.find([
+    process.argv[1],
     path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt'),
     path.resolve(path.dirname(process.execPath), 'grunt'),
     path.resolve(__dirname, '..', 'node_modules', '.bin', 'grunt'),
