@@ -4,6 +4,9 @@ var grunt = require('grunt');
 var path = require('path');
 grunt.util = grunt.util || grunt.utils;
 
+// Node v0.6 compat
+path.sep = path.sep || path.normalize('/');
+
 // In case the grunt being used to test is different than the grunt being
 // tested, initialize the task and config subsystems.
 if (grunt.task.searchDirs.length === 0) {
@@ -26,18 +29,6 @@ function assertTask(task, options) {
   task = task || 'default';
   options = options || {};
 
-  // Find the grunt bin
-  var gruntBin = grunt.util._.find([
-    path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt'),
-    process.argv[1]
-  ], function(bin) {
-    return grunt.file.exists(bin);
-  });
-  if (process.platform === 'win32') { gruntBin += '.cmd'; }
-  if (!grunt.file.exists(gruntBin)) {
-    grunt.fatal('The Grunt binary could not be found.');
-  }
-
   // get next/kill process trigger
   var trigger = options.trigger || 'Waiting...';
   delete options.trigger;
@@ -46,17 +37,20 @@ function assertTask(task, options) {
   var cwd = options.cwd || process.cwd();
   delete options.cwd;
 
-  // turn options into spawn options
-  var spawnOptions = [];
+  // Use grunt this process uses
+  var spawnOptions = [process.argv[1]];
+  // Turn options into spawn options
   grunt.util._.each(options, function(val, key) {
     spawnOptions.push('--' + key);
     spawnOptions.push(val);
   });
+  // Add the tasks to run
   spawnOptions.push(task);
 
   // Return an interface for testing this task
   function returnFunc(runs, done) {
-    var spawnGrunt = spawn(gruntBin, spawnOptions, {cwd:cwd});
+    // Spawn the node this process uses
+    var spawnGrunt = spawn(process.argv[0], spawnOptions, {cwd:cwd});
     var out = '';
 
     if (!grunt.util._.isArray(runs)) {
@@ -112,7 +106,7 @@ exports.watchConfig = {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
     }, function(result) {
       verboseLog(result);
-      test.ok(result.indexOf('File "lib/one.js" changed') !== -1, 'Watch should have fired when oneTarget/lib/one.js has changed.');
+      test.ok(result.indexOf('File "lib' + path.sep + 'one.js" changed') !== -1, 'Watch should have fired when oneTarget/lib/one.js has changed.');
       test.ok(result.indexOf('I do absolutely nothing.') !== -1, 'echo task should have fired.');
       test.done();
     });

@@ -25,18 +25,6 @@ module.exports = function(grunt) {
     interrupt: false
   };
 
-  // Find the grunt bin
-  var gruntBin = grunt.util._.find([
-    path.resolve(process.cwd(), 'node_modules', '.bin', 'grunt'),
-    process.argv[1]
-  ], function(bin) {
-    return fs.existsSync(bin);
-  });
-  if (process.platform === 'win32') { gruntBin += '.cmd'; }
-  if (!fs.existsSync(gruntBin)) {
-    grunt.fatal('The Grunt binary could not be found. Please install grunt first with: npm install grunt');
-  }
-
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     this.requiresConfig('watch');
     // Build an array of files/tasks objects
@@ -92,9 +80,12 @@ module.exports = function(grunt) {
         changedFiles = Object.create(null);
         // Spawn the tasks as a child process
         spawned[i] = grunt.util.spawn({
-          cmd: gruntBin,
+          // Use the node that spawned this process
+          cmd: process.argv[0],
+          // Run from current working dir
           opts: {cwd: process.cwd()},
-          args: grunt.util._.union(tasks, [].slice.call(process.argv, 3))
+          // Run grunt this process uses, append the task to be run and any cli options
+          args: grunt.util._.union([process.argv[1]].concat(tasks), [].slice.call(process.argv, 2))
         }, function(err, res, code) {
           // Spawn is done
           delete spawned[i];
