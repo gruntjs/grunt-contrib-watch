@@ -28,7 +28,7 @@
     "test": "grunt test -v"
   },
   "dependencies": {
-    "gaze": "~0.1.6"
+    "gaze": "~0.2.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "0.1.0",
