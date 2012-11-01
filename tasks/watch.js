@@ -93,7 +93,10 @@ module.exports = function(grunt) {
         });
         // Display stdout/stderr immediately
         spawned[i].stdout.on('data', function(buf) { grunt.log.write(String(buf)); });
-        spawned[i].stderr.on('data', function(buf) { grunt.log.error(String(buf)); });
+        spawned[i].stderr.on('data', function(buf) {
+          buf = grunt.log.uncolor(String(buf));
+          if (!grunt.util._.isBlank(buf)) { grunt.log.error(buf); }
+        });
       }
     }, 250);
 

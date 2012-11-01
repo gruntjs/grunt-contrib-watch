@@ -169,5 +169,18 @@ exports.watchConfig = {
       test.ok(result.indexOf('has been interrupted') !== -1, 'Task should have been interrupted.');
       test.done();
     });
+  },
+  failingTask: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'multiTargets');
+    var assertWatch = assertTask('watch', {cwd:cwd});
+    assertWatch(function() {
+      grunt.file.write(path.join(cwd, 'lib', 'fail.js'), 'var fail = false;');
+    }, function(result) {
+      verboseLog(result);
+      test.ok(result.indexOf('<FATAL>') !== -1, 'Task should have been fatal.');
+      test.equal(grunt.util._(result).count('Waiting...'), 2, 'Should have displayed "Wating..." twice');
+      test.done();
+    });
   }
 };
