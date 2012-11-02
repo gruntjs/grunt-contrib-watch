@@ -150,6 +150,7 @@ Inside your `Gruntfile.js` file, add a section named `watch`. This section speci
 
 ## Release History
 
+ * 2012-10-31 - v0.1.4 - Prevent watch from spawning duplicate watch tasks
  * 2012-10-27 - v0.1.3 - Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
  * 2012-10-16 - v0.1.2 - Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
  * 2012-10-15 - v0.1.1 - Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
