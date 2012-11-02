@@ -52,6 +52,8 @@ module.exports = function(grunt) {
     var spawned = Object.create(null);
     // List of changed / deleted file paths.
     grunt.file.watchFiles = {changed: [], deleted: [], added: []};
+    // Get process.argv options without grunt.cli.tasks to pass to child processes
+    var cliArgs = grunt.util._.without.apply(null, [[].slice.call(process.argv, 2)].concat(grunt.cli.tasks));
 
     // Call to close this task
     var done = this.async();
@@ -85,7 +87,7 @@ module.exports = function(grunt) {
           // Run from current working dir
           opts: {cwd: process.cwd()},
           // Run grunt this process uses, append the task to be run and any cli options
-          args: grunt.util._.union([process.argv[1]].concat(tasks), [].slice.call(process.argv, 2))
+          args: grunt.util._.union([process.argv[1]].concat(tasks), cliArgs)
         }, function(err, res, code) {
           // Spawn is done
           delete spawned[i];
