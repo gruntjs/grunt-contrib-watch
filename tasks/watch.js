@@ -26,15 +26,16 @@ module.exports = function(grunt) {
   };
 
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
-    this.requiresConfig('watch');
+    var name = this.name || 'watch';
+    this.requiresConfig(name);
     // Build an array of files/tasks objects
-    var watch = grunt.config('watch');
+    var watch = grunt.config(name);
     var targets = target ? [target] : Object.keys(watch).filter(function(key) {
       return typeof watch[key] !== 'string' && !Array.isArray(watch[key]);
     });
     targets = targets.map(function(target) {
       // Fail if any required config properties have been omitted
-      target = ['watch', target];
+      target = [name, target];
       this.requiresConfig(target.concat('files'), target.concat('tasks'));
       return grunt.config(target);
     }, this);
