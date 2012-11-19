@@ -82,12 +82,12 @@ module.exports = function(grunt) {
         changedFiles = Object.create(null);
         // Spawn the tasks as a child process
         spawned[i] = grunt.util.spawn({
-          // Use the node that spawned this process
-          cmd: process.argv[0],
+          // Spawn with the grunt bin
+          grunt: true,
           // Run from current working dir
           opts: {cwd: process.cwd()},
           // Run grunt this process uses, append the task to be run and any cli options
-          args: grunt.util._.union([process.argv[1]].concat(tasks), cliArgs)
+          args: grunt.util._.union(tasks, cliArgs)
         }, function(err, res, code) {
           // Spawn is done
           delete spawned[i];
