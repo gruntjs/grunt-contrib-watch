@@ -1,3 +1,7 @@
+v0.1.5:
+  changes:
+    - Allow watch task to be renamed.
+    - Use grunt.util.spawn "grunt" option.
 v0.1.4:
   date: 2012-11-01
   changes:
