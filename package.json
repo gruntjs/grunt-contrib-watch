@@ -20,12 +20,12 @@
       "url": "https://github.com/gruntjs/grunt-contrib-watch/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "grunt.js",
+  "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/grunt nodeunit -v"
+    "test": "grunt nodeunit -v"
   },
   "dependencies": {
     "gaze": "~0.2.0"
@@ -34,8 +34,7 @@
     "grunt-contrib-jshint": "~0.1.0",
     "grunt-contrib-nodeunit": "~0.1.0",
     "grunt-contrib-internal": "*",
-    "grunt": "~0.4.0a",
-    "grunt-cli": "~0.1.0"
+    "grunt": "~0.4.0a"
   },
   "keywords": [
     "gruntplugin", "watch"
