@@ -73,11 +73,8 @@ module.exports = function(grunt) {
         grunt.log.ok();
         var fileArray = Object.keys(changedFiles);
         fileArray.forEach(function(filepath) {
-          var status = changedFiles[filepath];
           // Log which file has changed, and how.
-          grunt.log.ok('File "' + filepath + '" ' + status + '.');
-          // Add filepath to grunt.file.watchFiles for grunt.file.expand* methods.
-          grunt.file.watchFiles[status].push(filepath);
+          grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
         });
         // Reset changedFiles
         changedFiles = Object.create(null);
