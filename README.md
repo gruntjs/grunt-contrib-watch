@@ -2,31 +2,20 @@
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
-_Note that this plugin has not yet been released, and only works with the latest bleeding-edge, in-development version of grunt. See the [When will I be able to use in-development feature 'X'?](https://github.com/gruntjs/grunt/blob/devel/docs/faq.md#when-will-i-be-able-to-use-in-development-feature-x) FAQ entry for more information._
 
 ## Getting Started
-_If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
+If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [gruntfile][Getting Started] as well as install and use grunt plugins. Once you're familiar with that process, install this plugin with this command:
 
-From the same directory as your project's [Gruntfile][Getting Started] and [package.json][], install this plugin with the following command:
-
-```bash
+```shell
 npm install grunt-contrib-watch --save-dev
 ```
 
-Once that's done, add this line to your project's Gruntfile:
-
-```js
-grunt.loadNpmTasks('grunt-contrib-watch');
-```
-
-If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
-
 [grunt]: http://gruntjs.com/
 [Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
-[package.json]: https://npmjs.org/doc/json.html
 
 
-## The watch task
+## Watch task
+_Run this task with the `grunt watch` command._
 
 ### Overview
 
@@ -135,14 +124,15 @@ grunt.initConfig({
 
 ## Release History
 
- * 2012-11-19 - v0.1.5 - Allow watch task to be renamed. Use grunt.util.spawn "grunt" option.
- * 2012-10-31 - v0.1.4 - Prevent watch from spawning duplicate watch tasks
- * 2012-10-27 - v0.1.3 - Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
- * 2012-10-16 - v0.1.2 - Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
- * 2012-10-15 - v0.1.1 - Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
- * 2012-10-07 - v0.1.0 - Release watch task Remove spawn from helper Run on Grunt v0.4
+ * 2012-12-14   v0.2.0   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option.
+ * 2012-10-31   v0.1.4   Prevent watch from spawning duplicate watch tasks
+ * 2012-10-27   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
+ * 2012-10-16   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
+ * 2012-10-15   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
+ * 2012-10-07   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
 
---
-Task submitted by <a href="http://dontkry.com">Kyle Robinson Young</a>.
+---
 
-*Generated on Mon Nov 19 2012 12:58:44.*
+Task submitted by [Kyle Robinson Young](http://dontkry.com)
+
+*This file was generated on Thu Dec 13 2012 11:57:38.*

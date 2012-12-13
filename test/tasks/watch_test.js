@@ -2,17 +2,6 @@
 
 var grunt = require('grunt');
 var path = require('path');
-grunt.util = grunt.util || grunt.utils;
-
-// Node v0.6 compat
-path.sep = path.sep || path.normalize('/');
-
-// In case the grunt being used to test is different than the grunt being
-// tested, initialize the task and config subsystems.
-if (grunt.task.searchDirs.length === 0) {
-  grunt.task.init([]);
-  grunt.config.init({});
-}
 
 // Where our fixtures are
 var fixtures = path.join(__dirname, '..', 'fixtures');
