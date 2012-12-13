@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-watch",
   "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted.",
-  "version": "0.1.4",
+  "version": "0.2.0a",
   "homepage": "https://github.com/gruntjs/grunt-contrib-watch",
   "author": {
     "name": "Grunt Team",
@@ -33,8 +33,8 @@
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.0",
     "grunt-contrib-nodeunit": "~0.1.0",
-    "grunt-contrib-internal": "*",
-    "grunt": "~0.4.0a"
+    "grunt-contrib-internal": "~0.1.0",
+    "grunt": "~0.4.0"
   },
   "keywords": [
     "gruntplugin", "watch"
