@@ -2,6 +2,7 @@
 
 var grunt = require('grunt');
 var path = require('path');
+var fs = require('fs');
 
 // Where our fixtures are
 var fixtures = path.join(__dirname, '..', 'fixtures');
@@ -85,15 +86,25 @@ function assertTask(task, options) {
   return returnFunc;
 }
 
+// clean up before and after
+function cleanUp() {
+  [
+    path.join(fixtures, 'multiTargets', 'node_modules'),
+    path.join(fixtures, 'oneTarget', 'node_modules'),
+  ].forEach(function(filepath) {
+    if (grunt.file.exists(filepath)) { grunt.file.delete(filepath); }
+  });
+}
+
 exports.watchConfig = {
   setUp: function(done) {
+    cleanUp();
     fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, 'multiTargets', 'node_modules'));
     fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, 'oneTarget', 'node_modules'));
     done();
   },
   tearDown: function(done) {
-    grunt.file.delete(path.join(fixtures, 'multiTargets', 'node_modules'));
-    grunt.file.delete(path.join(fixtures, 'oneTarget', 'node_modules'));
+    cleanUp();
     done();
   },
   oneTarget: function(test) {
