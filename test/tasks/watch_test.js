@@ -86,6 +86,16 @@ function assertTask(task, options) {
 }
 
 exports.watchConfig = {
+  setUp: function(done) {
+    fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, 'multiTargets', 'node_modules'));
+    fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, 'oneTarget', 'node_modules'));
+    done();
+  },
+  tearDown: function(done) {
+    grunt.file.delete(path.join(fixtures, 'multiTargets', 'node_modules'));
+    grunt.file.delete(path.join(fixtures, 'oneTarget', 'node_modules'));
+    done();
+  },
   oneTarget: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'oneTarget');
