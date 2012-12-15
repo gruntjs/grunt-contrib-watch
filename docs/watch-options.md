@@ -55,11 +55,3 @@ Type: `Integer`
 Default: 100
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
-
-## options.forceWatchMethod
-Type: `false|'new'|'old'`
-Default: false
-
-Node.js has two file watching methods: 'old' (`fs.watchFile`) which uses stat polling and 'new' (`fs.watch`) which attempts to use the system's built-in watch mechanism. By default, this watch task uses both methods and which ever method responds first will be used for subsequent events.
-
-There may be some setups where you would need to force a specific watch method, such as on networked file system. Set `options.forceWatchMethod: 'old'` to specifically use the old watch method, `fs.watchFile`.

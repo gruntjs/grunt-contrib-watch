@@ -78,14 +78,6 @@ Default: 100
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
 
-#### options.forceWatchMethod
-Type: `false|'new'|'old'`
-Default: false
-
-Node.js has two file watching methods: 'old' (`fs.watchFile`) which uses stat polling and 'new' (`fs.watch`) which attempts to use the system's built-in watch mechanism. By default, this watch task uses both methods and which ever method responds first will be used for subsequent events.
-
-There may be some setups where you would need to force a specific watch method, such as on networked file system. Set `options.forceWatchMethod: 'old'` to specifically use the old watch method, `fs.watchFile`.
-
 ### Examples
 
 ```js
@@ -124,7 +116,7 @@ grunt.initConfig({
 
 ## Release History
 
- * 2012-12-14   v0.2.0   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option.
+ * 2012-12-14   v0.2.0   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
  * 2012-10-31   v0.1.4   Prevent watch from spawning duplicate watch tasks
  * 2012-10-27   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
  * 2012-10-16   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
@@ -135,4 +127,4 @@ grunt.initConfig({
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Thu Dec 13 2012 11:57:38.*
+*This file was generated on Fri Dec 14 2012 21:19:48.*

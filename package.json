@@ -28,15 +28,16 @@
     "test": "grunt nodeunit -v"
   },
   "dependencies": {
-    "gaze": "~0.2.0"
+    "gaze": "~0.3.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.0",
-    "grunt-contrib-nodeunit": "~0.1.0",
-    "grunt-contrib-internal": "~0.1.0",
-    "grunt": "~0.4.0"
+    "grunt-contrib-nodeunit": "~0.1.1",
+    "grunt-contrib-internal": "~0.1.1",
+    "grunt": "~0.4.0rc3"
   },
   "keywords": [
-    "gruntplugin", "watch"
+    "gruntplugin",
+    "watch"
   ]
 }

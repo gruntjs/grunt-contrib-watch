@@ -5,6 +5,7 @@ v0.2.0:
     - Remove node v0.6 and grunt v0.3 support.
     - Allow watch task to be renamed.
     - Use grunt.util.spawn "grunt" option.
+    - Updated to gaze@0.3.0, forceWatchMethod option removed.
 v0.1.4:
   date: 2012-11-01
   changes:
