@@ -4,6 +4,10 @@
 
 _Note that this plugin has not yet been released, and only works with the latest bleeding-edge, in-development version of grunt. See the [When will I be able to use in-development feature 'X'?](https://github.com/gruntjs/grunt/blob/devel/docs/faq.md#when-will-i-be-able-to-use-in-development-feature-x) FAQ entry for more information._
 
+## Grunt Compability
+* `grunt-contrib-watch@0.1.x` is compatible with `grunt >= 0.3.x`
+* `grunt-contrib-watch@0.2.x` will be compatible with `grunt >= 0.4.x`
+
 ## Getting Started
 _If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide._
 
