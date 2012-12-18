@@ -85,21 +85,14 @@ module.exports = function(grunt) {
         spawned[i] = grunt.util.spawn({
           // Spawn with the grunt bin
           grunt: true,
-          // Run from current working dir
-          opts: {cwd: process.cwd()},
+          // Run from current working dir and inherit stdio from process
+          opts: {cwd: process.cwd(), stdio: 'inherit'},
           // Run grunt this process uses, append the task to be run and any cli options
           args: grunt.util._.union(tasks, cliArgs)
         }, function(err, res, code) {
           // Spawn is done
           delete spawned[i];
           grunt.log.writeln('').write(waiting);
-        });
-
-        // Display stdout/stderr immediately
-        spawned[i].stdout.on('data', function(buf) { grunt.log.write(String(buf)); });
-        spawned[i].stderr.on('data', function(buf) {
-          buf = grunt.log.uncolor(String(buf));
-          if (!grunt.util._.isBlank(buf)) { grunt.log.error(buf); }
         });
       }
     }, 250);
