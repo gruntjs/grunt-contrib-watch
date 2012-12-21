@@ -105,7 +105,7 @@ module.exports = function(grunt) {
         target.files = [target.files];
       }
       // Get patterns to glob for this target
-      var patterns = grunt.util._.chain(target.files).flatten().uniq().value();
+      var patterns = grunt.file.expand(target.files);
       // Default options per target
       var options = grunt.util._.defaults(target.options || {}, defaults);
       // Create watcher per target
