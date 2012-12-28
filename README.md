@@ -2,7 +2,7 @@
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
-_Note that this plugin has not yet been released, and only works with the latest bleeding-edge, in-development version of grunt. See the [When will I be able to use in-development feature 'X'?](https://github.com/gruntjs/grunt/blob/devel/docs/faq.md#when-will-i-be-able-to-use-in-development-feature-x) FAQ entry for more information._
+_Note that this plugin has not yet been released, and only works with the latest bleeding-edge, in-development version of grunt. See the [When will I be able to use in-development feature 'X'?](https://github.com/gruntjs/grunt/wiki/Frequently-Asked-Questions#faq-devel) FAQ entry for more information._
 
 ## Grunt Compability
 * `grunt-contrib-watch@0.1.x` is compatible with `grunt >= 0.3.x`
@@ -26,7 +26,7 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
 
 [grunt]: http://gruntjs.com/
-[Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
+[Getting Started]: https://github.com/gruntjs/grunt/wiki/Getting-started
 [package.json]: https://npmjs.org/doc/json.html
 
 
