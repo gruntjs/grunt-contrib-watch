@@ -113,6 +113,14 @@ grunt.initConfig({
 });
 ```
 
+### FAQs
+
+#### How do I fix the error `EMFILE: Too many opened files.`?
+This is because of your system's max opened file limit. For OSX the default is very low (256). Temporarily increase your limit with `ulimit -n 10480`, the number being the new max limit.
+
+#### Can I use this with Grunt v0.3?
+Yes. Although `grunt-contrib-watch` is a replacement watch task for Grunt v0.4, version `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3. `grunt-contrib-watch >= 0.2.x` is **only* compatible and recommended to use with Grunt v0.4.
+
 
 ## Release History
 
@@ -127,4 +135,4 @@ grunt.initConfig({
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Fri Dec 14 2012 21:19:48.*
+*This file was generated on Wed Jan 02 2013 13:34:18.*
