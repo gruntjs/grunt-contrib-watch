@@ -124,7 +124,8 @@ Yes. Although `grunt-contrib-watch` is a replacement watch task for Grunt v0.4, 
 
 ## Release History
 
- * 2012-12-14   v0.2.0   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
+ * 2013-01-08   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
+ * 2012-12-14   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
  * 2012-10-31   v0.1.4   Prevent watch from spawning duplicate watch tasks
  * 2012-10-27   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
  * 2012-10-16   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
@@ -135,4 +136,4 @@ Yes. Although `grunt-contrib-watch` is a replacement watch task for Grunt v0.4, 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Wed Jan 02 2013 13:34:18.*
+*This file was generated on Wed Jan 09 2013 12:29:30.*
