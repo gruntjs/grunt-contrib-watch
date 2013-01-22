@@ -76,6 +76,18 @@ module.exports = function(grunt) {
           // Log which file has changed, and how.
           grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
         });
+        // Add first changed file as an argument to the tasks list
+        if (fileArray.length) {
+          var fileArgument = ':' + fileArray[0] + ':' + changedFiles[fileArray[0]];
+          var tasksNew = [];
+          if (typeof tasks === 'string') {
+            tasks = tasks.split(' ');
+          }
+          tasks.forEach(function(task){
+            tasksNew.push(task + fileArgument);
+          });
+          tasks = tasksNew;
+        }
         // Reset changedFiles
         changedFiles = Object.create(null);
         // Spawn the tasks as a child process
