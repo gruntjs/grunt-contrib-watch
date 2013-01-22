@@ -1,3 +1,8 @@
+v0.2.0rc7:
+  date: 2013-01-18
+  changes:
+    - Updating grunt/gruntplugin dependencies to rc6.
+    - Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
 v0.2.0rc5:
   date: 2013-01-09
   changes:
