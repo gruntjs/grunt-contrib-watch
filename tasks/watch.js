@@ -80,10 +80,13 @@ module.exports = function(grunt) {
         if (fileArray.length) {
           var fileArgument = ':' + fileArray[0] + ':' + changedFiles[fileArray[0]];
           var tasksNew = [];
-          tasks.split(' ').forEach(function(task){
+          if (typeof tasks === 'string') {
+            tasks = tasks.split(' ');
+          }
+          tasks.forEach(function(task){
             tasksNew.push(task + fileArgument);
           });
-          tasks = tasksNew.join(' ');
+          tasks = tasksNew;
         }
         // Reset changedFiles
         changedFiles = Object.create(null);
