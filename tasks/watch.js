@@ -78,9 +78,6 @@ module.exports = function(grunt) {
           grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
         });
 
-        // Reset changedFiles
-        changedFiles = Object.create(null);
-
         // Spawn the tasks as a child process
         spawned[i] = grunt.util.spawn({
           // Spawn with the grunt bin
@@ -88,12 +85,16 @@ module.exports = function(grunt) {
           // Run from current working dir and inherit stdio from process
           opts: {cwd: process.cwd(), stdio: 'inherit'},
           // Run grunt this process uses, append the task to be run and any cli options
-          args: grunt.util._.union(tasks, cliArgs)
+          args: grunt.util._.union(tasks, cliArgs).concat(['--changed=' + JSON.stringify(changedFiles)])
         }, function(err, res, code) {
           // Spawn is done
           delete spawned[i];
           grunt.log.writeln('').write(waiting);
         });
+
+        // Reset changedFiles
+        changedFiles = Object.create(null);
+
       }
     }, 250);
 
