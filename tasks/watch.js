@@ -108,8 +108,11 @@ module.exports = function(grunt) {
       if (typeof target.files === 'string') {
         target.files = [target.files];
       }
-      // Get patterns to glob for this target
-      var patterns = grunt.file.expand(target.files);
+
+      // Process into raw patterns
+      var patterns = grunt.util._.chain(target.files).flatten().map(function(pattern) {
+        return grunt.config.process(pattern);
+      }).value();
 
       // Default options per target
       var options = grunt.util._.defaults(target.options || {}, defaults);
