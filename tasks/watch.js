@@ -101,14 +101,11 @@ module.exports = function(grunt) {
       if (typeof target.files === 'string') {
         target.files = [target.files];
       }
-      // Get patterns to glob for this target
-      var patterns = grunt.file.expand(target.files);
-
       // Default options per target
       var options = grunt.util._.defaults(target.options || {}, defaults);
 
       // Create watcher per target
-      var gaze = new Gaze(patterns, options, function(err) {
+      var gaze = new Gaze(target.files, options, function(err) {
         if (err) {
           grunt.log.error(err.message);
           return done();
