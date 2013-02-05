@@ -11,7 +11,7 @@ npm install grunt-contrib-watch --save-dev
 ```
 
 [grunt]: http://gruntjs.com/
-[Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
+[Getting Started]: http://gruntjs.com/getting-started
 
 
 ## Watch task
@@ -140,4 +140,4 @@ Likely because of an enthusiastic pattern trying to watch thousands of files. Su
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Tue Jan 22 2013 12:59:24.*
+*This file was generated on Tue Feb 05 2013 12:44:01.*
