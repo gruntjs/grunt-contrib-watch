@@ -20,7 +20,7 @@ function assertTask(task, options) {
   options = options || {};
 
   // get next/kill process trigger
-  var trigger = options.trigger || 'Waiting...';
+  var trigger = options.trigger || '.*(Waiting).*';
   delete options.trigger;
 
   // CWD to spawn
@@ -60,7 +60,7 @@ function assertTask(task, options) {
 
       // If our trigger has been found
       if (trigger !== false) {
-        shouldRun = (grunt.util._.indexOf(data.split("\n"), trigger) !== -1);
+        shouldRun = (new RegExp(trigger, 'gm')).test(data);
       }
 
       // Run the function

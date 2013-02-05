@@ -82,6 +82,7 @@ module.exports = function(grunt) {
         changedFiles = Object.create(null);
 
         // Spawn the tasks as a child process
+        var start = Date.now();
         spawned[i] = grunt.util.spawn({
           // Spawn with the grunt bin
           grunt: true,
@@ -92,7 +93,13 @@ module.exports = function(grunt) {
         }, function(err, res, code) {
           // Spawn is done
           delete spawned[i];
-          grunt.log.writeln('').write(waiting);
+          var msg = String(
+            'Completed in ' +
+            Number((Date.now() - start) / 1000).toFixed(2) +
+            's at ' +
+            (new Date()).toString()
+          ).cyan;
+          grunt.log.writeln('').write(msg + ' - ' + waiting);
         });
       }
     }, 250);
