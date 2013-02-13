@@ -12,6 +12,12 @@ Type: `String|Array`
 
 This defines which tasks to run when a watched file event occurs.
 
+## options.nospawn
+Type: `boolean`
+Default: false
+
+TODO: Write this.
+
 ## options.interrupt
 Type: `boolean`
 Default: false

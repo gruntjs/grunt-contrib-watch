@@ -43,3 +43,6 @@ Yes. Although `grunt-contrib-watch` is a replacement watch task for Grunt v0.4, 
 
 ## Why is the watch devouring all my memory?
 Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!node_modules/**/*.js'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
+
+## Why spawn as child processes as a default?
+TODO: Write this.
