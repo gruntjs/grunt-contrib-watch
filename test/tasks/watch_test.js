@@ -10,7 +10,7 @@ path.sep = path.sep || path.normalize('/');
 
 // In case the grunt being used to test is different than the grunt being
 // tested, initialize the task and config subsystems.
-if (grunt.task.searchDirs.length === 0) {
+if (grunt.task.searchDirs && !grunt.task.searchDirs.length) {
   grunt.task.init([]);
   grunt.config.init({});
 }
