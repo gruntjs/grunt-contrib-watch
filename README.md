@@ -3,23 +3,21 @@
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
 
+
 ## Getting Started
-If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [gruntfile][Getting Started] as well as install and use grunt plugins. Once you're familiar with that process, install this plugin with this command:
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install grunt-contrib-watch --save-dev
 ```
 
-[grunt]: http://gruntjs.com/
-[Getting Started]: http://gruntjs.com/getting-started
+
 
 
 ## Watch task
 _Run this task with the `grunt watch` command._
 
-### Overview
 
-Inside your `Gruntfile.js` file, add a section named `watch`. This section specifies the files to watch, tasks to run when an event occurs and the options used.
 ### Settings
 
 There are a number of options available. Please review the [minimatch options here](https://github.com/isaacs/minimatch#options). As well as some additional options as follows:
@@ -127,6 +125,7 @@ Likely because of an enthusiastic pattern trying to watch thousands of files. Su
 
 ## Release History
 
+ * 2013-02-14   v0.2.0   First official release for Grunt 0.4.0.
  * 2013-01-17   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
  * 2013-01-08   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
  * 2012-12-14   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
@@ -140,4 +139,4 @@ Likely because of an enthusiastic pattern trying to watch thousands of files. Su
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Tue Feb 05 2013 12:44:01.*
+*This file was generated on Fri Feb 15 2013 20:19:57.*
