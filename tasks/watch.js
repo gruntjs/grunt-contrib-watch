@@ -49,7 +49,11 @@ module.exports = function(grunt) {
 
     // Call to close this task
     var done = this.async();
-    grunt.log.write(taskrun.waiting);
+    if (taskrun.startedAt !== false) {
+      taskrun.completed();
+    } else {
+      grunt.log.write(taskrun.waiting);
+    }
 
     targets.forEach(function(target, i) {
       if (typeof target.files === 'string') {

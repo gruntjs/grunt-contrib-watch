@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   'use strict';
 
   var http = require('http');
-  var port = 8080;
+  var port = 1337;
 
   grunt.initConfig({
     watch: {
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     if (!server) {
       server = http.createServer(function(req, res) {
         res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('It works!');
+        res.end('Server is talking!');
       }).listen(port);
       grunt.log.writeln('Server is listening...');
     } else {

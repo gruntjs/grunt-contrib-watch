@@ -24,17 +24,22 @@ exports.nospawn = {
     done();
   },
   nospawn: function(test) {
-    //test.expect(2);
+    test.expect(3);
     var cwd = path.resolve(fixtures, 'nospawn');
     var assertWatch = helper.assertTask('watch', {cwd:cwd});
-    assertWatch(function() {
-      var write = 'var one = true;';
-      grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
-    }, function(result) {
+    assertWatch([function() {
+      var write = 'var nospawn = true;';
+      grunt.file.write(path.join(cwd, 'lib', 'nospawn.js'), write);
+    }, function() {
+      var write = 'var nospawn = true;';
+      grunt.file.write(path.join(cwd, 'lib', 'nospawn.js'), write);
+    }], function(result) {
       helper.verboseLog(result);
-      //test.ok(result.indexOf('File "lib' + path.sep + 'one.js" changed') !== -1, 'Watch should have fired when oneTarget/lib/one.js has changed.');
-      //test.ok(result.indexOf('I do absolutely nothing.') !== -1, 'echo task should have fired.');
+      var count = result.match((new RegExp('File "lib' + path.sep + 'nospawn.js" changed', 'g'))).length;
+      test.equal(count, 2, 'Watch should have fired twice when nospawn.js has changed.');
+      test.ok(result.indexOf('Server is listening...') !== -1, 'server should have been started.');
+      test.ok(result.indexOf('Server is talking!') !== -1, 'server should have responded.');
       test.done();
     });
-  }
+  },
 };
