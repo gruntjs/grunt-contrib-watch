@@ -42,4 +42,24 @@ exports.nospawn = {
       test.done();
     });
   },
+  interrupt: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'nospawn');
+    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    assertWatch([function() {
+      var write = 'var interrupt = true;';
+      grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), write);
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), write);
+      }, 1000);
+    }, function() {
+      // Two functions needed to run two rounds of watching
+    }], function(result) {
+      helper.verboseLog(result);
+      var count = result.match((new RegExp('Running "long" task', 'g'))).length;
+      test.equal(count, 4, 'long task should have been ran only 4 times.');
+      test.ok(result.indexOf('Previously ran tasks have been interrupted') !== -1, 'tasks should have been interrupted.');
+      test.done();
+    });
+  },
 };

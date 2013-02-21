@@ -16,7 +16,15 @@ module.exports = function(grunt) {
       spawn: {
         files: ['lib/spawn.js'],
         tasks: ['server']
-      }
+      },
+      interrupt: {
+        files: ['lib/interrupt.js'],
+        tasks: ['long', 'long', 'long'],
+        options: {
+          nospawn: true,
+          interrupt: true
+        }
+      },
     }
   });
 
@@ -39,6 +47,11 @@ module.exports = function(grunt) {
         });
       }).end();
     }
+  });
+
+  // A long running task
+  grunt.registerTask('long', function() {
+    setTimeout(this.async(), 3000);
   });
 
   grunt.registerTask('default', ['server', 'watch']);

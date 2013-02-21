@@ -30,13 +30,19 @@ taskrun.triggered = function triggered() {
   taskrun.changedFiles = Object.create(null);
 };
 
+// Do this when a task is interrupted
+taskrun.interrupt = function interrupt() {
+  grunt.log.writeln('').write('Previously ran tasks have been interrupted...'.yellow);
+  taskrun.startedAt = false;
+};
+
 // Keep track of spawned processes
 var spawned = Object.create(null);
 
 taskrun.spawn = grunt.util._.debounce(function spawn(id, tasks, options, done) {
   // If interrupted, reset the spawned for a target
   if (options.interrupt && typeof spawned[id] === 'object') {
-    grunt.log.writeln('').write('Previously spawned task has been interrupted...'.yellow);
+    taskrun.interrupt();
     spawned[id].kill('SIGINT');
     delete spawned[id];
   }
@@ -63,7 +69,15 @@ taskrun.spawn = grunt.util._.debounce(function spawn(id, tasks, options, done) {
 }, 250);
 
 taskrun.nospawn = grunt.util._.debounce(function nospawn(id, tasks, options, done) {
-  // todo: add interrupt
+  // If interrupted, clear the task queue and start over
+  if (options.interrupt && taskrun.startedAt !== false) {
+    grunt.task.clearQueue({untilMarker: true});
+    taskrun.interrupt();
+  }
+
+  if (taskrun.startedAt !== false) {
+    return;
+  }
 
   taskrun.triggered();
 
