@@ -94,7 +94,7 @@ exports.watchConfig = {
       }, 1000);
     }, function(result) {
       helper.verboseLog(result);
-      test.ok(result.indexOf('has been interrupted') !== -1, 'Task should have been interrupted.');
+      test.ok(result.indexOf('have been interrupted') !== -1, 'Task should have been interrupted.');
       test.done();
     });
   },

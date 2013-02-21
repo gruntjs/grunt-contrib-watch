@@ -41,9 +41,11 @@ module.exports = function(grunt) {
       }).listen(port);
       grunt.log.writeln('Server is listening...');
     } else {
+      var done = this.async();
       http.request({port: port}, function(res) {
         res.on('data', function(buf) {
           grunt.log.writeln(buf);
+          done();
         });
       }).end();
     }
@@ -51,7 +53,7 @@ module.exports = function(grunt) {
 
   // A long running task
   grunt.registerTask('long', function() {
-    setTimeout(this.async(), 3000);
+    setTimeout(this.async(), 2000);
   });
 
   grunt.registerTask('default', ['server', 'watch']);

@@ -26,17 +26,14 @@ exports.nospawn = {
   nospawn: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'nospawn');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
-    assertWatch([function() {
+    var assertWatch = helper.assertTask(['server', 'watch'], {cwd:cwd});
+    assertWatch(function() {
       var write = 'var nospawn = true;';
       grunt.file.write(path.join(cwd, 'lib', 'nospawn.js'), write);
-    }, function() {
-      var write = 'var nospawn = true;';
-      grunt.file.write(path.join(cwd, 'lib', 'nospawn.js'), write);
-    }], function(result) {
+    }, function(result) {
       helper.verboseLog(result);
-      var count = result.match((new RegExp('File "lib' + path.sep + 'nospawn.js" changed', 'g'))).length;
-      test.equal(count, 2, 'Watch should have fired twice when nospawn.js has changed.');
+      var count = result.match((new RegExp('Running "watch" task', 'g'))).length;
+      test.equal(count, 2, 'Watch should have fired twice.');
       test.ok(result.indexOf('Server is listening...') !== -1, 'server should have been started.');
       test.ok(result.indexOf('Server is talking!') !== -1, 'server should have responded.');
       test.done();
@@ -58,7 +55,7 @@ exports.nospawn = {
       helper.verboseLog(result);
       var count = result.match((new RegExp('Running "long" task', 'g'))).length;
       test.equal(count, 4, 'long task should have been ran only 4 times.');
-      test.ok(result.indexOf('Previously ran tasks have been interrupted') !== -1, 'tasks should have been interrupted.');
+      test.ok(result.indexOf('have been interrupted') !== -1, 'tasks should have been interrupted.');
       test.done();
     });
   },

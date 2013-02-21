@@ -34,7 +34,7 @@ helper.assertTask = function assertTask(task, options) {
     spawnOptions.push(val);
   });
   // Add the tasks to run
-  spawnOptions.push(task);
+  spawnOptions = spawnOptions.concat(task);
 
   // Return an interface for testing this task
   function returnFunc(runs, done) {

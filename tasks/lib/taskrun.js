@@ -32,7 +32,7 @@ taskrun.triggered = function triggered() {
 
 // Do this when a task is interrupted
 taskrun.interrupt = function interrupt() {
-  grunt.log.writeln('').write('Previously ran tasks have been interrupted...'.yellow);
+  grunt.log.writeln('').write('Scheduled tasks have been interrupted...'.yellow);
   taskrun.startedAt = false;
 };
 
