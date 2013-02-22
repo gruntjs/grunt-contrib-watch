@@ -78,8 +78,17 @@ module.exports = function(grunt) {
         // On changed/added/deleted
         this.on('all', function(status, filepath) {
           filepath = path.relative(process.cwd(), filepath);
-          taskrun.changedFiles[filepath] = status;
-          taskrun[options.nospawn ? 'nospawn' : 'spawn'](i, target.tasks, options, done);
+
+          // Emit watch events if anyone is listening
+          if (grunt.event.listeners('watch').length > 0) {
+            grunt.event.emit('watch', status, filepath);
+          }
+
+          // Run tasks if any have been specified
+          if (target.tasks) {
+            taskrun.changedFiles[filepath] = status;
+            taskrun[options.nospawn ? 'nospawn' : 'spawn'](i, target.tasks, options, done);
+          }
         });
 
         // On watcher error
