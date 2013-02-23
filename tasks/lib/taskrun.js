@@ -39,7 +39,7 @@ taskrun.interrupt = function interrupt() {
 // Keep track of spawned processes
 var spawned = Object.create(null);
 
-taskrun.spawn = grunt.util._.debounce(function spawn(id, tasks, options, done) {
+taskrun.spawn = function spawn(id, tasks, options, done) {
   // If interrupted, reset the spawned for a target
   if (options.interrupt && typeof spawned[id] === 'object') {
     taskrun.interrupt();
@@ -66,9 +66,9 @@ taskrun.spawn = grunt.util._.debounce(function spawn(id, tasks, options, done) {
       taskrun.completed();
     });
   }
-}, 250);
+};
 
-taskrun.nospawn = grunt.util._.debounce(function nospawn(id, tasks, options, done) {
+taskrun.nospawn = function nospawn(id, tasks, options, done) {
   // If interrupted, clear the task queue and start over
   if (options.interrupt && taskrun.startedAt !== false) {
     grunt.task.clearQueue({untilMarker: true});
@@ -87,4 +87,4 @@ taskrun.nospawn = grunt.util._.debounce(function nospawn(id, tasks, options, don
 
   // Finish the task
   done();
-}, 250);
+};

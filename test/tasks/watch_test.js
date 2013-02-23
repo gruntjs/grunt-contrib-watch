@@ -53,13 +53,27 @@ exports.watchConfig = {
       test.done();
     });
   },
-  multiTargetsTriggerBoth: function(test) {
+  multiTargetsSequentialFilesChangeTriggerBoth: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
     var assertWatch = helper.assertTask('watch', {cwd:cwd});
     assertWatch([function() {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var test = true;');
     }, function() {
+      grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var test = true;');
+    }], function(result) {
+      helper.verboseLog(result);
+      test.ok(result.indexOf('one has changed') !== -1, 'Task echo:one should of emit.');
+      test.ok(result.indexOf('two has changed') !== -1, 'Task echo:two should of emit.');
+      test.done();
+    });
+  },
+  multiTargetsSimultaneousFilesChangeTriggerBoth: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'multiTargets');
+    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    assertWatch([function() {
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var test = true;');
       grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var test = true;');
     }], function(result) {
       helper.verboseLog(result);

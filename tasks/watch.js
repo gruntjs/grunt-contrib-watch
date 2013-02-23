@@ -77,6 +77,9 @@ module.exports = function(grunt) {
           return done();
         }
 
+        // Debounce each task run
+        var runTasks = grunt.util._.debounce(taskrun[options.nospawn ? 'nospawn' : 'spawn'], 250);
+
         // On changed/added/deleted
         this.on('all', function(status, filepath) {
           filepath = path.relative(process.cwd(), filepath);
@@ -89,7 +92,7 @@ module.exports = function(grunt) {
           // Run tasks if any have been specified
           if (target.tasks) {
             taskrun.changedFiles[filepath] = status;
-            taskrun[options.nospawn ? 'nospawn' : 'spawn'](i, target.tasks, options, done);
+            runTasks(i, target.tasks, options, done);
           }
         });
 
