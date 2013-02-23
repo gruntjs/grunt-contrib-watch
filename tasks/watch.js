@@ -60,7 +60,7 @@ module.exports = function(grunt) {
     grunt.log.write(waiting);
 
     // Run the tasks for the changed files
-    var runTasks = grunt.util._.debounce(function runTasks(i, tasks, options) {
+    var runTasks = function runTasks(i, tasks, options) {
       // If interrupted, reset the spawned for a target
       if (options.interrupt && typeof spawned[i] === 'object') {
         grunt.log.writeln('').write('Previously spawned task has been interrupted...'.yellow);
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
           grunt.log.writeln('').write(msg + ' - ' + waiting);
         });
       }
-    }, 250);
+    };
 
     targets.forEach(function(target, i) {
       if (typeof target.files === 'string') {
@@ -124,11 +124,13 @@ module.exports = function(grunt) {
           return done();
         }
 
+        var runTasksDebounced = grunt.util._.debounce(runTasks, 250);
+
         // On changed/added/deleted
         this.on('all', function(status, filepath) {
           filepath = path.relative(process.cwd(), filepath);
           changedFiles[filepath] = status;
-          runTasks(i, target.tasks, options);
+          runTasksDebounced(i, target.tasks, options);
         });
 
         // On watcher error
