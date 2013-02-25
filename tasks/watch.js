@@ -71,7 +71,9 @@ module.exports = function(grunt) {
       // Create watcher per target
       new Gaze(patterns, options, function(err) {
         if (err) {
-          grunt.log.error(err.message);
+          if (typeof err === 'string') { err = new Error(err); }
+          grunt.log.writeln('ERROR'.red);
+          grunt.fatal(err);
           return done();
         }
 
