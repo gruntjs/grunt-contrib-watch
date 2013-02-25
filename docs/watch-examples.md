@@ -33,6 +33,22 @@ grunt.initConfig({
 });
 ```
 
+```js
+// Example using watch events
+grunt.initConfig({
+  watch: {
+    scripts: {
+      files: ['lib/*.js']
+    }
+  }
+});
+
+// Listen for events when files are modified
+grunt.event.on('watch', function(action, filepath) {
+  grunt.log.writeln(filepath + ' has ' + action);
+});
+```
+
 # FAQs
 
 ## How do I fix the error `EMFILE: Too many opened files.`?
