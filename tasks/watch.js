@@ -97,7 +97,10 @@ module.exports = function(grunt) {
         });
 
         // On watcher error
-        this.on('error', function(err) { grunt.log.error(err); });
+        this.on('error', function(err) {
+          if (typeof err === 'string') { err = new Error(err); }
+          grunt.log.error(err.message);
+        });
       });
     });
 
