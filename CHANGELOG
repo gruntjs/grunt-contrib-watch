@@ -1,3 +1,13 @@
+v0.3.0:
+  date: 2013-02-27
+  changes:
+    - nospawn option added to run tasks without spawning as child processes.
+    - Watch emits 'watch' events upon files being triggered with grunt.event.
+    - Completion time in seconds and date/time shown after tasks ran.
+    - Negate file patterns fixed.
+    - Tasks debounced individually to handle simultaneous triggering for multiple targets.
+    - Errors handled better and viewable with --stack cli option.
+    - Code complexity reduced making the watch task code easier to read.
 v0.2.0:
   date: 2013-02-15
   changes:

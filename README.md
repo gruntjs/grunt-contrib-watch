@@ -40,8 +40,27 @@ Type: `String|Array`
 
 This defines which tasks to run when a watched file event occurs.
 
+#### options.nospawn
+Type: `Boolean`
+Default: false
+
+This instructs the watch task to not spawn task runs in a child process. Setting this option also speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context (i.e., using a reload task). Not spawning task runs can make the watch more prone to failing so please use as needed.
+
+Example:
+```js
+watch: {
+  scripts: {
+    files: ['**/*.js'],
+    tasks: ['livereload'],
+    options: {
+      nospawn: true
+    }
+  }
+}
+```
+
 #### options.interrupt
-Type: `boolean`
+Type: `Boolean`
 Default: false
 
 As files are modified this watch task will spawn tasks in child processes. The default behavior will only spawn a new child process per target when the previous process has finished. Set the `interrupt` option to true to terminate the previous process and spawn a new one upon later changes.
@@ -119,6 +138,22 @@ grunt.initConfig({
 });
 ```
 
+```js
+// Example using watch events
+grunt.initConfig({
+  watch: {
+    scripts: {
+      files: ['lib/*.js']
+    }
+  }
+});
+
+// Listen for events when files are modified
+grunt.event.on('watch', function(action, filepath) {
+  grunt.log.writeln(filepath + ' has ' + action);
+});
+```
+
 ### FAQs
 
 #### How do I fix the error `EMFILE: Too many opened files.`?
@@ -130,9 +165,17 @@ Yes. Although `grunt-contrib-watch` is a replacement watch task for Grunt v0.4, 
 #### Why is the watch devouring all my memory?
 Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!node_modules/**/*.js'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
 
+#### Why spawn as child processes as a default?
+The goal of this watch task is as files are changed, run tasks as if they were triggered by the user themself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continualy produce expected results, this watch task spawns tasks as child processes by default.
+
+Sandboxing task runs also allows this watch task to run more stable over long periods of time. As well as more efficiently with more complex tasks and file structures.
+
+Spawning does cause a performance hit (usually 500ms for most environments). It also cripples tasks that rely on the watch task to share the context with each subsequent run (i.e., reload tasks). If you would like a faster watch task or need to share the context please set the `nospawn` option to `true`. Just be aware that with this option enabled, the watch task is more prone to failure.
+
 
 ## Release History
 
+ * 2013-02-26   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
  * 2013-02-14   v0.2.0   First official release for Grunt 0.4.0.
  * 2013-01-17   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
  * 2013-01-08   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
@@ -147,4 +190,4 @@ Likely because of an enthusiastic pattern trying to watch thousands of files. Su
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Wed Feb 20 2013 12:36:23.*
+*This file was generated on Wed Feb 27 2013 14:08:02.*

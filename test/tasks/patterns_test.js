@@ -13,7 +13,7 @@ function cleanUp() {
   ]);
 }
 
-exports.nospawn = {
+exports.patterns = {
   setUp: function(done) {
     cleanUp();
     fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, 'patterns', 'node_modules'));
