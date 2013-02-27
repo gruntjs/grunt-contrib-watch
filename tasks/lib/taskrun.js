@@ -12,7 +12,7 @@ module.exports = function(grunt) {
   taskrun.completed = function completed() {
     grunt.log.writeln('').write(String(
       'Completed in ' +
-      Number((Date.now() - taskrun.startedAt) / 1000).toFixed(2) +
+      Number((Date.now() - taskrun.startedAt) / 1000).toFixed(3) +
       's at ' +
       (new Date()).toString()
     ).cyan + ' - ' + taskrun.waiting);
