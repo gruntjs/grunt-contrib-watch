@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
   var path = require('path');
   var Gaze = require('gaze').Gaze;
-  var taskrun = require('./lib/taskrun');
+  var taskrun = require('./lib/taskrun')(grunt);
 
   // Default options for the watch task
   var defaults = {
