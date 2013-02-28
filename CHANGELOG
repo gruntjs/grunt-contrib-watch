@@ -1,3 +1,7 @@
+v0.3.1:
+  date: 2013-02-28
+  changes:
+    - Fix for top level options.
 v0.3.0:
   date: 2013-02-27
   changes:

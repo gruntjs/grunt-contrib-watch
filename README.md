@@ -175,6 +175,7 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
+ * 2013-02-27   v0.3.1   Fix for top level options.
  * 2013-02-26   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
  * 2013-02-14   v0.2.0   First official release for Grunt 0.4.0.
  * 2013-01-17   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
@@ -190,4 +191,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Wed Feb 27 2013 14:08:02.*
+*This file was generated on Thu Feb 28 2013 10:14:13.*

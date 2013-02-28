@@ -13,19 +13,20 @@ module.exports = function(grunt) {
   var Gaze = require('gaze').Gaze;
   var taskrun = require('./lib/taskrun')(grunt);
 
-  // Default options for the watch task
-  var defaults = {
-    interrupt: false,
-    nospawn: false
-  };
-
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     var name = this.name || 'watch';
     this.requiresConfig(name);
 
+    // Default options for the watch task
+    var defaults = this.options({
+      interrupt: false,
+      nospawn: false
+    });
+
     // Build an array of files/tasks objects
     var watch = grunt.config(name);
     var targets = target ? [target] : Object.keys(watch).filter(function(key) {
+      if (key === 'options') { return false; }
       return typeof watch[key] !== 'string' && !Array.isArray(watch[key]);
     });
 
