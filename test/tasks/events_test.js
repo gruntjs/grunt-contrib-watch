@@ -39,9 +39,9 @@ exports.events = {
       }, 500);
     }], function(result) {
       helper.verboseLog(result);
-      test.ok(result.indexOf('lib/added.js was indeed added') !== -1, 'event emitted when file added');
-      test.ok(result.indexOf('lib/one.js was indeed changed') !== -1, 'event emitted when file changed');
-      test.ok(result.indexOf('lib/added.js was indeed deleted') !== -1, 'event emitted when file deleted');
+      test.ok(result.indexOf('lib/added.js was indeed added') !== -1, 'event not emitted when file added');
+      test.ok(result.indexOf('lib/one.js was indeed changed') !== -1, 'event not emitted when file changed');
+      test.ok(result.indexOf('lib/added.js was indeed deleted') !== -1, 'event not emitted when file deleted');
       test.done();
     });
   },
