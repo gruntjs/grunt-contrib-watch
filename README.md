@@ -103,25 +103,6 @@ Default: 100
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
 
-#### options.event
-Type: `String|Array`
-Default: `'all'`
-
-Specify the type watch event that trigger the specified task. This option can be one or many of: `'all'`, `'changed'`, `'added'` and `'deleted'`.
-
-Example:
-```js
-watch: {
-  scripts: {
-    files: '**/*.js',
-    tasks: ['generateFileManifest'],
-    options: {
-      event: ['added', 'deleted']
-    }
-  }
-}
-```
-
 ### Examples
 
 ```js
