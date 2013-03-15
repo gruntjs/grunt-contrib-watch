@@ -71,13 +71,24 @@ module.exports = function(grunt) {
       var options = grunt.util._.defaults(target.options || {}, defaults);
 
       // Validate the event option
-      switch(options.event) {
-        case 'all': case 'added': case 'changed': case 'deleted':
-          break;
-        default:
-          grunt.log.writeln('ERROR'.red);
-          grunt.fatal('Invalid event option: ' + target.options.event);
+      if (typeof options.event === 'string') {
+        options.event = [options.event];
+      } else if (!Array.isArray(options.event)) {
+        grunt.log.writeln('ERROR'.red);
+        grunt.fatal('Invalid event option type');
+        return done();
       }
+
+      options.event.forEach(function(event) {
+        switch(event) {
+          case 'all': case 'added': case 'changed': case 'deleted':
+            break;
+          default:
+            grunt.log.writeln('ERROR'.red);
+            grunt.fatal('Invalid event option: ' + event);
+            return done();
+        }
+      });
 
       // Create watcher per target
       new Gaze(patterns, options, function(err) {
@@ -92,12 +103,12 @@ module.exports = function(grunt) {
         var runTasks = grunt.util._.debounce(taskrun[options.nospawn ? 'nospawn' : 'spawn'], 250);
 
         // On changed/added/deleted
-        this.on(options.event, function(status, filepath) {
+        this.on('all', function(status, filepath) {
 
-          //only 'all' has a status argument
-          if(options.event !== 'all') {
-            filepath = status;
-            status = options.event;
+          // Skip events not specified
+          if(!grunt.util._.contains(options.event, 'all') &&
+             !grunt.util._.contains(options.event, status)) {
+            return;
           }
 
           filepath = path.relative(process.cwd(), filepath);
