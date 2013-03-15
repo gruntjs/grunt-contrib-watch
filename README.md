@@ -103,6 +103,25 @@ Default: 100
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
 
+###### options.event
+Type: `String|Array`
+Default: `'all'`
+
+Specify the type watch event that trigger the specified task. This option can be one or many of: `'all'`, `'changed'`, `'added'` and `'deleted'`.
+
+Example:
+```js
+watch: {
+  scripts: {
+    files: '**/*.js',
+    tasks: ['generateFileManifest'],
+    options: {
+      event: ['added', 'deleted']
+    }
+  }
+}
+```
+
 ### Examples
 
 ```js
@@ -177,17 +196,17 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
- * 2013-02-27   v0.3.1   Fix for top level options.
- * 2013-02-26   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
- * 2013-02-14   v0.2.0   First official release for Grunt 0.4.0.
- * 2013-01-17   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
- * 2013-01-08   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
- * 2012-12-14   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
- * 2012-10-31   v0.1.4   Prevent watch from spawning duplicate watch tasks
- * 2012-10-27   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
- * 2012-10-16   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
- * 2012-10-15   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
- * 2012-10-07   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
+ * 2013-02-28   v0.3.1   Fix for top level options.
+ * 2013-02-27   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
+ * 2013-02-15   v0.2.0   First official release for Grunt 0.4.0.
+ * 2013-01-18   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
+ * 2013-01-09   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
+ * 2012-12-15   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
+ * 2012-11-01   v0.1.4   Prevent watch from spawning duplicate watch tasks
+ * 2012-10-28   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
+ * 2012-10-17   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
+ * 2012-10-16   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
+ * 2012-10-08   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
 
 ---
 
