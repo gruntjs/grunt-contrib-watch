@@ -20,7 +20,8 @@ module.exports = function(grunt) {
     // Default options for the watch task
     var defaults = this.options({
       interrupt: false,
-      nospawn: false
+      nospawn: false,
+      event: 'all'
     });
 
     // Build an array of files/tasks objects
@@ -69,6 +70,15 @@ module.exports = function(grunt) {
       // Default options per target
       var options = grunt.util._.defaults(target.options || {}, defaults);
 
+      // Validate the event option
+      switch(options.event) {
+        case 'all': case 'added': case 'changed': case 'deleted':
+          break;
+        default:
+          grunt.log.writeln('ERROR'.red);
+          grunt.fatal('Invalid event option: ' + target.options.event);
+      }
+
       // Create watcher per target
       new Gaze(patterns, options, function(err) {
         if (err) {
@@ -82,7 +92,14 @@ module.exports = function(grunt) {
         var runTasks = grunt.util._.debounce(taskrun[options.nospawn ? 'nospawn' : 'spawn'], 250);
 
         // On changed/added/deleted
-        this.on('all', function(status, filepath) {
+        this.on(options.event, function(status, filepath) {
+
+          //only 'all' has a status argument
+          if(options.event !== 'all') {
+            filepath = status;
+            status = options.event;
+          }
+
           filepath = path.relative(process.cwd(), filepath);
 
           // Emit watch events if anyone is listening
