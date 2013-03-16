@@ -79,17 +79,6 @@ module.exports = function(grunt) {
         return done();
       }
 
-      options.event.forEach(function(event) {
-        switch(event) {
-          case 'all': case 'added': case 'changed': case 'deleted':
-            break;
-          default:
-            grunt.log.writeln('ERROR'.red);
-            grunt.fatal('Invalid event option: ' + event);
-            return done();
-        }
-      });
-
       // Create watcher per target
       new Gaze(patterns, options, function(err) {
         if (err) {
