@@ -33,21 +33,23 @@ grunt.initConfig({
 });
 ```
 
+## Using the `watch` event
+This task will emit a `watch` event when watched files are modified. This is useful if you would like a simple notification when files are edited or if you're using this task in tandem with another task, for example a live reload task. Here is a simple example using the `watch` event:
+
 ```js
-// Example using watch events
 grunt.initConfig({
   watch: {
     scripts: {
-      files: ['lib/*.js']
-    }
-  }
+      files: ['lib/*.js'],
+    },
+  },
 });
-
-// Listen for events when files are modified
 grunt.event.on('watch', function(action, filepath) {
   grunt.log.writeln(filepath + ' has ' + action);
 });
 ```
+
+**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [cofiguring tasks](http://gruntjs.com/configuring-tasks).**
 
 # FAQs
 
