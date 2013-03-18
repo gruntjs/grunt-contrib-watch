@@ -10,22 +10,21 @@ module.exports = function(grunt) {
         files: ['lib/nospawn.js'],
         tasks: ['server'],
         options: {
-          nospawn: true
-        }
+          nospawn: true,
+        },
       },
       spawn: {
         files: ['lib/spawn.js'],
-        tasks: ['server']
+        tasks: ['server'],
       },
       interrupt: {
         files: ['lib/interrupt.js'],
         tasks: ['long', 'long', 'long'],
         options: {
           nospawn: true,
-          interrupt: true
-        }
+        },
       },
-    }
+    },
   });
 
   // Load this watch task
