@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 
   // When the task has completed
   TaskRun.prototype.complete = function() {
-    var time = this.startedAt;
+    var time = Date.now() - this.startedAt;
     this.startedAt = false;
     if (this.spawned) {
       this.spawned.kill('SIGINT');

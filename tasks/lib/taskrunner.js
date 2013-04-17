@@ -94,7 +94,9 @@ module.exports = function(grunt) {
 
     // Allow "basic" non-target format
     if (typeof config.files === 'string' || Array.isArray(config.files)) {
-      targets.push({files: config.files, tasks: config.tasks, target: 0});
+      var cfg = {files: config.files, tasks: config.tasks, name: 'default'};
+      targets.push(cfg);
+      self.add(cfg);
     }
 
     return targets;
@@ -110,7 +112,15 @@ module.exports = function(grunt) {
 
     // If we should interrupt
     if (self.running === true) {
-      if (self.options.interrupt === true) {
+      var shouldInterrupt = true;
+      self._queue.forEach(function(name) {
+        var tr = self._targets[name];
+        if (tr && tr.options.interrupt !== true) {
+          shouldInterrupt = false;
+          return false;
+        }
+      });
+      if (shouldInterrupt === true) {
         self.interrupt();
       } else {
         // Dont interrupt the tasks running
@@ -177,7 +187,7 @@ module.exports = function(grunt) {
         self._queue[i] = null;
       }
     });
-    var elapsed = (time > 0) ? Number((Date.now() - time) / 1000) : 0;
+    var elapsed = (time > 0) ? Number(time / 1000) : 0;
     self.emit('end', elapsed);
   };
 
@@ -202,7 +212,7 @@ module.exports = function(grunt) {
   // Make this task run forever
   Runner.prototype.forever = function() {
     process.exit = function() {};
-    grunt.fail.report = function() {};
+    grunt.fail.fatal = function() {};
   };
 
   // Clear the require cache for all passed filepaths.

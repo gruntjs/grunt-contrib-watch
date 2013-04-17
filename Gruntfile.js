@@ -11,12 +11,6 @@
 
 module.exports = function(grunt) {
 
-  grunt.registerTask('long', function() {
-    var done = this.async();
-    console.log('beep');
-    setTimeout(done, 1000);
-  });
-
   // Project configuration.
   grunt.initConfig({
     jshint: {
@@ -32,15 +26,9 @@ module.exports = function(grunt) {
 
     // Watch
     watch: {
-      options: {
-        //interrupt: true,
-      },
       all: {
         files: ['<%= jshint.all %>'],
-        tasks: ['jshint', 'long', 'long', 'long', 'long'],
-        options: {
-          nospawn: true,
-        },
+        tasks: ['jshint', 'nodeunit'],
       },
     },
 

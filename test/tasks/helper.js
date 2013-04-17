@@ -47,7 +47,9 @@ helper.assertTask = function assertTask(task, options) {
     }
 
     // Append a last function to kill spawnGrunt
-    runs.push(function() { spawnGrunt.kill('SIGINT'); });
+    runs.push(function() {
+      spawnGrunt.kill('SIGINT');
+    });
 
     // After watch starts waiting, run our commands then exit
     spawnGrunt.stdout.on('data', function(data) {
