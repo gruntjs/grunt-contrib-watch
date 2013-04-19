@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     this.name = target.name || 0;
     this.files = target.files || [];
     this.tasks = target.tasks || [];
-    this.options = grunt.util._.defaults(target.options || {}, defaults);
+    this.options = target.options;
     this.startedAt = false;
     this.spawned = null;
   }

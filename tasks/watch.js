@@ -50,7 +50,7 @@ module.exports = function(grunt) {
     grunt.log.writeln('').writeln('Reloading watch config...'.cyan);
   });
 
-  grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function() {
+  grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(_target) {
     var self = this;
 
     // Never gonna give you up, never gonna let you down
@@ -62,6 +62,8 @@ module.exports = function(grunt) {
     var targets = taskrun.init(self.name || 'watch', {
       interrupt: false,
       nospawn: false,
+      event: ['all'],
+      _target: _target,
     });
 
     targets.forEach(function(target, i) {
@@ -71,6 +73,11 @@ module.exports = function(grunt) {
       var patterns = grunt.util._.chain(target.files).flatten().map(function(pattern) {
         return grunt.config.process(pattern);
       }).value();
+
+      // Validate the event option
+      if (typeof target.options.event === 'string') {
+        target.options.event = [target.options.event];
+      }
 
       // Create watcher per target
       new Gaze(patterns, target.options, function(err) {
@@ -85,8 +92,8 @@ module.exports = function(grunt) {
         this.on('all', function(status, filepath) {
 
           // Skip events not specified
-          if(!grunt.util._.contains(options.event, 'all') &&
-             !grunt.util._.contains(options.event, status)) {
+          if (!grunt.util._.contains(target.options.event, 'all') &&
+              !grunt.util._.contains(target.options.event, status)) {
             return;
           }
 

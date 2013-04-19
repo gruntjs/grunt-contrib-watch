@@ -79,8 +79,9 @@ module.exports = function(grunt) {
 
     grunt.task.current.requiresConfig(name);
     var config = grunt.config(name);
+    var onlyTarget = (self.options._target) ? self.options._target : false;
 
-    var targets = Object.keys(config).filter(function(key) {
+    var targets = (onlyTarget ? [onlyTarget] : Object.keys(config)).filter(function(key) {
       if (key === 'options') { return false; }
       return typeof config[key] !== 'string' && !Array.isArray(config[key]);
     }).map(function(target) {
@@ -88,13 +89,19 @@ module.exports = function(grunt) {
       grunt.task.current.requiresConfig([name, target, 'files']);
       var cfg = grunt.config([name, target]);
       cfg.name = target;
+      cfg.options = grunt.util._.defaults(cfg.options || {}, self.options);
       self.add(cfg);
       return cfg;
     }, self);
 
     // Allow "basic" non-target format
     if (typeof config.files === 'string' || Array.isArray(config.files)) {
-      var cfg = {files: config.files, tasks: config.tasks, name: 'default'};
+      var cfg = {
+        files: config.files,
+        tasks: config.tasks,
+        name: 'default',
+        options: grunt.util._.defaults(config.options || {}, self.options),
+      };
       targets.push(cfg);
       self.add(cfg);
     }
