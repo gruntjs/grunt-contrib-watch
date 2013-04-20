@@ -93,3 +93,9 @@ watch: {
   }
 }
 ```
+
+## options.forever
+Type: `Boolean`
+Default: true
+
+This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.

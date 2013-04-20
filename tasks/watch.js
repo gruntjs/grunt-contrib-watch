@@ -50,20 +50,23 @@ module.exports = function(grunt) {
     grunt.log.writeln('').writeln('Reloading watch config...'.cyan);
   });
 
-  grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(_target) {
+  grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     var self = this;
+    var name = self.name || 'watch';
 
     // Never gonna give you up, never gonna let you down
-    taskrun.forever();
+    if (grunt.config([name, 'options', 'forever']) !== false) {
+      taskrun.forever();
+    }
 
     if (taskrun.running === false) { grunt.log.write(waiting); }
 
     // initialize taskrun
-    var targets = taskrun.init(self.name || 'watch', {
+    var targets = taskrun.init(name, {
       interrupt: false,
       nospawn: false,
       event: ['all'],
-      _target: _target,
+      target: target,
     });
 
     targets.forEach(function(target, i) {

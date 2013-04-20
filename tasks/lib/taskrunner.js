@@ -43,7 +43,7 @@ module.exports = function(grunt) {
   util.inherits(Runner, EE);
 
   // Init a task for taskrun
-  Runner.prototype.init = function(name, defaults, done) {
+  Runner.prototype.init = function init(name, defaults, done) {
     var self = this;
 
     self.name = name || grunt.task.current.name || 'watch';
@@ -74,12 +74,12 @@ module.exports = function(grunt) {
   };
 
   // Normalize targets from config
-  Runner.prototype._getTargets = function(name) {
+  Runner.prototype._getTargets = function _getTargets(name) {
     var self = this;
 
     grunt.task.current.requiresConfig(name);
     var config = grunt.config(name);
-    var onlyTarget = (self.options._target) ? self.options._target : false;
+    var onlyTarget = (self.options.target) ? self.options.target : false;
 
     var targets = (onlyTarget ? [onlyTarget] : Object.keys(config)).filter(function(key) {
       if (key === 'options') { return false; }
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
   };
 
   // Run the current queue of task runs
-  Runner.prototype.run = grunt.util._.debounce(function() {
+  Runner.prototype.run = grunt.util._.debounce(function run() {
     var self = this;
     if (self._queue.length < 1) {
       self.running = false;
@@ -160,7 +160,7 @@ module.exports = function(grunt) {
   }, 250);
 
   // Queue target names for running
-  Runner.prototype.queue = function(names) {
+  Runner.prototype.queue = function queue(names) {
     var self = this;
     if (typeof names === 'string') { names = [names]; }
     names.forEach(function(name) {
@@ -199,7 +199,7 @@ module.exports = function(grunt) {
   };
 
   // Run through completing every target in the queue
-  Runner.prototype._completeQueue = function() {
+  Runner.prototype._completeQueue = function _completeQueue() {
     var self = this;
     self._queue.forEach(function(name) {
       var target = self._targets[name];
@@ -216,10 +216,28 @@ module.exports = function(grunt) {
     self.emit('interrupt');
   };
 
-  // Make this task run forever
-  Runner.prototype.forever = function() {
-    process.exit = function() {};
-    grunt.fail.fatal = function() {};
+  // Attempt to make this task run forever
+  Runner.prototype.forever = function forever() {
+    var self = this;
+    function rerun() {
+      // Clear queue and rerun to prevent failing
+      self._completeQueue();
+      grunt.task.clearQueue();
+      grunt.task.run(self.nameArgs);
+      self.running = false;
+    }
+    grunt.warn = grunt.fail.warn = function(e) {
+      var message = typeof e === 'string' ? e : e.message;
+      grunt.log.writeln(('Warning: ' + message).yellow);
+      if (!grunt.option('force')) {
+        rerun();
+      }
+    };
+    grunt.fatal = grunt.fail.fatal = function(e) {
+      var message = typeof e === 'string' ? e : e.message;
+      grunt.log.writeln(('Fatal error: ' + message).red);
+      rerun();
+    };
   };
 
   // Clear the require cache for all passed filepaths.
