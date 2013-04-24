@@ -30,24 +30,25 @@ exports.reloadgruntfile = {
     done();
   },
   reloadgruntfile: function(test) {
-    //test.expect(3);
+    test.expect(3);
     var cwd = path.resolve(fixtures, 'multiTargets');
     var assertWatch = helper.assertTask('watch', {cwd:cwd});
     assertWatch([function() {
       // First edit a file and trigger the watch
-      var write = 'var one = true;';
-      grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
     }, function() {
-      // Second edit the gruntfile
-      var gruntfile = String(backupGrunfile).replace("tasks: ['echo:two'],", "tasks: ['echo:one'],");
+      // Edit and reload the gruntfile
+      var gruntfile = String(backupGrunfile).replace('echo:one', 'echo:two');
       grunt.file.write(path.join(cwd, 'Gruntfile.js'), gruntfile);
-      // Third trigger the watch
+    }, function() {
+      // Now editing one.js should trigger echo:two instead
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
     }], function(result) {
       helper.verboseLog(result);
-      /*var count = result.match((new RegExp('Running "watch" task', 'g'))).length;
+      var count = result.match((new RegExp('Running "watch" task', 'g'))).length;
       test.equal(count, 2, 'Watch should have fired twice.');
-      test.ok(result.indexOf('Server is listening...') !== -1, 'server should have been started.');
-      test.ok(result.indexOf('Server is talking!') !== -1, 'server should have responded.');*/
+      test.ok(result.indexOf('one has changed') !== -1, 'task one should have been triggered.');
+      test.ok(result.indexOf('two has changed') !== -1, 'task two should have been triggered.');
       test.done();
     });
   },

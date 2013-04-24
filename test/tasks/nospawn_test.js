@@ -43,8 +43,7 @@ exports.nospawn = {
     });
   },
   interrupt: function(test) {
-    return test.done();
-    /*test.expect(2);
+    test.expect(2);
     var cwd = path.resolve(fixtures, 'nospawn');
     var assertWatch = helper.assertTask('watch', {cwd:cwd});
     assertWatch([function() {
@@ -61,6 +60,6 @@ exports.nospawn = {
       test.equal(count, 4, 'long task should have been ran only 4 times.');
       test.ok(result.indexOf('have been interrupted') !== -1, 'tasks should have been interrupted.');
       test.done();
-    });*/
+    });
   },
 };
