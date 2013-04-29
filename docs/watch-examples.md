@@ -41,6 +41,7 @@ grunt.initConfig({
   watch: {
     scripts: {
       files: ['lib/*.js'],
+      tasks: [''],
     },
   },
 });
@@ -50,6 +51,42 @@ grunt.event.on('watch', function(action, filepath) {
 ```
 
 **The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [cofiguring tasks](http://gruntjs.com/configuring-tasks).**
+
+### Compiling Files As Needed
+A very common request is to only compile files as needed. Here is an example that will only lint changed files with the `jshint` task:
+
+```js
+grunt.initConfig({
+  watch: {
+    scripts: {
+      files: ['lib/*.js'],
+      tasks: ['jshint'],
+    },
+  },
+  jshint: {
+    all: ['lib/*.js'],
+  },
+});
+
+// on watch events configure jshint:all to only run on changed file
+grunt.event.on('watch', function(action, filepath) {
+  grunt.config(['jshint', 'all'], filepath);
+});
+```
+
+If you save multiple files simultaneously you may opt for a more robust method:
+
+```js
+var changedFiles = Object.create(null);
+var onChange = grunt.util._.debounce(function() {
+  grunt.config(['jshint', 'all'], Object.keys(changedFiles));
+  changedFiles = Object.create(null);
+}, 200);
+grunt.event.on('watch', function(action, filepath) {
+  changedFiles[filepath] = action;
+  onChange();
+});
+```
 
 # FAQs
 

@@ -165,6 +165,7 @@ grunt.initConfig({
   watch: {
     scripts: {
       files: ['lib/*.js'],
+      tasks: [''],
     },
   },
 });
@@ -174,6 +175,42 @@ grunt.event.on('watch', function(action, filepath) {
 ```
 
 **The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [cofiguring tasks](http://gruntjs.com/configuring-tasks).**
+
+##### Compiling Files As Needed
+A very common request is to only compile files as needed. Here is an example that will only lint changed files with the `jshint` task:
+
+```js
+grunt.initConfig({
+  watch: {
+    scripts: {
+      files: ['lib/*.js'],
+      tasks: ['jshint'],
+    },
+  },
+  jshint: {
+    all: ['lib/*.js'],
+  },
+});
+
+// on watch events configure jshint:all to only run on changed file
+grunt.event.on('watch', function(action, filepath) {
+  grunt.config(['jshint', 'all'], filepath);
+});
+```
+
+If you save multiple files simultaneously you may opt for a more robust method:
+
+```js
+var changedFiles = Object.create(null);
+var onChange = grunt.util._.debounce(function() {
+  grunt.config(['jshint', 'all'], Object.keys(changedFiles));
+  changedFiles = Object.create(null);
+}, 200);
+grunt.event.on('watch', function(action, filepath) {
+  changedFiles[filepath] = action;
+  onChange();
+});
+```
 
 ### FAQs
 
@@ -196,20 +233,20 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
- * 2013-02-28   v0.3.1   Fix for top level options.
- * 2013-02-27   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
- * 2013-02-15   v0.2.0   First official release for Grunt 0.4.0.
- * 2013-01-18   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
- * 2013-01-09   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
- * 2012-12-15   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
- * 2012-11-01   v0.1.4   Prevent watch from spawning duplicate watch tasks
- * 2012-10-28   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
- * 2012-10-17   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
- * 2012-10-16   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
- * 2012-10-08   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
+ * 2013-02-27   v0.3.1   Fix for top level options.
+ * 2013-02-26   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
+ * 2013-02-14   v0.2.0   First official release for Grunt 0.4.0.
+ * 2013-01-17   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
+ * 2013-01-08   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
+ * 2012-12-14   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
+ * 2012-10-31   v0.1.4   Prevent watch from spawning duplicate watch tasks
+ * 2012-10-27   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
+ * 2012-10-16   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
+ * 2012-10-15   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
+ * 2012-10-07   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
 
 ---
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Mon Mar 18 2013 11:23:54.*
+*This file was generated on Mon Apr 29 2013 14:56:52.*
