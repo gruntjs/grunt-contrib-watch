@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         tasks: ['before'],
         options: {
           nospawn: true,
-          livereload: true,
+          livereload: 1337,
         },
       },
     },

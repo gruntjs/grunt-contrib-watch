@@ -88,14 +88,14 @@ exports.livereload = {
     var cwd = path.resolve(fixtures, 'livereload');
     var assertWatch = helper.assertTask(['watch:nospawn', '-v'], {cwd: cwd});
     assertWatch([function() {
-      request(35729, function(data) {
+      request(1337, function(data) {
         resultData += data;
         grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
       });
     }], function(result) {
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 35729') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on port: 1337') !== -1, 'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');

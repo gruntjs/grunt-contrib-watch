@@ -17,8 +17,13 @@ module.exports = function(grunt) {
   };
 
   function LR(options) {
-    if (options === true) { options = defaults; }
-    else { options = grunt.util._.defaults(options, defaults); }
+    if (options === true) {
+      options = defaults;
+    } else if (typeof options === 'number') {
+      options = {port: options};
+    } else {
+      options = grunt.util._.defaults(options, defaults);
+    }
     this.server = tinylr();
     this.server.listen(options.port, function(err) {
       if (err) { return grunt.fatal(err); }
