@@ -92,6 +92,16 @@ module.exports = function(grunt) {
           return taskrun.done();
         }
 
+        // Log all watched files with --verbose set
+        if (grunt.option('verbose')) {
+          var watched = this.watched();
+          Object.keys(watched).forEach(function(watchedDir) {
+            watched[watchedDir].forEach(function(watchedFile) {
+              grunt.log.writeln('Watching ' + path.relative(process.cwd(), watchedFile) + ' for changes.');
+            });
+          });
+        }
+
         // On changed/added/deleted
         this.on('all', function(status, filepath) {
 
