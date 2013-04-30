@@ -50,7 +50,7 @@ grunt.event.on('watch', function(action, filepath) {
 });
 ```
 
-**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [cofiguring tasks](http://gruntjs.com/configuring-tasks).**
+**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](http://gruntjs.com/configuring-tasks).**
 
 ### Compiling Files As Needed
 A very common request is to only compile files as needed. Here is an example that will only lint changed files with the `jshint` task:
