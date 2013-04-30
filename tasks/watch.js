@@ -23,6 +23,7 @@ module.exports = function(grunt) {
       // Log which file has changed, and how.
       grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
     });
+    taskrun.changedFiles = changedFiles;
     // Reset changedFiles
     changedFiles = Object.create(null);
   });
@@ -68,6 +69,7 @@ module.exports = function(grunt) {
       nospawn: false,
       event: ['all'],
       target: target,
+      livereload: false,
     });
 
     targets.forEach(function(target, i) {

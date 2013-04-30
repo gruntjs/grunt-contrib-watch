@@ -39,6 +39,8 @@ module.exports = function(grunt) {
     this.reload = false;
     // For re-queuing arguments with the task that originally ran this
     this.nameArgs = [];
+    // A list of changed files to feed to task runs for livereload
+    this.changedFiles = Object.create(null);
   }
   util.inherits(Runner, EE);
 
@@ -148,6 +150,7 @@ module.exports = function(grunt) {
       var tr = self._targets[name];
       if (!tr) { return next(); }
       if (tr.options.nospawn) { shouldComplete = false; }
+      tr.changedFiles = self.changedFiles;
       tr.run(next);
     }, function() {
       if (shouldComplete) {
@@ -195,6 +198,7 @@ module.exports = function(grunt) {
       }
     });
     var elapsed = (time > 0) ? Number(time / 1000) : 0;
+    self.changedFiles = Object.create(null);
     self.emit('end', elapsed);
   };
 

@@ -14,6 +14,8 @@ var util = require('util');
 
 module.exports = function(grunt) {
 
+  var livereload = require('./livereload')(grunt);
+
   // Create a TaskRun on a target
   function TaskRun(target, defaults) {
     this.name = target.name || 0;
@@ -22,6 +24,12 @@ module.exports = function(grunt) {
     this.options = target.options;
     this.startedAt = false;
     this.spawned = null;
+    this.changedFiles = Object.create(null);
+
+    // If livereload is requested
+    if (this.options.livereload !== false) {
+      this.livereload = livereload(this.options.livereload);
+    }
   }
 
   // Run it
@@ -54,13 +62,17 @@ module.exports = function(grunt) {
     }
   };
 
-  // When the task has completed
+  // When the task run has completed
   TaskRun.prototype.complete = function() {
     var time = Date.now() - this.startedAt;
     this.startedAt = false;
     if (this.spawned) {
       this.spawned.kill('SIGINT');
       this.spawned = null;
+    }
+    // Trigger livereload if set
+    if (this.livereload) {
+      this.livereload.trigger(Object.keys(this.changedFiles));
     }
     return time;
   };

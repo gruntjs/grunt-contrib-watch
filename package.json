@@ -28,7 +28,8 @@
     "test": "grunt nodeunit -v"
   },
   "dependencies": {
-    "gaze": "~0.3.3"
+    "gaze": "~0.3.3",
+    "tiny-lr": "0.0.4"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
