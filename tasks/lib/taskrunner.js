@@ -42,6 +42,8 @@ module.exports = function(grunt) {
     this.nameArgs = [];
     // A list of changed files to feed to task runs for livereload
     this.changedFiles = Object.create(null);
+    // Flag to set if interrupt is false and a change happened during a task run
+    this.needsAnotherRun = false;
   }
   util.inherits(Runner, EE);
 
@@ -148,6 +150,7 @@ module.exports = function(grunt) {
         self.interrupt();
       } else {
         // Dont interrupt the tasks running
+        self.needsAnotherRun = true;
         return;
       }
     }
@@ -215,15 +218,26 @@ module.exports = function(grunt) {
     var self = this;
     if (self.running === false) { return; }
     self.running = false;
+
     var time = 0;
     self._queue.forEach(function(name, i) {
       var target = self._targets[name];
       if (!target) { return; }
       if (target.startedAt !== false) {
         time += target.complete();
-        self._queue[i] = null;
+        if (self.needsAnotherRun !== true) {
+          self._queue[i] = null;
+        }
       }
     });
+
+    // If it needs another run
+    if (self.needsAnotherRun === true) {
+      self.needsAnotherRun = false;
+      self.run();
+      return;
+    }
+
     var elapsed = (time > 0) ? Number(time / 1000) : 0;
     self.changedFiles = Object.create(null);
     self.emit('end', elapsed);
