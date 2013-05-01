@@ -10,11 +10,12 @@
 
 var tinylr = require('tiny-lr');
 
+// Holds the servers out of scope in case watch is reloaded
+var servers = Object.create(null);
+
 module.exports = function(grunt) {
 
-  var defaults = {
-    port: 35729,
-  };
+  var defaults = { port: 35729 };
 
   function LR(options) {
     if (options === true) {
@@ -24,11 +25,16 @@ module.exports = function(grunt) {
     } else {
       options = grunt.util._.defaults(options, defaults);
     }
-    this.server = tinylr();
-    this.server.listen(options.port, function(err) {
-      if (err) { return grunt.fatal(err); }
-      grunt.log.verbose.writeln('Live reload server started on port: ' + options.port);
-    });
+    if (servers[options.port]) {
+      this.server = servers[options.port];
+    } else {
+      this.server = tinylr();
+      this.server.listen(options.port, function(err) {
+        if (err) { return grunt.fatal(err); }
+        grunt.log.verbose.writeln('Live reload server started on port: ' + options.port);
+      });
+      servers[options.port] = this.server;
+    }
   }
 
   LR.prototype.trigger = function(files) {
