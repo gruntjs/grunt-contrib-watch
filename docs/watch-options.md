@@ -99,3 +99,24 @@ Type: `Boolean`
 Default: true
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
+
+## options.livereload
+Type: `Boolean|Number|Object`
+Default: false
+
+Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
+
+If enabled a live reload server will be started with the watch task per target. Then after the indicated tasks have ran, the live reload server will be triggered with the modified files.
+
+Example:
+```js
+watch: {
+  css: {
+    files: '**/*.sass',
+    tasks: ['sass'],
+    options: {
+      livereload: true,
+    },
+  },
+},
+```

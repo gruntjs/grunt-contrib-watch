@@ -88,6 +88,66 @@ grunt.event.on('watch', function(action, filepath) {
 });
 ```
 
+## Live Reloading
+Live reloading is built into the watch task. Set the option `livereload` to `true` to enable on the default port `35729` or set to a custom port: `livereload: 1337`.
+
+The simplest way to add live reloading to all your watch targets is by setting `livereload` to `true` at the task level. This will run a single live reload server and trigger the live reload for all your watch targets:
+
+```js
+grunt.initConfig({
+  watch: {
+    options: {
+      livereload: true,
+    },
+    css: {
+      files: ['public/scss/*.scss'],
+      tasks: ['compass'],
+    },
+  },
+});
+```
+
+You can also configure live reload for individual watch targets or run multiple live reload servers. Just be sure if you're starting multiple servers they operate on different ports:
+
+```js
+grunt.initConfig({
+  watch: {
+    css: {
+      files: ['public/scss/*.scss'],
+      tasks: ['compass'],
+      options: {
+        // Start a live reload server on the default port 35729
+        livereload: true,
+      },
+    },
+    another: {
+      files: ['lib/*.js'],
+      tasks: ['anothertask'],
+      options: {
+        // Start another live reload server on port 1337
+        livereload: 1337,
+      },
+    },
+    dont: {
+      files: ['other/stuff/*'],
+      tasks: ['dostuff'],
+    },
+  },
+});
+```
+
+### Enabling Live Reload in Your HTML
+Once you've started a live reload server you'll be able to access the live reload script. To enable live reload on your page, add a script tag before your closing `</body>` tag pointing to the `livereload.js` script:
+
+```html
+<script src="http://localhost:35729/livereload.js"></script>
+```
+
+### Using Live Reload with the Browser Extension
+Instead of adding a script tag to your page, you can live reload your page by installing a browser extension. Please visit [how do I install and use the browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-) for help installing an extension for your browser.
+
+Once installed please use the default live reload port `35729` and the browser extension will automatically reload your page without needing the `<script>` tag.
+
 # FAQs
 
 ## How do I fix the error `EMFILE: Too many opened files.`?
