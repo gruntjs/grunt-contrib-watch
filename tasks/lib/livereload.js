@@ -13,7 +13,7 @@ var tinylr = require('tiny-lr');
 module.exports = function(grunt) {
 
   var defaults = {
-    port: 35729
+    port: 35729,
   };
 
   function LR(options) {

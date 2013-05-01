@@ -25,11 +25,6 @@ module.exports = function(grunt) {
     this.startedAt = false;
     this.spawned = null;
     this.changedFiles = Object.create(null);
-
-    // If livereload is requested
-    if (this.options.livereload !== false) {
-      this.livereload = livereload(this.options.livereload);
-    }
   }
 
   // Run it

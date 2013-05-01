@@ -3,12 +3,12 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     watch: {
+      options: {
+        livereload: true,
+      },
       basic: {
         files: ['lib/*.js'],
         tasks: ['before'],
-        options: {
-          livereload: true,
-        },
       },
       customport: {
         files: ['lib/*.js'],

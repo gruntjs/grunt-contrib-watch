@@ -18,6 +18,7 @@ var reloadTargets = [];
 module.exports = function(grunt) {
 
   var TaskRun = require('./taskrun')(grunt);
+  var livereload = require('./livereload')(grunt);
 
   function Runner() {
     EE.call(this);
@@ -60,6 +61,20 @@ module.exports = function(grunt) {
 
     // Function to call when closing the task
     self.done = done || grunt.task.current.async();
+
+    // If a default livereload server for all targets
+    // Use task level unless target level overrides
+    var taskLRConfig = grunt.config([self.name, 'options', 'livereload']);
+    if (self.options.target && taskLRConfig) {
+      var targetLRConfig = grunt.config([self.name, self.options.target, 'options', 'livereload']);
+      if (targetLRConfig) {
+        // Dont use task level as target level will be used instead
+        taskLRConfig = false;
+      }
+    }
+    if (taskLRConfig) {
+      self.livereload = livereload(taskLRConfig);
+    }
 
     if (self.running) {
       // If previously running, complete the last run
@@ -178,6 +193,18 @@ module.exports = function(grunt) {
   Runner.prototype.add = function add(target) {
     if (!this._targets[target.name || 0]) {
       var tr = new TaskRun(target, this.options);
+
+      // Add livereload to task runs
+      // Get directly from config as task level options are merged.
+      // We only want a single default LR server and then
+      // allow each target to override their own.
+      var lrconfig = grunt.config([this.name, target.name || 0, 'options', 'livereload']);
+      if (lrconfig) {
+        tr.livereload = livereload(lrconfig);
+      } else if (this.livereload) {
+        tr.livereload = this.livereload;
+      }
+
       return this._targets[tr.name] = tr;
     }
     return false;

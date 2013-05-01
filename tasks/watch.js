@@ -69,7 +69,6 @@ module.exports = function(grunt) {
       nospawn: false,
       event: ['all'],
       target: target,
-      livereload: false,
     });
 
     targets.forEach(function(target, i) {
