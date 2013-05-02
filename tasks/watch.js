@@ -15,6 +15,7 @@ module.exports = function(grunt) {
 
   var waiting = 'Waiting...';
   var changedFiles = Object.create(null);
+  var watchers = [];
 
   // When task runner has started
   taskrun.on('start', function() {
@@ -52,6 +53,16 @@ module.exports = function(grunt) {
     grunt.log.writeln('').writeln('Reloading watch config...'.cyan);
   });
 
+  // On shutdown, close up watchers
+  process.on('SIGINT', function() {
+    grunt.log.writeln('').write('Shutting down the watch task...');
+    watchers.forEach(function(watcher) {
+      watcher.close();
+    });
+    grunt.log.ok();
+    process.exit();
+  });
+
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     var self = this;
     var name = self.name || 'watch';
@@ -85,7 +96,7 @@ module.exports = function(grunt) {
       }
 
       // Create watcher per target
-      new Gaze(patterns, target.options, function(err) {
+      watchers.push(new Gaze(patterns, target.options, function(err) {
         if (err) {
           if (typeof err === 'string') { err = new Error(err); }
           grunt.log.writeln('ERROR'.red);
@@ -137,7 +148,7 @@ module.exports = function(grunt) {
           if (typeof err === 'string') { err = new Error(err); }
           grunt.log.error(err.message);
         });
-      });
+      }));
     });
 
   });
