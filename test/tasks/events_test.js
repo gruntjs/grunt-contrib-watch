@@ -42,6 +42,7 @@ exports.events = {
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('lib/added.js was indeed added') !== -1, 'event not emitted when file added');
       test.ok(result.indexOf('lib/one.js was indeed changed') !== -1, 'event not emitted when file changed');
@@ -56,6 +57,7 @@ exports.events = {
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('lib/added.js was indeed added') !== -1, 'event not emitted when file added');
       test.ok(result.indexOf('lib/one.js was indeed changed') === -1, 'event should NOT have emitted when file changed');
@@ -70,6 +72,7 @@ exports.events = {
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('lib/added.js was indeed added') === -1, 'event should NOT have emitted when file added');
       test.ok(result.indexOf('lib/one.js was indeed changed') !== -1, 'event should have emitted when file changed');
@@ -84,6 +87,7 @@ exports.events = {
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('lib/added.js was indeed added') === -1, 'event should NOT have emitted when file added');
       test.ok(result.indexOf('lib/one.js was indeed changed') === -1, 'event should NOT have emitted when file changed');
@@ -98,6 +102,7 @@ exports.events = {
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('lib/added.js was indeed added') !== -1, 'event should have emitted when file added');
       test.ok(result.indexOf('lib/one.js was indeed changed') === -1, 'event should NOT have emitted when file changed');

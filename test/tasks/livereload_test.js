@@ -53,6 +53,7 @@ exports.livereload = {
         grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
       });
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
       test.ok(result.indexOf('Live reload server started on port: 35729') !== -1, 'live reload server should have been started on port 35729.');
@@ -73,6 +74,7 @@ exports.livereload = {
         grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
       });
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
       test.ok(result.indexOf('Live reload server started on port: 8675') !== -1, 'live reload server should have been started on port 35729.');
@@ -93,6 +95,7 @@ exports.livereload = {
         grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
       });
     }], function(result) {
+      result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
       test.ok(result.indexOf('Live reload server started on port: 1337') !== -1, 'live reload server should have been started on port 35729.');

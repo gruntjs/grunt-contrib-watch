@@ -97,3 +97,9 @@ helper.cleanUp = function cleanUp(files) {
     }
   });
 };
+
+// Helper for testing cross platform
+helper.unixify = function(str) {
+  str = grunt.util.normalizelf(str);
+  return str.replace(/\\/g, '/');
+};
