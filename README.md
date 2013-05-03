@@ -1,4 +1,4 @@
-# grunt-contrib-watch [![Build Status](https://secure.travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](http://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
@@ -122,6 +122,33 @@ watch: {
 }
 ```
 
+#### options.forever
+Type: `Boolean`
+Default: true
+
+This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
+
+#### options.livereload
+Type: `Boolean|Number|Object`
+Default: false
+
+Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
+
+If enabled a live reload server will be started with the watch task per target. Then after the indicated tasks have ran, the live reload server will be triggered with the modified files.
+
+Example:
+```js
+watch: {
+  css: {
+    files: '**/*.sass',
+    tasks: ['sass'],
+    options: {
+      livereload: true,
+    },
+  },
+},
+```
+
 ### Examples
 
 ```js
@@ -212,6 +239,66 @@ grunt.event.on('watch', function(action, filepath) {
 });
 ```
 
+#### Live Reloading
+Live reloading is built into the watch task. Set the option `livereload` to `true` to enable on the default port `35729` or set to a custom port: `livereload: 1337`.
+
+The simplest way to add live reloading to all your watch targets is by setting `livereload` to `true` at the task level. This will run a single live reload server and trigger the live reload for all your watch targets:
+
+```js
+grunt.initConfig({
+  watch: {
+    options: {
+      livereload: true,
+    },
+    css: {
+      files: ['public/scss/*.scss'],
+      tasks: ['compass'],
+    },
+  },
+});
+```
+
+You can also configure live reload for individual watch targets or run multiple live reload servers. Just be sure if you're starting multiple servers they operate on different ports:
+
+```js
+grunt.initConfig({
+  watch: {
+    css: {
+      files: ['public/scss/*.scss'],
+      tasks: ['compass'],
+      options: {
+        // Start a live reload server on the default port 35729
+        livereload: true,
+      },
+    },
+    another: {
+      files: ['lib/*.js'],
+      tasks: ['anothertask'],
+      options: {
+        // Start another live reload server on port 1337
+        livereload: 1337,
+      },
+    },
+    dont: {
+      files: ['other/stuff/*'],
+      tasks: ['dostuff'],
+    },
+  },
+});
+```
+
+##### Enabling Live Reload in Your HTML
+Once you've started a live reload server you'll be able to access the live reload script. To enable live reload on your page, add a script tag before your closing `</body>` tag pointing to the `livereload.js` script:
+
+```html
+<script src="http://localhost:35729/livereload.js"></script>
+```
+
+##### Using Live Reload with the Browser Extension
+Instead of adding a script tag to your page, you can live reload your page by installing a browser extension. Please visit [how do I install and use the browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-) for help installing an extension for your browser.
+
+Once installed please use the default live reload port `35729` and the browser extension will automatically reload your page without needing the `<script>` tag.
+
 ### FAQs
 
 #### How do I fix the error `EMFILE: Too many opened files.`?
@@ -233,20 +320,21 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
- * 2013-02-27   v0.3.1   Fix for top level options.
- * 2013-02-26   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
- * 2013-02-14   v0.2.0   First official release for Grunt 0.4.0.
- * 2013-01-17   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
- * 2013-01-08   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
- * 2012-12-14   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
- * 2012-10-31   v0.1.4   Prevent watch from spawning duplicate watch tasks
- * 2012-10-27   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
- * 2012-10-16   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
- * 2012-10-15   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
- * 2012-10-07   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
+ * 2013-05-03   v0.4.0   Option livereload to start live reload servers. Will reload a Gruntfile before running tasks if Gruntfile is modified. Option event to only trigger watch on certain events. Refactor watch task into separate task runs per target. Option forever to override grunt.fatal/warn to help keeping the watch alive with nospawn enabled. Emit a beep upon complete. Logs all watched files with verbose flag set. If interrupt is off, will run the tasks once more if watch triggered during a previous task run. tasks property is optional for use with watch event. Watchers properly closed when exiting.
+ * 2013-02-28   v0.3.1   Fix for top level options.
+ * 2013-02-27   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
+ * 2013-02-15   v0.2.0   First official release for Grunt 0.4.0.
+ * 2013-01-18   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
+ * 2013-01-09   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
+ * 2012-12-15   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
+ * 2012-11-01   v0.1.4   Prevent watch from spawning duplicate watch tasks
+ * 2012-10-28   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
+ * 2012-10-17   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
+ * 2012-10-16   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
+ * 2012-10-08   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
 
 ---
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Mon Apr 29 2013 14:56:52.*
+*This file was generated on Fri May 03 2013 10:06:32.*
