@@ -19,10 +19,10 @@ function writeAll(cwd) {
   grunt.file.write(path.join(cwd, 'lib', 'added.js'), write);
   setTimeout(function() {
     grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
-  }, 250);
+  }, 300);
   setTimeout(function() {
     grunt.file.delete(path.join(cwd, 'lib', 'added.js'));
-  }, 500);
+  }, 300);
 }
 
 exports.events = {
