@@ -23,8 +23,8 @@ module.exports = function(grunt) {
     Object.keys(changedFiles).forEach(function(filepath) {
       // Log which file has changed, and how.
       grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
-      grunt.log.writeln();
     });
+    grunt.log.writeln();
     taskrun.changedFiles = changedFiles;
     // Reset changedFiles
     changedFiles = Object.create(null);
