@@ -32,8 +32,7 @@ module.exports = function(grunt) {
   // When task runner has ended
   taskrun.on('end', function(time) {
     if (time > 0) {
-      var beep = (!grunt.option('no-color')) ? '\x07' : '';
-      grunt.log.writeln(beep).write(String(
+      grunt.log.writeln(String(
         'Completed in ' +
         time.toFixed(3) +
         's at ' +
