@@ -192,7 +192,6 @@ grunt.initConfig({
   watch: {
     scripts: {
       files: ['lib/*.js'],
-      tasks: [''],
     },
   },
 });
@@ -337,4 +336,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Fri May 03 2013 10:06:32.*
+*This file was generated on Sun May 05 2013 00:04:52.*

@@ -41,7 +41,6 @@ grunt.initConfig({
   watch: {
     scripts: {
       files: ['lib/*.js'],
-      tasks: [''],
     },
   },
 });
