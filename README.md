@@ -185,7 +185,7 @@ grunt.initConfig({
 ```
 
 #### Using the `watch` event
-This task will emit a `watch` event when watched files are modified. This is useful if you would like a simple notification when files are edited or if you're using this task in tandem with another task, for example a live reload task. Here is a simple example using the `watch` event:
+This task will emit a `watch` event when watched files are modified. This is useful if you would like a simple notification when files are edited or if you're using this task in tandem with another task. Here is a simple example using the `watch` event:
 
 ```js
 grunt.initConfig({
@@ -336,4 +336,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sun May 05 2013 00:04:52.*
+*This file was generated on Sun May 05 2013 00:21:23.*
