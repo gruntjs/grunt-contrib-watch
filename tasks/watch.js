@@ -135,11 +135,15 @@ module.exports = function(grunt) {
           }
 
           // Run tasks if any have been specified
-          if (target.tasks) {
-            changedFiles[filepath] = status;
-            taskrun.queue(target.name);
-            taskrun.run();
-          }
+          changedFiles[filepath] = status;
+
+          targets.forEach(function (target, i) {
+            if (target.tasks && grunt.file.isMatch(target.files, filepath)) {
+              taskrun.queue(target.name);
+            }
+          });
+
+          taskrun.run();
         });
 
         // On watcher error
