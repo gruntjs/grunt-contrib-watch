@@ -135,12 +135,10 @@ module.exports = function(grunt) {
             grunt.event.emit('watch', status, filepath);
           }
 
-          // Run tasks if any have been specified
-          if (target.tasks) {
-            changedFiles[filepath] = status;
-            taskrun.queue(target.name);
-            taskrun.run();
-          }
+          // Run tasks
+          changedFiles[filepath] = status;
+          taskrun.queue(target.name);
+          taskrun.run();
         });
 
         // On watcher error

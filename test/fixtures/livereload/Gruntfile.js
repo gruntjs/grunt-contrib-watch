@@ -27,6 +27,9 @@ module.exports = function(grunt) {
           livereload: 1337,
         },
       },
+      notasks: {
+        files: ['lib/*.js'],
+      },
     },
   });
 

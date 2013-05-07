@@ -222,6 +222,12 @@ module.exports = function(grunt) {
       if (target.startedAt !== false) {
         time += target.complete();
         self._queue[i] = null;
+
+        // if we're just livereloading and no tasks
+        // it can happen too fast and we dont report it
+        if (target.options.livereload && target.tasks.length < 1) {
+          time += 0.0001;
+        }
       }
     });
     var elapsed = (time > 0) ? Number(time / 1000) : 0;
