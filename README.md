@@ -143,7 +143,7 @@ watch: {
     files: '**/*.sass',
     tasks: ['sass'],
     options: {
-      livereload: true,
+      livereload: true
     },
   },
 },
@@ -191,7 +191,7 @@ This task will emit a `watch` event when watched files are modified. This is use
 grunt.initConfig({
   watch: {
     scripts: {
-      files: ['lib/*.js'],
+      files: ['lib/*.js']
     },
   },
 });
@@ -210,11 +210,11 @@ grunt.initConfig({
   watch: {
     scripts: {
       files: ['lib/*.js'],
-      tasks: ['jshint'],
+      tasks: ['jshint']
     },
   },
   jshint: {
-    all: ['lib/*.js'],
+    all: ['lib/*.js']
   },
 });
 
@@ -247,11 +247,11 @@ The simplest way to add live reloading to all your watch targets is by setting `
 grunt.initConfig({
   watch: {
     options: {
-      livereload: true,
+      livereload: true
     },
     css: {
       files: ['public/scss/*.scss'],
-      tasks: ['compass'],
+      tasks: ['compass']
     },
   },
 });
@@ -267,7 +267,7 @@ grunt.initConfig({
       tasks: ['compass'],
       options: {
         // Start a live reload server on the default port 35729
-        livereload: true,
+        livereload: true
       },
     },
     another: {
@@ -275,12 +275,12 @@ grunt.initConfig({
       tasks: ['anothertask'],
       options: {
         // Start another live reload server on port 1337
-        livereload: 1337,
+        livereload: 1337
       },
     },
     dont: {
       files: ['other/stuff/*'],
-      tasks: ['dostuff'],
+      tasks: ['dostuff']
     },
   },
 });
