@@ -55,17 +55,19 @@ module.exports = function(grunt) {
 
   // On shutdown, close up watchers
   process.on('SIGINT', function() {
-    grunt.log.writeln('').write('Shutting down the watch task...');
-    watchers.forEach(function(watcher) {
-      watcher.close();
-    });
-    grunt.log.ok();
+    grunt.log.writeln('').write('Shutting down the watch task...').ok();
     process.exit();
   });
 
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     var self = this;
     var name = self.name || 'watch';
+
+    // Close any previously opened watchers
+    watchers.forEach(function(watcher, i) {
+      watcher.close();
+      watchers.splice(i, 1);
+    });
 
     // Never gonna give you up, never gonna let you down
     if (grunt.config([name, 'options', 'forever']) !== false) {
