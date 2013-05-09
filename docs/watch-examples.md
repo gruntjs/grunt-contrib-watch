@@ -142,10 +142,15 @@ Once you've started a live reload server you'll be able to access the live reloa
 <script src="http://localhost:35729/livereload.js"></script>
 ```
 
+Feel free to add this script to your template situation and toggle with some sort of `dev` flag.
+
 ### Using Live Reload with the Browser Extension
 Instead of adding a script tag to your page, you can live reload your page by installing a browser extension. Please visit [how do I install and use the browser extensions](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-) for help installing an extension for your browser.
 
 Once installed please use the default live reload port `35729` and the browser extension will automatically reload your page without needing the `<script>` tag.
+
+### Using Connect Middleware
+Since live reloading is used when developing, you may want to disable building for production (and are not using the browser extension). One method is to use Connect middleware to inject the script tag into your page. Try the [connect-livereload](https://github.com/intesso/connect-livereload) middleware for injecting the live reload script into your page.
 
 # FAQs
 
