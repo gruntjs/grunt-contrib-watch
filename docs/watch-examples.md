@@ -4,9 +4,9 @@
 // Simple config to run jshint any time a file is added, changed or deleted
 grunt.initConfig({
   watch: {
-    files: '**/*',
-    tasks: ['jshint']
-  }
+    files: ['**/*'],
+    tasks: ['jshint'],
+  },
 });
 ```
 
@@ -17,19 +17,16 @@ grunt.initConfig({
     gruntfile: {
       files: 'Gruntfile.js',
       tasks: ['jshint:gruntfile'],
-      options: {
-        nocase: true
-      }
     },
     src: {
       files: ['lib/*.js', 'css/**/*.scss', '!lib/dontwatch.js'],
-      tasks: ['default']
+      tasks: ['default'],
     },
     test: {
       files: '<%= jshint.test.src %>',
-      tasks: ['jshint:test', 'qunit']
-    }
-  }
+      tasks: ['jshint:test', 'qunit'],
+    },
+  },
 });
 ```
 

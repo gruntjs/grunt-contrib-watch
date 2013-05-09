@@ -53,10 +53,10 @@ watch: {
     files: ['**/*.js'],
     tasks: ['livereload'],
     options: {
-      nospawn: true
-    }
-  }
-}
+      nospawn: true,
+    },
+  },
+},
 ```
 
 #### options.interrupt
@@ -72,10 +72,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      interrupt: true
-    }
-  }
-}
+      interrupt: true,
+    },
+  },
+},
 ```
 
 #### options.debounceDelay
@@ -91,10 +91,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      debounceDelay: 250
-    }
-  }
-}
+      debounceDelay: 250,
+    },
+  },
+},
 ```
 
 #### options.interval
@@ -116,10 +116,10 @@ watch: {
     files: '**/*.js',
     tasks: ['generateFileManifest'],
     options: {
-      event: ['added', 'deleted']
-    }
-  }
-}
+      event: ['added', 'deleted'],
+    },
+  },
+},
 ```
 
 #### options.forever
@@ -155,9 +155,9 @@ watch: {
 // Simple config to run jshint any time a file is added, changed or deleted
 grunt.initConfig({
   watch: {
-    files: '**/*',
-    tasks: ['jshint']
-  }
+    files: ['**/*'],
+    tasks: ['jshint'],
+  },
 });
 ```
 
@@ -168,19 +168,16 @@ grunt.initConfig({
     gruntfile: {
       files: 'Gruntfile.js',
       tasks: ['jshint:gruntfile'],
-      options: {
-        nocase: true
-      }
     },
     src: {
       files: ['lib/*.js', 'css/**/*.scss', '!lib/dontwatch.js'],
-      tasks: ['default']
+      tasks: ['default'],
     },
     test: {
       files: '<%= jshint.test.src %>',
-      tasks: ['jshint:test', 'qunit']
-    }
-  }
+      tasks: ['jshint:test', 'qunit'],
+    },
+  },
 });
 ```
 
@@ -342,4 +339,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Thu May 09 2013 08:56:33.*
+*This file was generated on Thu May 09 2013 09:15:33.*

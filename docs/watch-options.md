@@ -25,10 +25,10 @@ watch: {
     files: ['**/*.js'],
     tasks: ['livereload'],
     options: {
-      nospawn: true
-    }
-  }
-}
+      nospawn: true,
+    },
+  },
+},
 ```
 
 ## options.interrupt
@@ -44,10 +44,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      interrupt: true
-    }
-  }
-}
+      interrupt: true,
+    },
+  },
+},
 ```
 
 ## options.debounceDelay
@@ -63,10 +63,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      debounceDelay: 250
-    }
-  }
-}
+      debounceDelay: 250,
+    },
+  },
+},
 ```
 
 ## options.interval
@@ -88,10 +88,10 @@ watch: {
     files: '**/*.js',
     tasks: ['generateFileManifest'],
     options: {
-      event: ['added', 'deleted']
-    }
-  }
-}
+      event: ['added', 'deleted'],
+    },
+  },
+},
 ```
 
 ## options.forever
