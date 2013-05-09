@@ -66,8 +66,8 @@ module.exports = function(grunt) {
     // Close any previously opened watchers
     watchers.forEach(function(watcher, i) {
       watcher.close();
-      watchers.splice(i, 1);
     });
+    watchers = [];
 
     // Never gonna give you up, never gonna let you down
     if (grunt.config([name, 'options', 'forever']) !== false) {

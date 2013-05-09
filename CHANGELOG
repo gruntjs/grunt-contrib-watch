@@ -1,3 +1,7 @@
+v0.4.2:
+  date: 2013-05-09
+  changes:
+    - Fix for closing watchers.
 v0.4.1:
   date: 2013-05-09
   changes:
