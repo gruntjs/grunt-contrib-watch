@@ -208,6 +208,9 @@ grunt.initConfig({
     scripts: {
       files: ['lib/*.js'],
       tasks: ['jshint'],
+      options: {
+        nospawn: true,
+      },
     },
   },
   jshint: {
@@ -220,6 +223,8 @@ grunt.event.on('watch', function(action, filepath) {
   grunt.config(['jshint', 'all'], filepath);
 });
 ```
+
+If you need to dynamically modify your config, the `nospawn` option must be enabled to keep the watch running under the same context.
 
 If you save multiple files simultaneously you may opt for a more robust method:
 
@@ -340,4 +345,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Thu May 09 2013 14:54:44.*
+*This file was generated on Fri May 10 2013 09:32:35.*
