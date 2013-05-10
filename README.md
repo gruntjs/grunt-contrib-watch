@@ -103,7 +103,7 @@ Default: 100
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
 
-###### options.event
+#### options.event
 Type: `String|Array`
 Default: `'all'`
 
@@ -345,4 +345,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Fri May 10 2013 09:32:35.*
+*This file was generated on Fri May 10 2013 10:02:30.*
