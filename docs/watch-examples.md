@@ -57,6 +57,9 @@ grunt.initConfig({
     scripts: {
       files: ['lib/*.js'],
       tasks: ['jshint'],
+      options: {
+        nospawn: true,
+      },
     },
   },
   jshint: {
@@ -69,6 +72,8 @@ grunt.event.on('watch', function(action, filepath) {
   grunt.config(['jshint', 'all'], filepath);
 });
 ```
+
+If you need to dynamically modify your config, the `nospawn` option must be enabled to keep the watch running under the same context.
 
 If you save multiple files simultaneously you may opt for a more robust method:
 
