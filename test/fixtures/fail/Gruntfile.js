@@ -25,13 +25,13 @@ module.exports = function(grunt) {
     setTimeout(function() {
       grunt.warn('This task should warn!');
       done();
-    }, 1);
+    }, 1000);
   });
   grunt.registerTask('fatal', function() {
     var done = this.async();
     setTimeout(function() {
       grunt.fatal('This task should be fatal!');
       done();
-    }, 1);
+    }, 1000);
   });
 };

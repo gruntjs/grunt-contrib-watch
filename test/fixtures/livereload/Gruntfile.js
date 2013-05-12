@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
   'use strict';
 
+  var path = require('path');
+
   grunt.initConfig({
     watch: {
       options: {
@@ -30,6 +32,16 @@ module.exports = function(grunt) {
       notasks: {
         files: ['lib/*.js'],
       },
+      triggerwrite: {
+        files: ['sass/*'],
+        tasks: ['writecss'],
+        options: {
+          livereload: false,
+        },
+      },
+      triggerlr: {
+        files: ['css/*'],
+      },
     },
   });
 
@@ -38,5 +50,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('before', function() {
     grunt.log.writeln('I ran before livereload.');
+  });
+
+  grunt.registerTask('writecss', function() {
+    grunt.file.write(path.join(__dirname, 'css', 'one.css'), '#one {}');
   });
 };

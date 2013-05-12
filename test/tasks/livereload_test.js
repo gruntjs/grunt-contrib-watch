@@ -125,4 +125,20 @@ exports.livereload = {
       test.done();
     });
   },
+  onlytriggeron: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'livereload');
+    var assertWatch = helper.assertTask(['watch', '-v'], {cwd: cwd});
+    assertWatch([function() {
+      request(35729, function(data) {
+        grunt.file.write(path.join(cwd, 'sass', 'one.scss'), '#one {}');
+      });
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('Live reloading sass/one.scss') === -1, 'Should not trigger live reload on non livereload targets.');
+      test.ok(result.indexOf('Live reloading css/one.css') !== -1, 'Should trigger live reload when other tasks trigger livereload targets.');
+      test.done();
+    });
+  },
 };

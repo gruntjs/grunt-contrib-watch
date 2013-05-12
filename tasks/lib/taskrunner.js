@@ -29,9 +29,9 @@ module.exports = function(grunt) {
     // Function to close the task
     this.done = function() {};
     // Targets available to task run
-    this._targets = Object.create(null);
+    this.targets = Object.create(null);
     // The queue of task runs
-    this._queue = [];
+    this.queue = [];
     // Whether we're actively running tasks
     this.running = false;
     // If a nospawn task has ran (and needs the watch to restart)
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
       self.complete();
     } else if (reloadTargets.length > 0) {
       // If not previously running but has items in the queue, needs run
-      self._queue = reloadTargets;
+      self.queue = reloadTargets;
       reloadTargets = [];
       self.run();
     }
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
   // Run the current queue of task runs
   Runner.prototype.run = grunt.util._.debounce(function run() {
     var self = this;
-    if (self._queue.length < 1) {
+    if (self.queue.length < 1) {
       self.running = false;
       return;
     }
@@ -137,8 +137,8 @@ module.exports = function(grunt) {
     // If we should interrupt
     if (self.running === true) {
       var shouldInterrupt = true;
-      self._queue.forEach(function(name) {
-        var tr = self._targets[name];
+      self.queue.forEach(function(name) {
+        var tr = self.targets[name];
         if (tr && tr.options.interrupt !== true) {
           shouldInterrupt = false;
           return false;
@@ -161,11 +161,10 @@ module.exports = function(grunt) {
 
     // Run each target
     var shouldComplete = true;
-    grunt.util.async.forEachSeries(self._queue, function(name, next) {
-      var tr = self._targets[name];
+    grunt.util.async.forEachSeries(self.queue, function(name, next) {
+      var tr = self.targets[name];
       if (!tr) { return next(); }
       if (tr.options.nospawn) { shouldComplete = false; }
-      tr.changedFiles = self.changedFiles;
       tr.run(next);
     }, function() {
       if (shouldComplete) {
@@ -177,21 +176,9 @@ module.exports = function(grunt) {
     });
   }, 250);
 
-  // Queue target names for running
-  Runner.prototype.queue = function queue(names) {
-    var self = this;
-    if (typeof names === 'string') { names = [names]; }
-    names.forEach(function(name) {
-      if (self._queue.indexOf(name) === -1) {
-        self._queue.push(name);
-      }
-    });
-    return self._queue;
-  };
-
   // Push targets onto the queue
   Runner.prototype.add = function add(target) {
-    if (!this._targets[target.name || 0]) {
+    if (!this.targets[target.name || 0]) {
       var tr = new TaskRun(target, this.options);
 
       // Add livereload to task runs
@@ -201,11 +188,11 @@ module.exports = function(grunt) {
       var lrconfig = grunt.config([this.name, target.name || 0, 'options', 'livereload']);
       if (lrconfig) {
         tr.livereload = livereload(lrconfig);
-      } else if (this.livereload) {
+      } else if (this.livereload && lrconfig !== false) {
         tr.livereload = this.livereload;
       }
 
-      return this._targets[tr.name] = tr;
+      return this.targets[tr.name] = tr;
     }
     return false;
   };
@@ -216,12 +203,12 @@ module.exports = function(grunt) {
     if (self.running === false) { return; }
     self.running = false;
     var time = 0;
-    self._queue.forEach(function(name, i) {
-      var target = self._targets[name];
+    self.queue.forEach(function(name, i) {
+      var target = self.targets[name];
       if (!target) { return; }
       if (target.startedAt !== false) {
         time += target.complete();
-        self._queue[i] = null;
+        self.queue[i] = null;
 
         // if we're just livereloading and no tasks
         // it can happen too fast and we dont report it
@@ -238,8 +225,8 @@ module.exports = function(grunt) {
   // Run through completing every target in the queue
   Runner.prototype._completeQueue = function _completeQueue() {
     var self = this;
-    self._queue.forEach(function(name) {
-      var target = self._targets[name];
+    self.queue.forEach(function(name) {
+      var target = self.targets[name];
       if (!target) { return; }
       target.complete();
     });
@@ -296,7 +283,7 @@ module.exports = function(grunt) {
   Runner.prototype.reloadTask = function() {
     var self = this;
     // Which targets to run after reload
-    reloadTargets = self._queue;
+    reloadTargets = self.queue;
     self.emit('reload', reloadTargets);
 
     // Re-init the watch task config

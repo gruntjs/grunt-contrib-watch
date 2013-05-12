@@ -25,7 +25,6 @@ module.exports = function(grunt) {
       grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
     });
     grunt.log.writeln();
-    taskrun.changedFiles = changedFiles;
     // Reset changedFiles
     changedFiles = Object.create(null);
   });
@@ -137,9 +136,21 @@ module.exports = function(grunt) {
             grunt.event.emit('watch', status, filepath);
           }
 
-          // Run tasks
+          // Group changed files only for display
           changedFiles[filepath] = status;
-          taskrun.queue(target.name);
+
+          // Add changed files to the target
+          if (taskrun.targets[target.name]) {
+            taskrun.targets[target.name].changedFiles = Object.create(null);
+            taskrun.targets[target.name].changedFiles[filepath] = status;
+          }
+
+          // Queue the target
+          if (taskrun.queue.indexOf(target.name) === -1) {
+            taskrun.queue.push(target.name);
+          }
+
+          // Run the tasks
           taskrun.run();
         });
 
