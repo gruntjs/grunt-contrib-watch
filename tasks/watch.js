@@ -62,12 +62,6 @@ module.exports = function(grunt) {
     var self = this;
     var name = self.name || 'watch';
 
-    // Close any previously opened watchers
-    watchers.forEach(function(watcher, i) {
-      watcher.close();
-    });
-    watchers = [];
-
     // Never gonna give you up, never gonna let you down
     if (grunt.config([name, 'options', 'forever']) !== false) {
       taskrun.forever();
@@ -117,6 +111,12 @@ module.exports = function(grunt) {
 
         // On changed/added/deleted
         this.on('all', function(status, filepath) {
+
+          // Close any previously opened watchers
+          watchers.forEach(function(watcher, i) {
+            watcher.close();
+          });
+          watchers = [];
 
           // Skip events not specified
           if (!grunt.util._.contains(target.options.event, 'all') &&
