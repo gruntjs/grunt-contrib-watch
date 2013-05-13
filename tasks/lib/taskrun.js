@@ -72,7 +72,18 @@ module.exports = function(grunt) {
     }
     // Trigger livereload if set
     if (this.livereload) {
-      this.livereload.trigger(Object.keys(this.changedFiles));
+      var files = Object.keys(this.changedFiles).map(function(file) {
+        var ext = path.extname(file);
+        var mappedExt = {
+          '.less': 'css',
+          '.sass': 'css',
+          '.scss': 'css',
+          '.styl': 'css'
+        }[ext];
+        if (!mappedExt) return file;
+        return file.replace(ext, '.' + mappedExt);
+      });
+      this.livereload.trigger(files);
     }
     return time;
   };
