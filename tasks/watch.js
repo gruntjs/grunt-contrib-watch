@@ -52,15 +52,15 @@ module.exports = function(grunt) {
     grunt.log.writeln('').writeln('Reloading watch config...'.cyan);
   });
 
-  // On shutdown, close up watchers
-  process.on('SIGINT', function() {
-    grunt.log.writeln('').write('Shutting down the watch task...').ok();
-    process.exit();
-  });
-
   grunt.registerTask('watch', 'Run predefined tasks whenever watched files change.', function(target) {
     var self = this;
     var name = self.name || 'watch';
+
+    // On shutdown, close up watchers
+    process.on('SIGINT', function() {
+      grunt.log.writeln('').write('Shutting down the watch task...').ok();
+      process.exit();
+    });
 
     // Close any previously opened watchers
     watchers.forEach(function(watcher, i) {
