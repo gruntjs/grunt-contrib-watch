@@ -110,4 +110,24 @@ exports.events = {
       test.done();
     });
   },
+  targetSpecific: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'events');
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
+    assertWatch([function() {
+      var write = 'var test = false;';
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib/one', 'test.js'), write);
+      }, 300);
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib/two', 'test.js'), write);
+      }, 300);
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('lib/one/test.js was indeed changed\ntargetOne specifc event was fired') !== -1, 'event should have been emitted with targetOne specified');
+      test.ok(result.indexOf('lib/two/test.js was indeed changed\ntargetTwo specifc event was fired') !== -1, 'event should have been emitted with targetTwo specified');
+      test.done();
+    });
+  }
 };

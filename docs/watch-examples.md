@@ -41,8 +41,8 @@ grunt.initConfig({
     },
   },
 });
-grunt.event.on('watch', function(action, filepath) {
-  grunt.log.writeln(filepath + ' has ' + action);
+grunt.event.on('watch', function(action, filepath, target) {
+  grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
 });
 ```
 
