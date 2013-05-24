@@ -130,6 +130,11 @@ module.exports = function(grunt) {
             grunt.event.emit('watch', status, filepath);
           }
 
+          // Emit target specific watch events if anyone is listening
+          if (grunt.event.listeners('watch.*').length > 0) {
+            grunt.event.emit('watch.' + target.name, status, filepath);
+          }
+
           // Group changed files only for display
           changedFiles[filepath] = status;
 
