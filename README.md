@@ -328,6 +328,7 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
+ * 2013-05-27   v0.4.4   Remove gracefully closing SIGINT. Not needed and causes problems for Windows. Ensure tasks are an array to not conflict with cliArgs.
  * 2013-05-11   v0.4.3   Only group changed files per target to send correct files to live reload.
  * 2013-05-09   v0.4.2   Fix for closing watchers.
  * 2013-05-09   v0.4.1   Removed "beep" notification. Tasks now optional with livereload option. Reverted "run again" with interrupt off to fix infinite recursion issue. Watchers now close more properly on task run.
@@ -348,4 +349,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Mon May 13 2013 20:49:29.*
+*This file was generated on Mon May 27 2013 11:50:43.*
