@@ -305,6 +305,20 @@ Once installed please use the default live reload port `35729` and the browser e
 ##### Using Connect Middleware
 Since live reloading is used when developing, you may want to disable building for production (and are not using the browser extension). One method is to use Connect middleware to inject the script tag into your page. Try the [connect-livereload](https://github.com/intesso/connect-livereload) middleware for injecting the live reload script into your page.
 
+##### Rolling Your Own Live Reload
+Live reloading is made easy by the library [tiny-lr](https://github.com/mklabs/tiny-lr). It is encouraged to read the documentation for `tiny-lr`. If you would like to trigger the live reload server yourself, simply POST files to the URL: `http://localhost:35729/changed`. Or if you rather roll your own live reload implementation use the following example:
+
+```js
+// Create a live reload server instance
+var lrserver = require('tiny-lr')();
+
+// Listen on port 35729
+lrserver.listen(35729, function(err) { console.log('LR Server Started'); });
+
+// Then later trigger files or POST to localhost:35729/changed
+lrserver.changed({body:{files:['public/css/changed.css']}});
+```
+
 ### FAQs
 
 #### How do I fix the error `EMFILE: Too many opened files.`?
@@ -349,4 +363,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Mon May 27 2013 11:50:43.*
+*This file was generated on Thu May 30 2013 15:12:52.*
