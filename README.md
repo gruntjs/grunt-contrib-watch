@@ -53,10 +53,10 @@ watch: {
     files: ['**/*.js'],
     tasks: ['livereload'],
     options: {
-      nospawn: true,
-    },
-  },
-},
+      nospawn: true
+    }
+  }
+}
 ```
 
 #### options.interrupt
@@ -72,10 +72,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      interrupt: true,
-    },
-  },
-},
+      interrupt: true
+    }
+  }
+}
 ```
 
 #### options.debounceDelay
@@ -91,10 +91,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      debounceDelay: 250,
-    },
-  },
-},
+      debounceDelay: 250
+    }
+  }
+}
 ```
 
 #### options.interval
@@ -116,10 +116,10 @@ watch: {
     files: '**/*.js',
     tasks: ['generateFileManifest'],
     options: {
-      event: ['added', 'deleted'],
-    },
-  },
-},
+      event: ['added', 'deleted']
+    }
+  }
+}
 ```
 
 #### options.forever
@@ -143,10 +143,10 @@ watch: {
     files: '**/*.sass',
     tasks: ['sass'],
     options: {
-      livereload: true,
-    },
-  },
-},
+      livereload: true
+    }
+  }
+}
 ```
 
 ### Examples
@@ -156,8 +156,8 @@ watch: {
 grunt.initConfig({
   watch: {
     files: ['**/*'],
-    tasks: ['jshint'],
-  },
+    tasks: ['jshint']
+  }
 });
 ```
 
@@ -167,17 +167,17 @@ grunt.initConfig({
   watch: {
     gruntfile: {
       files: 'Gruntfile.js',
-      tasks: ['jshint:gruntfile'],
+      tasks: ['jshint:gruntfile']
     },
     src: {
       files: ['lib/*.js', 'css/**/*.scss', '!lib/dontwatch.js'],
-      tasks: ['default'],
+      tasks: ['default']
     },
     test: {
       files: '<%= jshint.test.src %>',
-      tasks: ['jshint:test', 'qunit'],
-    },
-  },
+      tasks: ['jshint:test', 'qunit']
+    }
+  }
 });
 ```
 
@@ -188,9 +188,9 @@ This task will emit a `watch` event when watched files are modified. This is use
 grunt.initConfig({
   watch: {
     scripts: {
-      files: ['lib/*.js'],
-    },
-  },
+      files: ['lib/*.js']
+    }
+  }
 });
 grunt.event.on('watch', function(action, filepath) {
   grunt.log.writeln(filepath + ' has ' + action);
@@ -209,13 +209,13 @@ grunt.initConfig({
       files: ['lib/*.js'],
       tasks: ['jshint'],
       options: {
-        nospawn: true,
-      },
-    },
+        nospawn: true
+      }
+    }
   },
   jshint: {
-    all: ['lib/*.js'],
-  },
+    all: ['lib/*.js']
+  }
 });
 
 // on watch events configure jshint:all to only run on changed file
@@ -249,13 +249,13 @@ The simplest way to add live reloading to all your watch targets is by setting `
 grunt.initConfig({
   watch: {
     options: {
-      livereload: true,
+      livereload: true
     },
     css: {
       files: ['public/scss/*.scss'],
-      tasks: ['compass'],
-    },
-  },
+      tasks: ['compass']
+    }
+  }
 });
 ```
 
@@ -269,22 +269,22 @@ grunt.initConfig({
       tasks: ['compass'],
       options: {
         // Start a live reload server on the default port 35729
-        livereload: true,
-      },
+        livereload: true
+      }
     },
     another: {
       files: ['lib/*.js'],
       tasks: ['anothertask'],
       options: {
         // Start another live reload server on port 1337
-        livereload: 1337,
-      },
+        livereload: 1337
+      }
     },
     dont: {
       files: ['other/stuff/*'],
-      tasks: ['dostuff'],
-    },
-  },
+      tasks: ['dostuff']
+    }
+  }
 });
 ```
 
