@@ -51,8 +51,6 @@ module.exports = function(grunt) {
 
     self.name = name || grunt.task.current.name || 'watch';
     self.options = grunt.task.current.options(defaults || {}, {
-      // The cwd to spawn within
-      cwd: process.cwd(),
       // Additional cli args to append when spawning
       cliArgs: grunt.util._.without.apply(null, [[].slice.call(process.argv, 2)].concat(grunt.cli.tasks)),
     });

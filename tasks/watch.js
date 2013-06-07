@@ -69,8 +69,22 @@ module.exports = function(grunt) {
 
     if (taskrun.running === false) { grunt.log.write(waiting); }
 
+    var wd = grunt.config([name, 'options', 'cwd']);
+    var relativeWd = '';
+    if (!wd) {
+      wd = process.cwd();
+    }
+    else {
+      var relativeWd = path.relative(wd, process.cwd());
+      if (relativeWd.length > 1) {
+        relativeWd += '/';
+      }
+    }
+
     // initialize taskrun
     var targets = taskrun.init(name, {
+      // The cwd to spawn within
+      cwd: wd,
       interrupt: false,
       nospawn: false,
       event: ['all'],
@@ -82,7 +96,7 @@ module.exports = function(grunt) {
 
       // Process into raw patterns
       var patterns = grunt.util._.chain(target.files).flatten().map(function(pattern) {
-        return grunt.config.process(pattern);
+        return relativeWd + grunt.config.process(pattern);
       }).value();
 
       // Validate the event option
