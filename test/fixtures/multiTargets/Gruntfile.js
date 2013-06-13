@@ -6,7 +6,8 @@ module.exports = function(grunt) {
       two: { message: 'two has changed' },
       wait: { message: 'I waited 2s', wait: 2000 },
       interrupt: { message: 'I want to be interrupted', wait: 5000 },
-      fail: { fail: 1, message: 'This task should fail', wait: 1000 }
+      fail: { fail: 1, message: 'This task should fail', wait: 1000 },
+      cwd: { message: 'cwd works' },
     },
     watch: {
       one: {
@@ -29,6 +30,13 @@ module.exports = function(grunt) {
       fail: {
         files: ['lib/fail.js'],
         tasks: ['echo:fail'],
+      },
+      cwd: {
+        options: {
+          cwd: { files: 'lib/', spawn: '.' },
+        },
+        files: ['one.js'],
+        tasks: ['echo:cwd'],
       },
     },
   });

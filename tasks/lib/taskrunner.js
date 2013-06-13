@@ -54,6 +54,11 @@ module.exports = function(grunt) {
     self.reload = false;
     self.nameArgs = (grunt.task.current.nameArgs) ? grunt.task.current.nameArgs : self.name;
 
+    // Normalize cwd option
+    if (typeof self.options.cwd === 'string') {
+      self.options.cwd = { files: self.options.cwd, spawn: self.options.cwd };
+    }
+
     // Function to call when closing the task
     self.done = done || grunt.task.current.async();
 

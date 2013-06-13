@@ -150,5 +150,18 @@ exports.watch = {
       test.equal(grunt.util._(result).count('Waiting...'), 2, 'Should have displayed "Wating..." twice');
       test.done();
     });
-  }
+  },
+  cwd: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'multiTargets');
+    var assertWatch = helper.assertTask('watch:cwd', {cwd:cwd});
+    assertWatch(function() {
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var test = true;');
+    }, function(result) {
+      helper.verboseLog(result);
+      test.ok(result.toLowerCase().indexOf('cwd works') !== -1, 'Task should have shown "cwd works".');
+      test.equal(grunt.util._(result).count('Waiting...'), 2, 'Should have displayed "Wating..." twice');
+      test.done();
+    });
+  },
 };

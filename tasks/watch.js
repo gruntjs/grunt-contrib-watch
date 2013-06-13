@@ -96,6 +96,11 @@ module.exports = function(grunt) {
         target.options.event = [target.options.event];
       }
 
+      // Set cwd if options.cwd.file is set
+      if (typeof target.options.cwd !== 'string' && target.options.cwd.files) {
+        target.options.cwd = target.options.cwd.files;
+      }
+
       // Create watcher per target
       watchers.push(new Gaze(patterns, target.options, function(err) {
         if (err) {
