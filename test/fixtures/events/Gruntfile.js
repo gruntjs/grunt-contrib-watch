@@ -29,20 +29,27 @@ module.exports = function(grunt) {
           event: ['added', 'deleted'],
         },
         files: ['lib/*.js'],
-      }
+      },
+      targetOne: { files: ['lib/one/*.js'] },
+      targetTwo: { files: ['lib/two/*.js'] },
     },
   });
 
   // Load this watch task
   grunt.loadTasks('../../../tasks');
 
-  // trigger on watch events
   var timeout;
-  grunt.event.on('watch', function(action, filepath) {
+
+  // trigger on watch events
+  grunt.event.on('watch', function(action, filepath, target) {
     grunt.log.writeln(filepath + ' was indeed ' + action);
+    if (target !== undefined) {
+      grunt.log.writeln(target + ' specifc event was fired')
+    }
     clearTimeout(timeout);
     timeout = setTimeout(function() {
       grunt.util.exit(0);
     }, 2000);
   });
+
 };
