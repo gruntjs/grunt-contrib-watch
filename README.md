@@ -192,36 +192,13 @@ grunt.initConfig({
     },
   },
 });
-grunt.event.on('watch', function(action, filepath) {
-  grunt.log.writeln(filepath + ' has ' + action);
+grunt.event.on('watch', function(action, filepath, target) {
+  grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
 });
 ```
 
 **The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](http://gruntjs.com/configuring-tasks).**
 
-Events are also emitted for specific targets:
-
-```js
-grunt.initConfig({
-  watch: {
-    one: {
-      files: ['lib/one/*.js'],
-    },
-    two: {
-      files: ['lib/one/*.js'],
-    },
-  },
-});
-grunt.event.on('watch.one', function(action, filepath) {
-  grunt.log.writeln('Target one had some activity.');
-});
-grunt.event.on('watch.two', function(action, filepath) {
-  grunt.log.writeln('Target two had some activity.');
-});
-grunt.event.on('watch.*', function(action, filepath) {
-  grunt.log.writeln('A target had some activity.');
-});
-```
 
 ##### Compiling Files As Needed
 A very common request is to only compile files as needed. Here is an example that will only lint changed files with the `jshint` task:
