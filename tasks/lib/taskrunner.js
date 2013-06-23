@@ -203,12 +203,14 @@ module.exports = function(grunt) {
     if (self.running === false) { return; }
     self.running = false;
     var time = 0;
-    self.queue.forEach(function(name, i) {
+    for (var i = 0, len = self.queue.length; i < len; ++i) {
+      var name = self.queue[i];
       var target = self.targets[name];
       if (!target) { return; }
       if (target.startedAt !== false) {
         time += target.complete();
-        self.queue[i] = null;
+        self.queue.splice(i--, 1);
+        len--;
 
         // if we're just livereloading and no tasks
         // it can happen too fast and we dont report it
@@ -216,7 +218,7 @@ module.exports = function(grunt) {
           time += 0.0001;
         }
       }
-    });
+    }
     var elapsed = (time > 0) ? Number(time / 1000) : 0;
     self.changedFiles = Object.create(null);
     self.emit('end', elapsed);
