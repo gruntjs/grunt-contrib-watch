@@ -128,6 +128,12 @@ Default: true
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
 
+#### options.atBegin
+Type: `Boolean`
+Default: false
+
+This option will trigger the run of each specified task at startup of the watcher.
+
 #### options.livereload
 Type: `Boolean|Number|Object`
 Default: false
@@ -365,4 +371,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Fri Jul 05 2013 09:42:30.*
+*This file was generated on Sun Jul 07 2013 14:50:23.*

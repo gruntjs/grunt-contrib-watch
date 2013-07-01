@@ -87,7 +87,21 @@ module.exports = function(grunt) {
     }
 
     // Return the targets normalized
-    return self._getTargets(self.name);
+    var targets = self._getTargets(self.name);
+
+    // Check whether target's tasks should run at start w/ atBegin option
+    if (self.running === false) {
+      self.queue = targets.filter(function(tr) {
+        return tr.options.atBegin === true && tr.tasks.length > 0;
+      }).map(function(tr) {
+        return tr.name;
+      });
+      if (self.queue.length > 0) {
+        self.run();
+      }
+    }
+
+    return targets;
   };
 
   // Normalize targets from config
