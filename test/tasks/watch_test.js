@@ -26,6 +26,20 @@ exports.watchConfig = {
     cleanUp();
     done();
   },
+  atBegin: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'atBegin');
+    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd:cwd});
+    assertWatch(function() {
+       // noop. Does not modify any watched files.
+    }, function(result) {
+      helper.verboseLog(result);
+      var firstIndex = result.indexOf('one has changed');
+      test.ok(firstIndex !== -1, 'Watch should have fired even though no file was changed.');
+      test.done();
+    });
+
+  },
   oneTarget: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'oneTarget');
