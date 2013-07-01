@@ -86,6 +86,15 @@ module.exports = function(grunt) {
       self.run();
     }
 
+    if(self.options.atBegin){
+      setTimeout(function(){
+        self.queue = self._getTargets(self.name).map(function(tr){
+          return tr.name;
+        });
+        self.run();
+      }, 100);
+    }
+
     // Return the targets normalized
     return self._getTargets(self.name);
   };
