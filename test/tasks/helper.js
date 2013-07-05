@@ -82,6 +82,7 @@ helper.assertTask = function assertTask(task, options) {
     spawnGrunt.on('exit', function() {
       done(out);
     });
+    return spawnGrunt;
   }
   returnFunc.options = options;
   return returnFunc;
