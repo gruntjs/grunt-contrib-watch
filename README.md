@@ -329,8 +329,10 @@ In some versions of OSX the above solution doesn't work. In that case try `launc
 #### Can I use this with Grunt v0.3?
 Yes. Although `grunt-contrib-watch` is a replacement watch task for Grunt v0.4, version `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3. `grunt-contrib-watch >= 0.2.x` is **only* compatible and recommended to use with Grunt v0.4.
 
-#### Why is the watch devouring all my memory?
+#### Why is the watch devouring all my memory/cpu?
 Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!node_modules/**/*.js'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
+
+Another reason if you're watching a large number of files could be the low default `interval`. Try increasing with `options: { interval: 5007 }`. Please see issues [#35](https://github.com/gruntjs/grunt-contrib-watch/issues/145) and [#145](https://github.com/gruntjs/grunt-contrib-watch/issues/145) for more information.
 
 #### Why spawn as child processes as a default?
 The goal of this watch task is as files are changed, run tasks as if they were triggered by the user themself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continualy produce expected results, this watch task spawns tasks as child processes by default.
@@ -363,4 +365,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Thu May 30 2013 15:12:52.*
+*This file was generated on Fri Jul 05 2013 09:42:30.*
