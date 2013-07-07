@@ -155,6 +155,14 @@ watch: {
 },
 ```
 
+#### options.cwd
+Type: `String`
+Default: `process.cwd()``
+
+If you are playing with the working directory in your process (eg: you call `process.chdir()`), maybe you'll need to specify the initial working directory here to be able to get the child task working in the same context.
+
+If you specify a `cwd`, all file patterns will be automatically adapted to the new cwd. That mean you don't need to edit the file patterns given (they will be "relativized" from the given working directory to the current working directory).
+
 ### Examples
 
 ```js
