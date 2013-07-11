@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     watch: {
       negate: {
-        files: ['**/*.js', '!lib/sub/*.js'],
+        files: ['lib/**/*.js', '!lib/sub/*.js'],
         tasks: ['echo'],
       },
     },
