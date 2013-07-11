@@ -6,16 +6,16 @@
  * Licensed under the MIT license.
  */
 
+var path = require('path');
+var Gaze = require('gaze').Gaze;
+var waiting = 'Waiting...';
+var changedFiles = Object.create(null);
+var watchers = [];
+
 module.exports = function(grunt) {
   'use strict';
 
-  var path = require('path');
-  var Gaze = require('gaze').Gaze;
   var taskrun = require('./lib/taskrunner')(grunt);
-
-  var waiting = 'Waiting...';
-  var changedFiles = Object.create(null);
-  var watchers = [];
 
   // When task runner has started
   taskrun.on('start', function() {
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
     var name = self.name || 'watch';
 
     // Close any previously opened watchers
-    watchers.forEach(function(watcher, i) {
+    watchers.forEach(function(watcher) {
       watcher.close();
     });
     watchers = [];
