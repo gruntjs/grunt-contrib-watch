@@ -29,7 +29,12 @@ module.exports = function(grunt) {
     nodeunit: {
       tests: ['test/tasks/*_test.js']
     }
+  });
 
+  // Dynamic alias task to nodeunit. Run individual tests with: grunt test:events
+  grunt.registerTask('test', function(file) {
+    grunt.config('nodeunit.tests', String(grunt.config('nodeunit.tests')).replace('*', file || '*'));
+    grunt.task.run('nodeunit');
   });
 
   grunt.loadTasks('tasks');
