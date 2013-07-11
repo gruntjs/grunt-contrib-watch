@@ -43,7 +43,7 @@ module.exports = function(grunt) {
     // If no tasks just call done to trigger potential livereload
     if (self.tasks.length < 1) { return done(); }
 
-    if (self.options.nospawn === true) {
+    if (self.options.spawn === false || self.options.nospawn === true) {
       grunt.task.run(self.tasks);
       done();
     } else {

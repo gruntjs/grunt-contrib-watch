@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     watch: {
       options: {
-        nospawn: true,
+        spawn: false,
       },
       warn: {
         files: ['lib/*.js'],

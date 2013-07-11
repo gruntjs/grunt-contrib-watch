@@ -178,7 +178,9 @@ module.exports = function(grunt) {
     grunt.util.async.forEachSeries(self.queue, function(name, next) {
       var tr = self.targets[name];
       if (!tr) { return next(); }
-      if (tr.options.nospawn) { shouldComplete = false; }
+      if (tr.options.spawn === false || tr.options.nospawn === true) {
+        shouldComplete = false;
+      }
       tr.run(next);
     }, function() {
       if (shouldComplete) {

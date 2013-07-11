@@ -12,24 +12,26 @@ Type: `String|Array`
 
 This defines which tasks to run when a watched file event occurs.
 
-## options.nospawn
+## options.spawn
 Type: `Boolean`
-Default: false
+Default: true
 
-This instructs the watch task to not spawn task runs in a child process. Setting this option also speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context (i.e., using a reload task). Not spawning task runs can make the watch more prone to failing so please use as needed.
+Whether to spawn task runs in a child process. Setting this option to `false` speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context. Not spawning task runs can make the watch more prone to failing so please use as needed.
 
 Example:
 ```js
 watch: {
   scripts: {
     files: ['**/*.js'],
-    tasks: ['livereload'],
+    tasks: ['jshint'],
     options: {
-      nospawn: true,
+      spawn: false,
     },
   },
 },
 ```
+
+*For backwards compatibility the option `nospawn` is still available and will do the opposite of `spawn`.*
 
 ## options.interrupt
 Type: `Boolean`

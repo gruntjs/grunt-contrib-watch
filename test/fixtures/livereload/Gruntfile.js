@@ -25,7 +25,7 @@ module.exports = function(grunt) {
         files: ['lib/*.js'],
         tasks: ['before'],
         options: {
-          nospawn: true,
+          spawn: false,
           livereload: 1337,
         },
       },

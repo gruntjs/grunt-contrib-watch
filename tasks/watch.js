@@ -73,6 +73,7 @@ module.exports = function(grunt) {
     var targets = taskrun.init(name, {
       interrupt: false,
       nospawn: false,
+      spawn: true,
       atBegin: false,
       event: ['all'],
       target: target,
