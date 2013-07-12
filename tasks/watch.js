@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 
   // When task runner has started
   taskrun.on('start', function() {
+    grunt.event.emit('watch-pre-run', changedFiles, taskrun.queue);
     grunt.log.ok();
     Object.keys(changedFiles).forEach(function(filepath) {
       // Log which file has changed, and how.
