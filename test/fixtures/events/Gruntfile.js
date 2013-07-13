@@ -43,6 +43,7 @@ module.exports = function(grunt) {
   // trigger on watch events
   grunt.event.on('watch', function(action, filepath, target) {
     grunt.log.writeln(filepath + ' was indeed ' + action);
+    // grunt.file.write('/tmp/fifo', filepath + ' was indeed ' + action + '\n');
     if (target !== undefined) {
       grunt.log.writeln(target + ' specifc event was fired')
     }
@@ -52,4 +53,26 @@ module.exports = function(grunt) {
     }, 2000);
   });
 
+  grunt.event.on('watch-pre-run', function(changedFiles, targets) {
+    var fileString, targetString;
+
+    fileString = grunt.util._.chain(changedFiles)
+      .map(function(status, file) { return file + ":" + status; })
+      .sortBy()
+      .reduce(function(result, file) { return result + "," + file; })
+      .value();
+
+    targetString = grunt.util._.chain(targets)
+      .sortBy()
+      .reduce(function(res, item) { return res + "," + item; })
+      .value();
+
+    grunt.log.writeln('running ' + fileString + ' ' + targetString);
+    // grunt.file.write('/tmp/fifo', 'running ' + fileString + ' ' + targetString + '\n');
+
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      grunt.util.exit(0);
+    }, 2000);
+  });
 };
