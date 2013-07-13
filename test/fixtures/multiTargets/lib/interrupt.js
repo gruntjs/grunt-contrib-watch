@@ -1,1 +1,1 @@
-var interrupt = true;
+var interrupt = 3;
