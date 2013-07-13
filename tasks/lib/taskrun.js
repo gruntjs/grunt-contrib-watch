@@ -47,6 +47,10 @@ module.exports = function(grunt) {
       grunt.task.run(self.tasks);
       done();
     } else {
+      var args = self.tasks.concat(self.options.cliArgs || []);
+      if(self.options.fileAsArg) {
+        args.push('--file=' + Object.keys(self.changedFiles)[0]);
+      }
       self.spawned = grunt.util.spawn({
         // Spawn with the grunt bin
         grunt: true,
@@ -56,7 +60,7 @@ module.exports = function(grunt) {
           stdio: 'inherit',
         },
         // Run grunt this process uses, append the task to be run and any cli options
-        args: self.tasks.concat(self.options.cliArgs || [])
+        args: args
       }, function(err, res, code) {
         // Spawn is done
         self.spawned = null;
