@@ -58,9 +58,11 @@ module.exports = function(grunt) {
         // Run grunt this process uses, append the task to be run and any cli options
         args: self.tasks.concat(self.options.cliArgs || []),
       }, function(err, res, code) {
-        // Spawn is done
-        self.spawned = null;
-        done();
+        if (self.options.interrupt !== true || code !== 130) {
+          // Spawn is done
+          self.spawned = null;
+          done();
+        }
       });
     }
   };
