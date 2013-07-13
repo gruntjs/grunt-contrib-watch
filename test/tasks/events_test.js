@@ -14,11 +14,11 @@ function cleanUp() {
   ]);
 }
 
+var fileContent = 'var one = true;';
 function writeAll(cwd) {
-  var write = 'var one = true;';
-  grunt.file.write(path.join(cwd, 'lib', 'added.js'), write);
+  grunt.file.write(path.join(cwd, 'lib', 'added.js'), fileContent);
   setTimeout(function() {
-    grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
+    grunt.file.write(path.join(cwd, 'lib', 'one.js'), fileContent);
   }, 300);
   setTimeout(function() {
     grunt.file.delete(path.join(cwd, 'lib', 'added.js'));
@@ -115,18 +115,44 @@ exports.events = {
     var cwd = path.resolve(fixtures, 'events');
     var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch([function() {
-      var write = 'var test = false;';
       setTimeout(function() {
-        grunt.file.write(path.join(cwd, 'lib/one', 'test.js'), write);
+        grunt.file.write(path.join(cwd, 'lib/one', 'test.js'), fileContent);
       }, 300);
       setTimeout(function() {
-        grunt.file.write(path.join(cwd, 'lib/two', 'test.js'), write);
+        grunt.file.write(path.join(cwd, 'lib/two', 'test.js'), fileContent);
       }, 300);
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('lib/one/test.js was indeed changed\ntargetOne specifc event was fired') !== -1, 'event should have been emitted with targetOne specified');
       test.ok(result.indexOf('lib/two/test.js was indeed changed\ntargetTwo specifc event was fired') !== -1, 'event should have been emitted with targetTwo specified');
+      test.done();
+    });
+  },
+  watchPreRunSingleTarget: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'events');
+    var assertWatch = helper.assertTask('watch:all', {cwd: cwd});
+    assertWatch([function() {
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), fileContent);
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('running lib/one.js:changed all') !== -1, 'watch-pre-run');
+      test.done();
+    });
+  },
+  watchPreRunManyTargets: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'events');
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
+    assertWatch([function() {
+      grunt.file.write(path.join(cwd, 'lib', 'one', 'test.js'), fileContent);
+      grunt.file.write(path.join(cwd, 'lib', 'two', 'test.js'), fileContent);
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('running lib/one/test.js:changed,lib/two/test.js:changed targetOne,targetTwo') !== -1, 'watch-pre-run');
       test.done();
     });
   }
