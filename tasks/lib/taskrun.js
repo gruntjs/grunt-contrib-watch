@@ -61,9 +61,11 @@ module.exports = function(grunt) {
         },
         args: args
       }, function(err, res, code) {
-        // Spawn is done
-        self.spawned = null;
-        done();
+        if (self.options.interrupt !== true || code !== 130) {
+          // Spawn is done
+          self.spawned = null;
+          done();
+        }
       });
     }
   };

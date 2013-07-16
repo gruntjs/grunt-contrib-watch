@@ -113,17 +113,23 @@ exports.watchConfig = {
     });
   },
   interrupt: function(test) {
-    test.expect(1);
+    test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
     var assertWatch = helper.assertTask('watch', {cwd:cwd});
     assertWatch(function() {
-      grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = false;');
+      grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 1;');
       setTimeout(function() {
-        grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = true;');
+        grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 2;');
       }, 1000);
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 3;');
+      }, 2000);
     }, function(result) {
       helper.verboseLog(result);
-      test.ok(result.indexOf('have been interrupted') !== -1, 'Task should have been interrupted.');
+      var interruptMatches = result.match(/have been interrupted/g);
+      test.ok(interruptMatches && interruptMatches.length === 2, 'Task should have been interrupted 2 times.');
+      var unInterruptMatches = result.match(/I want to be interrupted/g);
+      test.ok(unInterruptMatches && unInterruptMatches.length === 1, 'Only the last time should be working (without interruption)');
       test.done();
     });
   },
