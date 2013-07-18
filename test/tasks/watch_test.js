@@ -6,7 +6,7 @@ var fs = require('fs');
 var helper = require('./helper');
 
 var fixtures = helper.fixtures;
-var useFixtures = ['multiTargets', 'oneTarget', 'atBegin'];
+var useFixtures = ['multiTargets', 'oneTarget', 'atBegin', 'dateFormat'];
 
 function cleanUp() {
   useFixtures.forEach(function(fixture) {
@@ -38,7 +38,18 @@ exports.watch = {
       test.ok(firstIndex !== -1, 'Watch should have fired even though no file was changed.');
       test.done();
     });
-
+  },
+  dateFormat: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'dateFormat');
+    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd:cwd});
+    assertWatch(function() {
+       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
+    }, function(result) {
+      helper.verboseLog(result);
+      test.ok(result.indexOf('dateFormat has worked!') !== -1, 'Should have displayed a custom dateFormat.');
+      test.done();
+    });
   },
   oneTarget: function(test) {
     test.expect(2);

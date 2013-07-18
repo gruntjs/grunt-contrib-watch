@@ -102,6 +102,26 @@ Default: true
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
 
+## options.dateFormat
+Type: `Function`
+
+This is *only a task level option* and cannot be configured per target. By default when the watch has finished running tasks it will display the message `Completed in 1.301s at Thu Jul 18 2013 14:58:21 GMT-0700 (PDT) - Waiting...`. You can override this message by supplying your own function:
+
+```js
+watch: {
+  options: {
+    dateFormat: function(time) {
+      grunt.log.writeln('The watch finished in ' + time + 'ms at' + (new Date()).toString()));
+      grunt.log.writeln('Waiting for more changes...');
+    },
+  },
+  scripts: {
+    files: '**/*.js',
+    tasks: 'jshint',
+  },
+},
+```
+
 ## options.atBegin
 Type: `Boolean`
 Default: false

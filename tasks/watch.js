@@ -17,6 +17,16 @@ module.exports = function(grunt) {
 
   var taskrun = require('./lib/taskrunner')(grunt);
 
+  // Default date format logged
+  var dateFormat = function(time) {
+    grunt.log.writeln(String(
+      'Completed in ' +
+      time.toFixed(3) +
+      's at ' +
+      (new Date()).toString()
+    ).cyan + ' - ' + waiting);
+  };
+
   // When task runner has started
   taskrun.on('start', function() {
     grunt.log.ok();
@@ -32,12 +42,7 @@ module.exports = function(grunt) {
   // When task runner has ended
   taskrun.on('end', function(time) {
     if (time > 0) {
-      grunt.log.writeln(String(
-        'Completed in ' +
-        time.toFixed(3) +
-        's at ' +
-        (new Date()).toString()
-      ).cyan + ' - ' + waiting);
+      dateFormat(time);
     }
   });
 
@@ -65,6 +70,12 @@ module.exports = function(grunt) {
     // Never gonna give you up, never gonna let you down
     if (grunt.config([name, 'options', 'forever']) !== false) {
       taskrun.forever();
+    }
+
+    // If a custom dateFormat function
+    var df = grunt.config([name, 'options', 'dateFormat']);
+    if (typeof df === 'function') {
+      dateFormat = df;
     }
 
     if (taskrun.running === false) { grunt.log.write(waiting); }
