@@ -6,7 +6,7 @@ var fs = require('fs');
 var helper = require('./helper');
 
 var fixtures = helper.fixtures;
-var useFixtures = ['multiTargets', 'oneTarget'];
+var useFixtures = ['multiTargets', 'oneTarget', 'atBegin'];
 
 function cleanUp() {
   useFixtures.forEach(function(fixture) {
@@ -14,7 +14,7 @@ function cleanUp() {
   });
 }
 
-exports.watchConfig = {
+exports.watch = {
   setUp: function(done) {
     cleanUp();
     useFixtures.forEach(function(fixture) {

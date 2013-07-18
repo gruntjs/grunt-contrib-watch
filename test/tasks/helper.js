@@ -100,6 +100,5 @@ helper.cleanUp = function cleanUp(files) {
 
 // Helper for testing cross platform
 helper.unixify = function(str) {
-  str = grunt.util.normalizelf(str);
-  return str.replace(/\\/g, '/');
+  return str.replace(/\\/g, '/').replace(/\r\n|\n/g, '\n');
 };
