@@ -168,6 +168,35 @@ lrserver.listen(35729, function(err) { console.log('LR Server Started'); });
 lrserver.changed({body:{files:['public/css/changed.css']}});
 ```
 
+### Live Reload with Preprocessors
+Any time a watched file is edited with the `livereload` option enabled, the file will be sent to the live reload server. Some edited files you may desire to have sent to the live reload server, such as when preprocessing (`sass`, `less`, `coffeescript`, etc). As any file not recognized will reload the entire page as opposed to just the `css` or `javascript`.
+
+The solution is to point a `livereload` watch target to your destination files:
+
+```js
+grunt.initConfig({
+  sass: {
+    dev: {
+      src: ['src/sass/*.sass'],
+      dest: 'dest/css/index.css',
+    },
+  },
+  watch: {
+    sass: {
+      // We watch and compile sass files as normal but don't live reload here
+      files: ['src/sass/*.sass'],
+      tasks: ['sass'],
+    },
+    livereload: {
+      // Here we watch the files the sass task will compile to
+      // These files are sent to the live reload server after sass compiles to them
+      options: { livereload: true },
+      files: ['dest/**/*'],
+    },
+  },
+});
+```
+
 # FAQs
 
 ## How do I fix the error `EMFILE: Too many opened files.`?
