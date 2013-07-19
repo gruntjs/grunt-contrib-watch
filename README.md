@@ -40,24 +40,26 @@ Type: `String|Array`
 
 This defines which tasks to run when a watched file event occurs.
 
-#### options.nospawn
+#### options.spawn
 Type: `Boolean`
-Default: false
+Default: true
 
-This instructs the watch task to not spawn task runs in a child process. Setting this option also speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context (i.e., using a reload task). Not spawning task runs can make the watch more prone to failing so please use as needed.
+Whether to spawn task runs in a child process. Setting this option to `false` speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context. Not spawning task runs can make the watch more prone to failing so please use as needed.
 
 Example:
 ```js
 watch: {
   scripts: {
     files: ['**/*.js'],
-    tasks: ['livereload'],
+    tasks: ['jshint'],
     options: {
-      nospawn: true,
+      spawn: false,
     },
   },
 },
 ```
+
+*For backwards compatibility the option `nospawn` is still available and will do the opposite of `spawn`.*
 
 #### options.interrupt
 Type: `Boolean`
@@ -127,6 +129,26 @@ Type: `Boolean`
 Default: true
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
+
+#### options.dateFormat
+Type: `Function`
+
+This is *only a task level option* and cannot be configured per target. By default when the watch has finished running tasks it will display the message `Completed in 1.301s at Thu Jul 18 2013 14:58:21 GMT-0700 (PDT) - Waiting...`. You can override this message by supplying your own function:
+
+```js
+watch: {
+  options: {
+    dateFormat: function(time) {
+      grunt.log.writeln('The watch finished in ' + time + 'ms at' + (new Date()).toString()));
+      grunt.log.writeln('Waiting for more changes...');
+    },
+  },
+  scripts: {
+    files: '**/*.js',
+    tasks: 'jshint',
+  },
+},
+```
 
 #### options.atBegin
 Type: `Boolean`
@@ -325,6 +347,35 @@ lrserver.listen(35729, function(err) { console.log('LR Server Started'); });
 lrserver.changed({body:{files:['public/css/changed.css']}});
 ```
 
+##### Live Reload with Preprocessors
+Any time a watched file is edited with the `livereload` option enabled, the file will be sent to the live reload server. Some edited files you may desire to have sent to the live reload server, such as when preprocessing (`sass`, `less`, `coffeescript`, etc). As any file not recognized will reload the entire page as opposed to just the `css` or `javascript`.
+
+The solution is to point a `livereload` watch target to your destination files:
+
+```js
+grunt.initConfig({
+  sass: {
+    dev: {
+      src: ['src/sass/*.sass'],
+      dest: 'dest/css/index.css',
+    },
+  },
+  watch: {
+    sass: {
+      // We watch and compile sass files as normal but don't live reload here
+      files: ['src/sass/*.sass'],
+      tasks: ['sass'],
+    },
+    livereload: {
+      // Here we watch the files the sass task will compile to
+      // These files are sent to the live reload server after sass compiles to them
+      options: { livereload: true },
+      files: ['dest/**/*'],
+    },
+  },
+});
+```
+
 ### FAQs
 
 #### How do I fix the error `EMFILE: Too many opened files.`?
@@ -336,12 +387,12 @@ In some versions of OSX the above solution doesn't work. In that case try `launc
 Yes. Although `grunt-contrib-watch` is a replacement watch task for Grunt v0.4, version `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3. `grunt-contrib-watch >= 0.2.x` is **only* compatible and recommended to use with Grunt v0.4.
 
 #### Why is the watch devouring all my memory/cpu?
-Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!node_modules/**/*.js'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
+Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!**/node_modules/**'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
 
 Another reason if you're watching a large number of files could be the low default `interval`. Try increasing with `options: { interval: 5007 }`. Please see issues [#35](https://github.com/gruntjs/grunt-contrib-watch/issues/145) and [#145](https://github.com/gruntjs/grunt-contrib-watch/issues/145) for more information.
 
 #### Why spawn as child processes as a default?
-The goal of this watch task is as files are changed, run tasks as if they were triggered by the user themself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continualy produce expected results, this watch task spawns tasks as child processes by default.
+The goal of this watch task is as files are changed, run tasks as if they were triggered by the user themself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continually produce expected results, this watch task spawns tasks as child processes by default.
 
 Sandboxing task runs also allows this watch task to run more stable over long periods of time. As well as more efficiently with more complex tasks and file structures.
 
@@ -350,6 +401,7 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
+ * 2013-07-18   v0.5.0   Added target name to watch event. Added atBegin option to run tasks when watcher starts. Changed nospawn option to spawn (nospawn still available for backwards compatibility). Moved libs/vars into top scope to prevent re-init. Bumped Gaze version to ~0.4. Re-grab task/target options upon each task run. Add dateFormat option to override the date/time output upon completion.
  * 2013-05-27   v0.4.4   Remove gracefully closing SIGINT. Not needed and causes problems for Windows. Ensure tasks are an array to not conflict with cliArgs.
  * 2013-05-11   v0.4.3   Only group changed files per target to send correct files to live reload.
  * 2013-05-09   v0.4.2   Fix for closing watchers.
@@ -371,4 +423,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sun Jul 07 2013 14:50:23.*
+*This file was generated on Thu Jul 18 2013 20:14:03.*

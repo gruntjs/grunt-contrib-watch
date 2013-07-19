@@ -1,12 +1,13 @@
-v0.4.5:
-  date: 2013-07-12
+v0.5.0:
+  date: 2013-07-18
   changes:
-    - Added target specific event emissions.
+    - Added target name to watch event.
     - Added atBegin option to run tasks when watcher starts.
-    - Changed nospawn option to spawn.
-    - Removed watching **/*.js as it would watch node_modules.
+    - Changed nospawn option to spawn (nospawn still available for backwards compatibility).
     - Moved libs/vars into top scope to prevent re-init.
-    - Bumped Gaze version to 0.4.
+    - Bumped Gaze version to ~0.4.
+    - Re-grab task/target options upon each task run.
+    - Add dateFormat option to override the date/time output upon completion.
 v0.4.4:
   date: 2013-05-27
   changes:
