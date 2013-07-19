@@ -148,6 +148,9 @@ module.exports = function(grunt) {
       return;
     }
 
+    // Re-grab task options in case they changed between runs
+    self.options = grunt.config([self.name, 'options']) || {};
+
     // If we should interrupt
     if (self.running === true) {
       var shouldInterrupt = true;
@@ -178,6 +181,10 @@ module.exports = function(grunt) {
     grunt.util.async.forEachSeries(self.queue, function(name, next) {
       var tr = self.targets[name];
       if (!tr) { return next(); }
+
+      // Re-grab options in case they changed between runs
+      tr.options = grunt.util._.defaults(grunt.config([self.name, name, 'options']) || {}, self.options);
+
       if (tr.options.spawn === false || tr.options.nospawn === true) {
         shouldComplete = false;
       }

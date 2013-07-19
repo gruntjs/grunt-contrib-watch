@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 
   // Run it
   TaskRun.prototype.run = function(done) {
-    var self = this, args;
+    var self = this;
 
     // Dont run if already running
     if (self.startedAt !== false) { return; }
@@ -47,10 +47,6 @@ module.exports = function(grunt) {
       grunt.task.run(self.tasks);
       done();
     } else {
-      // Run grunt this process uses, append the task to be run and any cli options
-      args = self.tasks
-          .concat(self.options.cliArgs || [])
-          .concat(grunt.config(['watch', 'options', 'cliArgs']) || []);
       self.spawned = grunt.util.spawn({
         // Spawn with the grunt bin
         grunt: true,
@@ -59,7 +55,8 @@ module.exports = function(grunt) {
           cwd: self.options.cwd,
           stdio: 'inherit',
         },
-        args: args
+        // Run grunt this process uses, append the task to be run and any cli options
+        args: self.tasks.concat(self.options.cliArgs || []),
       }, function(err, res, code) {
         // Spawn is done
         self.spawned = null;
