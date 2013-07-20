@@ -1,3 +1,7 @@
+v0.5.1:
+  date: 2013-07-20
+  changes:
+    - Fixed issue with options resetting.
 v0.5.0:
   date: 2013-07-18
   changes:
