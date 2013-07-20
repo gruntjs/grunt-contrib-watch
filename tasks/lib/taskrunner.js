@@ -50,12 +50,7 @@ module.exports = function(grunt) {
     var self = this;
 
     self.name = name || grunt.task.current.name || 'watch';
-    self.options = grunt.task.current.options(defaults || {}, {
-      // The cwd to spawn within
-      cwd: process.cwd(),
-      // Additional cli args to append when spawning
-      cliArgs: grunt.util._.without.apply(null, [[].slice.call(process.argv, 2)].concat(grunt.cli.tasks)),
-    });
+    self.options = self._options(grunt.config([self.name, 'options']) || {}, defaults || {});
     self.reload = false;
     self.nameArgs = (grunt.task.current.nameArgs) ? grunt.task.current.nameArgs : self.name;
 
@@ -120,7 +115,7 @@ module.exports = function(grunt) {
       grunt.task.current.requiresConfig([name, target, 'files']);
       var cfg = grunt.config([name, target]);
       cfg.name = target;
-      cfg.options = grunt.util._.defaults(cfg.options || {}, self.options);
+      cfg.options = self._options(cfg.options || {}, self.options);
       self.add(cfg);
       return cfg;
     }, self);
@@ -131,13 +126,30 @@ module.exports = function(grunt) {
         files: config.files,
         tasks: config.tasks,
         name: 'default',
-        options: grunt.util._.defaults(config.options || {}, self.options),
+        options: self._options(config.options || {}, self.options),
       };
       targets.push(cfg);
       self.add(cfg);
     }
 
     return targets;
+  };
+
+  // Default options
+  Runner.prototype._options = function _options() {
+    var args = Array.prototype.slice.call(arguments).concat({
+      // The cwd to spawn within
+      cwd: process.cwd(),
+      // Additional cli args to append when spawning
+      cliArgs: grunt.util._.without.apply(null, [[].slice.call(process.argv, 2)].concat(grunt.cli.tasks)),
+      interrupt: false,
+      nospawn: false,
+      spawn: true,
+      atBegin: false,
+      event: ['all'],
+      target: null,
+    });
+    return grunt.util._.defaults.apply(grunt.util._, args);
   };
 
   // Run the current queue of task runs
@@ -149,7 +161,7 @@ module.exports = function(grunt) {
     }
 
     // Re-grab task options in case they changed between runs
-    self.options = grunt.config([self.name, 'options']) || {};
+    self.options = self._options(grunt.config([self.name, 'options']) || {}, self.options);
 
     // If we should interrupt
     if (self.running === true) {
@@ -183,7 +195,7 @@ module.exports = function(grunt) {
       if (!tr) { return next(); }
 
       // Re-grab options in case they changed between runs
-      tr.options = grunt.util._.defaults(grunt.config([self.name, name, 'options']) || {}, self.options);
+      tr.options = self._options(grunt.config([self.name, name, 'options']) || {}, tr.options, self.options);
 
       if (tr.options.spawn === false || tr.options.nospawn === true) {
         shouldComplete = false;
@@ -202,7 +214,7 @@ module.exports = function(grunt) {
   // Push targets onto the queue
   Runner.prototype.add = function add(target) {
     if (!this.targets[target.name || 0]) {
-      var tr = new TaskRun(target, this.options);
+      var tr = new TaskRun(target);
 
       // Add livereload to task runs
       // Get directly from config as task level options are merged.

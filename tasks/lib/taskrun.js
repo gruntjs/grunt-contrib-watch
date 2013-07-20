@@ -17,7 +17,7 @@ module.exports = function(grunt) {
   var livereload = require('./livereload')(grunt);
 
   // Create a TaskRun on a target
-  function TaskRun(target, defaults) {
+  function TaskRun(target) {
     this.name = target.name || 0;
     this.files = target.files || [];
     this.tasks = target.tasks || [];

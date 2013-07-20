@@ -81,14 +81,7 @@ module.exports = function(grunt) {
     if (taskrun.running === false) { grunt.log.write(waiting); }
 
     // initialize taskrun
-    var targets = taskrun.init(name, {
-      interrupt: false,
-      nospawn: false,
-      spawn: true,
-      atBegin: false,
-      event: ['all'],
-      target: target,
-    });
+    var targets = taskrun.init(name, {target: target});
 
     targets.forEach(function(target, i) {
       if (typeof target.files === 'string') { target.files = [target.files]; }
