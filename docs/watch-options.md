@@ -111,7 +111,7 @@ This is *only a task level option* and cannot be configured per target. By defau
 watch: {
   options: {
     dateFormat: function(time) {
-      grunt.log.writeln('The watch finished in ' + time + 'ms at' + (new Date()).toString()));
+      grunt.log.writeln('The watch finished in ' + time + 'ms at' + (new Date()).toString());
       grunt.log.writeln('Waiting for more changes...');
     },
   },
