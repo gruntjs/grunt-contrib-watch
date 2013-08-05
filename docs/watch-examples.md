@@ -58,7 +58,7 @@ grunt.initConfig({
       files: ['lib/*.js'],
       tasks: ['jshint'],
       options: {
-        nospawn: true,
+        spawn: false,
       },
     },
   },
@@ -73,7 +73,7 @@ grunt.event.on('watch', function(action, filepath) {
 });
 ```
 
-If you need to dynamically modify your config, the `nospawn` option must be enabled to keep the watch running under the same context.
+If you need to dynamically modify your config, the `spawn` option must be disabled to keep the watch running under the same context.
 
 If you save multiple files simultaneously you may opt for a more robust method:
 
@@ -217,4 +217,4 @@ The goal of this watch task is as files are changed, run tasks as if they were t
 
 Sandboxing task runs also allows this watch task to run more stable over long periods of time. As well as more efficiently with more complex tasks and file structures.
 
-Spawning does cause a performance hit (usually 500ms for most environments). It also cripples tasks that rely on the watch task to share the context with each subsequent run (i.e., reload tasks). If you would like a faster watch task or need to share the context please set the `nospawn` option to `true`. Just be aware that with this option enabled, the watch task is more prone to failure.
+Spawning does cause a performance hit (usually 500ms for most environments). It also cripples tasks that rely on the watch task to share the context with each subsequent run (i.e., reload tasks). If you would like a faster watch task or need to share the context please set the `spawn` option to `false`. Just be aware that with this option enabled, the watch task is more prone to failure.
