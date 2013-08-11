@@ -242,31 +242,16 @@ grunt.initConfig({
     },
   },
   jshint: {
-    all: ['lib/*.js'],
+    all: [
+            {
+              src:'lib/*.js',
+              filter: function(p) { return grunt.file.hasChanged(p); }
+            }
+    ]
   },
 });
 
-// on watch events configure jshint:all to only run on changed file
-grunt.event.on('watch', function(action, filepath) {
-  grunt.config(['jshint', 'all'], filepath);
-});
-```
-
-If you need to dynamically modify your config, the `spawn` option must be disabled to keep the watch running under the same context.
-
-If you save multiple files simultaneously you may opt for a more robust method:
-
-```js
-var changedFiles = Object.create(null);
-var onChange = grunt.util._.debounce(function() {
-  grunt.config(['jshint', 'all'], Object.keys(changedFiles));
-  changedFiles = Object.create(null);
-}, 200);
-grunt.event.on('watch', function(action, filepath) {
-  changedFiles[filepath] = action;
-  onChange();
-});
-```
+Like watch need to communicate to your filter function, the `spawn` option must be disabled to keep the watch running under the same context.
 
 #### Live Reloading
 Live reloading is built into the watch task. Set the option `livereload` to `true` to enable on the default port `35729` or set to a custom port: `livereload: 1337`.
