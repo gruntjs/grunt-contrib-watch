@@ -15,7 +15,12 @@ var util = require('util');
 module.exports = function(grunt) {
 
   var livereload = require('./livereload')(grunt);
-
+  grunt.file.hasChanged = function(path) {
+    if (grunt.file.changedFiles !== undefined) {
+        return grunt.file.changedFiles[path] !== undefined;
+    }
+    return true;
+  };
   // Create a TaskRun on a target
   function TaskRun(target) {
     this.name = target.name || 0;
@@ -44,6 +49,7 @@ module.exports = function(grunt) {
     if (self.tasks.length < 1) { return done(); }
 
     if (self.options.spawn === false || self.options.nospawn === true) {
+      grunt.file.changedFiles = this.changedFiles;
       grunt.task.run(self.tasks);
       done();
     } else {
