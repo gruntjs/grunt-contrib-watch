@@ -126,6 +126,11 @@ module.exports = function(grunt) {
 
           filepath = path.relative(process.cwd(), filepath);
 
+          // Skip empty filepaths
+          if (filepath === '') {
+            return;
+          }
+
           // If Gruntfile.js changed, reload self task
           if (/gruntfile\.(js|coffee)/i.test(filepath)) {
             taskrun.reload = true;
