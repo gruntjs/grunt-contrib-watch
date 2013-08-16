@@ -1,3 +1,8 @@
+v0.5.2:
+  date: 2013-08-16
+  changes:
+    - Fixed issue running tasks after gruntfile is reloaded.
+    - Ignores empty file paths.
 v0.5.1:
   date: 2013-07-20
   changes:

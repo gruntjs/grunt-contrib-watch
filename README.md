@@ -401,6 +401,7 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
+ * 2013-08-16   v0.5.2   Fixed issue running tasks after gruntfile is reloaded. Ignores empty file paths.
  * 2013-07-20   v0.5.1   Fixed issue with options resetting.
  * 2013-07-18   v0.5.0   Added target name to watch event. Added atBegin option to run tasks when watcher starts. Changed nospawn option to spawn (nospawn still available for backwards compatibility). Moved libs/vars into top scope to prevent re-init. Bumped Gaze version to ~0.4. Re-grab task/target options upon each task run. Add dateFormat option to override the date/time output upon completion.
  * 2013-05-27   v0.4.4   Remove gracefully closing SIGINT. Not needed and causes problems for Windows. Ensure tasks are an array to not conflict with cliArgs.
@@ -424,4 +425,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Mon Aug 05 2013 12:51:45.*
+*This file was generated on Fri Aug 16 2013 08:58:16.*
