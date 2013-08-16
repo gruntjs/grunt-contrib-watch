@@ -71,6 +71,9 @@ module.exports = function(grunt) {
       self.livereload = livereload(taskLRConfig);
     }
 
+    // Return the targets normalized
+    var targets = self._getTargets(self.name);
+
     if (self.running) {
       // If previously running, complete the last run
       self.complete();
@@ -79,13 +82,8 @@ module.exports = function(grunt) {
       self.queue = reloadTargets;
       reloadTargets = [];
       self.run();
-    }
-
-    // Return the targets normalized
-    var targets = self._getTargets(self.name);
-
-    // Check whether target's tasks should run at start w/ atBegin option
-    if (self.running === false) {
+    } else {
+      // Check whether target's tasks should run at start w/ atBegin option
       self.queue = targets.filter(function(tr) {
         return tr.options.atBegin === true && tr.tasks.length > 0;
       }).map(function(tr) {
