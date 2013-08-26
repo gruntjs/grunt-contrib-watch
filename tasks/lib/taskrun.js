@@ -76,6 +76,7 @@ module.exports = function(grunt) {
     // Trigger livereload if set
     if (this.livereload) {
       this.livereload.trigger(Object.keys(this.changedFiles));
+      this.changedFiles = Object.create(null);
     }
     return time;
   };
