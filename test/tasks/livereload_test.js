@@ -84,6 +84,24 @@ exports.livereload = {
       test.done();
     });
   },
+  differentfiles: function(test) {
+    test.expect(3);
+    var cwd = path.resolve(fixtures, 'livereload');
+    var assertWatch = helper.assertTask(['watch:differentfiles', '-v'], {cwd: cwd});
+    assertWatch([function() {
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
+      setTimeout(function () {
+        grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var two = true;');
+      }, 500);
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
+      test.ok(result.indexOf('Live reloading lib/two.js...') !== -1, 'live reload should have triggered on lib/two.js');
+      test.ok(! /Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result), 'live reload should have cleared js file that was already reloaded');
+      test.done();
+    });
+  },
   multiplefiles: function(test) {
     test.expect(4);
     var resultData = '';
@@ -99,7 +117,7 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 9876') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on port: 9876') !== -1, 'live reload server should have been started on port 9876.');
       test.ok(/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result), 'live reload should have triggered on lib/one.js and lib/two.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
