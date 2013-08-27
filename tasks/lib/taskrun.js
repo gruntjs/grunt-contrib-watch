@@ -52,7 +52,7 @@ module.exports = function(grunt) {
         grunt: true,
         // Run from current working dir and inherit stdio from process
         opts: {
-          cwd: self.options.cwd,
+          cwd: self.options.gruntCwd || self.options.cwd,
           stdio: 'inherit',
         },
         // Run grunt this process uses, append the task to be run and any cli options
