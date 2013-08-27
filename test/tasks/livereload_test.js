@@ -90,9 +90,8 @@ exports.livereload = {
     var assertWatch = helper.assertTask(['watch:differentfiles', '-v'], {cwd: cwd});
     assertWatch([function() {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
-      setTimeout(function () {
-        grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var two = true;');
-      }, 500);
+    }, function() {
+      grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var two = true;');
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
