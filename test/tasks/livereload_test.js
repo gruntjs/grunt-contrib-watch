@@ -98,7 +98,7 @@ exports.livereload = {
       helper.verboseLog(result);
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       test.ok(result.indexOf('Live reloading lib/two.js...') !== -1, 'live reload should have triggered on lib/two.js');
-      test.ok(! /Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result), 'live reload should have cleared js file that was already reloaded');
+      test.ok(!/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result), 'live reload should have cleared js file that was already reloaded');
       test.done();
     });
   },
