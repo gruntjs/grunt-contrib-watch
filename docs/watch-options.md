@@ -149,6 +149,26 @@ watch: {
 },
 ```
 
+It's possible to get livereload working over https connections. To do this, pass an object to `livereload` with a `key` and `cert` paths specified.
+
+Example:
+```js
+watch: {
+  css: {
+    files: '**/*.sass',
+    tasks: ['sass'],
+    options: {
+      livereload: {
+        port: 9000,
+        key: 'path/to/ssl.key',
+        cert: 'path/to/ssl.crt'
+      }
+    },
+  },
+},
+```
+
+
 ## options.cwd
 Type: `String|Object`
 Default: `process.cwd()`
