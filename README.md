@@ -1,4 +1,4 @@
-# grunt-contrib-watch v0.5.3 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
@@ -177,6 +177,29 @@ watch: {
 },
 ```
 
+<<<<<<< HEAD
+=======
+It's possible to get livereload working over https connections. To do this, pass an object to `livereload` with a `key` and `cert` paths specified.
+
+Example:
+```js
+watch: {
+  css: {
+    files: '**/*.sass',
+    tasks: ['sass'],
+    options: {
+      livereload: {
+        port: 9000,
+        key: 'path/to/ssl.key',
+        cert: 'path/to/ssl.crt'
+      }
+    },
+  },
+},
+```
+
+
+>>>>>>> Enable live reload to work over https connections
 #### options.cwd
 Type: `String|Object`
 Default: `process.cwd()`
@@ -328,7 +351,7 @@ grunt.initConfig({
 Once you've started a live reload server you'll be able to access the live reload script. To enable live reload on your page, add a script tag before your closing `</body>` tag pointing to the `livereload.js` script:
 
 ```html
-<script src="http://localhost:35729/livereload.js"></script>
+<script src="//localhost:35729/livereload.js"></script>
 ```
 
 Feel free to add this script to your template situation and toggle with some sort of `dev` flag.

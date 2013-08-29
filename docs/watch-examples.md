@@ -143,7 +143,7 @@ grunt.initConfig({
 Once you've started a live reload server you'll be able to access the live reload script. To enable live reload on your page, add a script tag before your closing `</body>` tag pointing to the `livereload.js` script:
 
 ```html
-<script src="http://localhost:35729/livereload.js"></script>
+<script src="//localhost:35729/livereload.js"></script>
 ```
 
 Feel free to add this script to your template situation and toggle with some sort of `dev` flag.
