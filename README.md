@@ -1,4 +1,4 @@
-# grunt-contrib-watch v0.5.3 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
