@@ -1,4 +1,4 @@
-# grunt-contrib-watch v0.5.3 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
@@ -176,6 +176,32 @@ watch: {
   },
 },
 ```
+
+It's possible to get livereload working over https connections. To do this, pass an object to `livereload` with a `key` and `cert` paths specified.
+
+Example:
+```js
+watch: {
+  css: {
+    files: '**/*.sass',
+    tasks: ['sass'],
+    options: {
+      livereload: {
+        port: 9000,
+        key: 'path/to/ssl.key',
+        cert: 'path/to/ssl.crt'
+      }
+    },
+  },
+},
+```
+
+
+#### options.cwd
+Type: `String|Object`
+Default: `process.cwd()`
+
+Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
 
 ### Examples
 
@@ -426,4 +452,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sun Aug 25 2013 17:29:57.*
+*This file was generated on Wed Aug 28 2013 20:52:27.*

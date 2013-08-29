@@ -28,7 +28,12 @@ module.exports = function(grunt) {
     if (servers[options.port]) {
       this.server = servers[options.port];
     } else {
-      this.server = tinylr();
+      if (options.key && options.cert) {
+        options.key = grunt.file.read(options.key);
+        options.cert = grunt.file.read(options.cert);
+      }
+
+      this.server = tinylr(options);
       this.server.server.removeAllListeners('error');
       this.server.server.on('error', function(err) {
         if (err.code === 'EADDRINUSE') {
