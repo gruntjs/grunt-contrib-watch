@@ -177,6 +177,12 @@ watch: {
 },
 ```
 
+#### options.cwd
+Type: `String|Object`
+Default: `process.cwd()`
+
+Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
+
 ### Examples
 
 ```js
@@ -242,13 +248,15 @@ grunt.initConfig({
     },
   },
   jshint: {
-    all: ['lib/*.js'],
+    all: {
+      src: ['lib/*.js'],
+    },
   },
 });
 
 // on watch events configure jshint:all to only run on changed file
 grunt.event.on('watch', function(action, filepath) {
-  grunt.config(['jshint', 'all'], filepath);
+  grunt.config('jshint.all.src', filepath);
 });
 ```
 
@@ -259,7 +267,7 @@ If you save multiple files simultaneously you may opt for a more robust method:
 ```js
 var changedFiles = Object.create(null);
 var onChange = grunt.util._.debounce(function() {
-  grunt.config(['jshint', 'all'], Object.keys(changedFiles));
+  grunt.config('jshint.all.src', Object.keys(changedFiles));
   changedFiles = Object.create(null);
 }, 200);
 grunt.event.on('watch', function(action, filepath) {
@@ -426,4 +434,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sun Aug 25 2013 17:29:57.*
+*This file was generated on Wed Sep 11 2013 10:09:16.*

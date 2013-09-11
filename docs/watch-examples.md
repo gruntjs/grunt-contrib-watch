@@ -63,13 +63,15 @@ grunt.initConfig({
     },
   },
   jshint: {
-    all: ['lib/*.js'],
+    all: {
+      src: ['lib/*.js'],
+    },
   },
 });
 
 // on watch events configure jshint:all to only run on changed file
 grunt.event.on('watch', function(action, filepath) {
-  grunt.config(['jshint', 'all'], filepath);
+  grunt.config('jshint.all.src', filepath);
 });
 ```
 
@@ -80,7 +82,7 @@ If you save multiple files simultaneously you may opt for a more robust method:
 ```js
 var changedFiles = Object.create(null);
 var onChange = grunt.util._.debounce(function() {
-  grunt.config(['jshint', 'all'], Object.keys(changedFiles));
+  grunt.config('jshint.all.src', Object.keys(changedFiles));
   changedFiles = Object.create(null);
 }, 200);
 grunt.event.on('watch', function(action, filepath) {
