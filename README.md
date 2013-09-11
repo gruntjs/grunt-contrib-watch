@@ -177,8 +177,6 @@ watch: {
 },
 ```
 
-<<<<<<< HEAD
-=======
 It's possible to get livereload working over https connections. To do this, pass an object to `livereload` with a `key` and `cert` paths specified.
 
 Example:
@@ -198,8 +196,6 @@ watch: {
 },
 ```
 
-
->>>>>>> Enable live reload to work over https connections
 #### options.cwd
 Type: `String|Object`
 Default: `process.cwd()`
