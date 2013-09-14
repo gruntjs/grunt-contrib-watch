@@ -20,7 +20,6 @@
       "url": "https://github.com/gruntjs/grunt-contrib-watch/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0"
   },
