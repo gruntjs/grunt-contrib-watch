@@ -1,0 +1,7 @@
+docs
+test
+.editorconfig
+.gitattributes
+.jshintrc
+.travis.yml
+Gruntfile.js
