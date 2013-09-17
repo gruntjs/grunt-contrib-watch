@@ -22,7 +22,14 @@ module.exports = function(grunt) {
       options = defaults;
     } else if (typeof options === 'number') {
       options = {port: options};
+    } else if (typeof options === 'string' || Array.isArray(options)) {
+      this.reload = grunt.file.expand(options);
+      options = defaults;
     } else {
+      if (typeof options.files === 'string' || Array.isArray(options.files)) {
+        this.reload = grunt.file.expand(options.files);
+        delete options.files;
+      }
       options = grunt.util._.defaults(options, defaults);
     }
     if (servers[options.port]) {
@@ -47,6 +54,9 @@ module.exports = function(grunt) {
   }
 
   LR.prototype.trigger = function(files) {
+    if (this.reload) {
+      files = this.reload;
+    }
     grunt.log.verbose.writeln('Live reloading ' + grunt.log.wordlist(files) + '...');
     this.server.changed({body:{files:files}});
   };
