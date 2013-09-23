@@ -346,7 +346,7 @@ grunt.initConfig({
 Once you've started a live reload server you'll be able to access the live reload script. To enable live reload on your page, add a script tag before your closing `</body>` tag pointing to the `livereload.js` script:
 
 ```html
-<script src="http://localhost:35729/livereload.js"></script>
+<script src="//localhost:35729/livereload.js"></script>
 ```
 
 Feel free to add this script to your template situation and toggle with some sort of `dev` flag.
@@ -452,4 +452,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Wed Aug 28 2013 20:52:27.*
+*This file was generated on Mon Sep 23 2013 14:07:08.*
