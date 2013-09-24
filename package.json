@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "gaze": "~0.4.0",
-    "tiny-lr": "0.0.4"
+    "tiny-lr": "0.0.5"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
