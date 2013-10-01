@@ -31,6 +31,9 @@ module.exports = function(grunt) {
       if (options.key && options.cert) {
         options.key = grunt.file.read(options.key);
         options.cert = grunt.file.read(options.cert);
+        if (options.ca) {
+          options.ca = grunt.file.read(options.ca);
+        }
       }
 
       this.server = tinylr(options);
