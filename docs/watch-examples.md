@@ -207,7 +207,7 @@ This is because of your system's max opened file limit. For OSX the default is v
 In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](http://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
 
 ## Can I use this with Grunt v0.3?
-Yes, `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3 but highly recommend upgrading instead.
+`grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3 but it is highly recommended to upgrade Grunt instead.
 
 ## Why is the watch devouring all my memory/cpu?
 Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!**/node_modules/**'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
