@@ -188,8 +188,9 @@ watch: {
     options: {
       livereload: {
         port: 9000,
-        key: 'path/to/ssl.key',
-        cert: 'path/to/ssl.crt'
+        key: grunt.file.read('path/to/ssl.key'),
+        cert: grunt.file.read('path/to/ssl.crt')
+        // you can pass in any other options you'd like to the https server, as listed here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
       }
     },
   },
@@ -452,4 +453,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Mon Sep 23 2013 14:07:08.*
+*This file was generated on Thu Oct 17 2013 16:15:11.*

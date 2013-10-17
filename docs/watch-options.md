@@ -160,8 +160,9 @@ watch: {
     options: {
       livereload: {
         port: 9000,
-        key: 'path/to/ssl.key',
-        cert: 'path/to/ssl.crt'
+        key: grunt.file.read('path/to/ssl.key'),
+        cert: grunt.file.read('path/to/ssl.crt')
+        // you can pass in any other options you'd like to the https server, as listed here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
       }
     },
   },
