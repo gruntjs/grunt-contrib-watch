@@ -76,7 +76,7 @@ module.exports = function(grunt) {
       dateFormat = df;
     }
 
-    if (taskrun.running === false) { grunt.log.write(waiting); }
+    if (taskrun.running === false) { grunt.log.writeln(waiting); }
 
     // initialize taskrun
     var targets = taskrun.init(name, {target: target});
