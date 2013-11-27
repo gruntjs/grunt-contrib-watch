@@ -29,12 +29,10 @@ module.exports = function(grunt) {
 
   // When task runner has started
   taskrun.on('start', function() {
-    grunt.log.ok();
     Object.keys(changedFiles).forEach(function(filepath) {
       // Log which file has changed, and how.
       grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
     });
-    grunt.log.writeln();
     // Reset changedFiles
     changedFiles = Object.create(null);
   });
