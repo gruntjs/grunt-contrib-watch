@@ -28,13 +28,16 @@
   },
   "dependencies": {
     "gaze": "~0.4.0",
-    "tiny-lr": "0.0.5"
+    "tiny-lr": "0.0.5",
+    "lodash": "~2.4.1",
+    "async": "~0.2.9"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.4.3",
     "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt-contrib-internal": "~0.4.6"
+    "grunt-contrib-internal": "~0.4.6",
+    "underscore.string": "~2.3.3"
   },
   "peerDependencies": {
     "grunt": "~0.4.0"

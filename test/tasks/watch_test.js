@@ -4,6 +4,7 @@ var grunt = require('grunt');
 var path = require('path');
 var fs = require('fs');
 var helper = require('./helper');
+var _s = require('underscore.string');
 
 var fixtures = helper.fixtures;
 var useFixtures = ['multiTargets', 'oneTarget', 'atBegin', 'dateFormat'];
@@ -153,7 +154,7 @@ exports.watch = {
     }, function(result) {
       helper.verboseLog(result);
       test.ok(result.toLowerCase().indexOf('fatal') !== -1, 'Task should have been fatal.');
-      test.equal(grunt.util._(result).count('Waiting...'), 2, 'Should have displayed "Wating..." twice');
+      test.equal(_s.count(result, 'Waiting...'), 2, 'Should have displayed "Wating..." twice');
       test.done();
     });
   },
@@ -166,7 +167,7 @@ exports.watch = {
     }, function(result) {
       helper.verboseLog(result);
       test.ok(result.toLowerCase().indexOf('cwd works') !== -1, 'Task should have shown "cwd works".');
-      test.equal(grunt.util._(result).count('Waiting...'), 2, 'Should have displayed "Wating..." twice');
+      test.equal(_s.count(result, 'Waiting...'), 2, 'Should have displayed "Wating..." twice');
       test.done();
     });
   },

@@ -11,6 +11,8 @@
 var path = require('path');
 var EE = require('events').EventEmitter;
 var util = require('util');
+var _ = require('lodash');
+var async = require('async');
 
 // Track which targets to run after reload
 var reloadTargets = [];
@@ -144,7 +146,7 @@ module.exports = function(grunt) {
       // The cwd to spawn within
       cwd: process.cwd(),
       // Additional cli args to append when spawning
-      cliArgs: grunt.util._.without.apply(null, [[].slice.call(process.argv, 2)].concat(grunt.cli.tasks)),
+      cliArgs: _.without.apply(null, [[].slice.call(process.argv, 2)].concat(grunt.cli.tasks)),
       interrupt: false,
       nospawn: false,
       spawn: true,
@@ -152,11 +154,11 @@ module.exports = function(grunt) {
       event: ['all'],
       target: null,
     });
-    return grunt.util._.defaults.apply(grunt.util._, args);
+    return _.defaults.apply(_, args);
   };
 
   // Run the current queue of task runs
-  Runner.prototype.run = grunt.util._.debounce(function run() {
+  Runner.prototype.run = _.debounce(function run() {
     var self = this;
     if (self.queue.length < 1) {
       self.running = false;
@@ -193,7 +195,7 @@ module.exports = function(grunt) {
 
     // Run each target
     var shouldComplete = true;
-    grunt.util.async.forEachSeries(self.queue, function(name, next) {
+    async.forEachSeries(self.queue, function(name, next) {
       var tr = self.targets[name];
       if (!tr) { return next(); }
 
@@ -308,7 +310,7 @@ module.exports = function(grunt) {
   Runner.prototype.clearRequireCache = function() {
     // If a non-string argument is passed, it's an array of filepaths, otherwise
     // each filepath is passed individually.
-    var filepaths = typeof arguments[0] !== 'string' ? arguments[0] : grunt.util.toArray(arguments);
+    var filepaths = typeof arguments[0] !== 'string' ? arguments[0] : Array.prototype.slice(arguments);
     // For each filepath, clear the require cache, if necessary.
     filepaths.forEach(function(filepath) {
       var abspath = path.resolve(filepath);

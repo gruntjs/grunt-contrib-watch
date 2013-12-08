@@ -8,6 +8,7 @@
 
 var path = require('path');
 var Gaze = require('gaze').Gaze;
+var _ = require('lodash');
 var waiting = 'Waiting...';
 var changedFiles = Object.create(null);
 var watchers = [];
@@ -85,7 +86,7 @@ module.exports = function(grunt) {
       if (typeof target.files === 'string') { target.files = [target.files]; }
 
       // Process into raw patterns
-      var patterns = grunt.util._.chain(target.files).flatten().map(function(pattern) {
+      var patterns = _.chain(target.files).flatten().map(function(pattern) {
         return grunt.config.process(pattern);
       }).value();
 
@@ -122,8 +123,8 @@ module.exports = function(grunt) {
         this.on('all', function(status, filepath) {
 
           // Skip events not specified
-          if (!grunt.util._.contains(target.options.event, 'all') &&
-              !grunt.util._.contains(target.options.event, status)) {
+          if (!_.contains(target.options.event, 'all') &&
+              !_.contains(target.options.event, status)) {
             return;
           }
 

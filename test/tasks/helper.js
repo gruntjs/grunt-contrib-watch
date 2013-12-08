@@ -1,5 +1,6 @@
 var grunt = require('grunt');
 var path = require('path');
+var _ = require('lodash');
 
 module.exports = helper = {};
 
@@ -8,7 +9,7 @@ helper.fixtures = path.join(__dirname, '..', 'fixtures');
 
 // If verbose flag set, display output
 helper.verboseLog = function() {};
-if (grunt.util._.indexOf(process.argv, '-v') !== -1) {
+if (_.indexOf(process.argv, '-v') !== -1) {
   helper.verboseLog = function() { console.log.apply(null, arguments); };
 }
 
@@ -29,7 +30,7 @@ helper.assertTask = function assertTask(task, options) {
   // Use grunt this process uses
   var spawnOptions = [process.argv[1]];
   // Turn options into spawn options
-  grunt.util._.each(options, function(val, key) {
+  _.each(options, function(val, key) {
     spawnOptions.push('--' + key);
     spawnOptions.push(val);
   });
@@ -42,7 +43,7 @@ helper.assertTask = function assertTask(task, options) {
     var spawnGrunt = spawn(process.argv[0], spawnOptions, {cwd:cwd});
     var out = '';
 
-    if (!grunt.util._.isArray(runs)) {
+    if (!Array.isArray(runs)) {
       runs = [runs];
     }
 
