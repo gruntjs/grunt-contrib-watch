@@ -45,5 +45,9 @@
   "keywords": [
     "gruntplugin",
     "watch"
+  ],
+  "files": [
+    "tasks",
+    "LICENSE-MIT"
   ]
 }
