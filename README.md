@@ -416,7 +416,7 @@ In some versions of OSX the above solution doesn't work. In that case try `launc
 `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3 but it is highly recommended to upgrade Grunt instead.
 
 #### Why is the watch devouring all my memory/cpu?
-Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!node_modules'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
+Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!node_modules'`  (also try `'!.git'`, `'!bower_components'` and other utilitarian folders). Try grouping your files within a subfolder or be more explicit with your file matching pattern.
 
 Another reason if you're watching a large number of files could be the low default `interval`. Try increasing with `options: { interval: 5007 }`. Please see issues [#35](https://github.com/gruntjs/grunt-contrib-watch/issues/145) and [#145](https://github.com/gruntjs/grunt-contrib-watch/issues/145) for more information.
 
