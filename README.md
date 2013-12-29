@@ -53,7 +53,7 @@ watch: {
     files: ['**/*.js'],
     tasks: ['jshint'],
     options: {
-      spawn: false,
+      spawn: false
     },
   },
 },
