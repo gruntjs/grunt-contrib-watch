@@ -136,7 +136,7 @@ module.exports = function(grunt) {
           }
 
           // If Gruntfile.js changed, reload self task
-          if (/gruntfile\.(js|coffee)/i.test(filepath)) {
+          if (target.options.reload || /gruntfile\.(js|coffee)/i.test(filepath)) {
             taskrun.reload = true;
           }
 
