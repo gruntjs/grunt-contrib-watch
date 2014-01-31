@@ -96,6 +96,26 @@ watch: {
 },
 ```
 
+## options.reload
+Type: `Boolean`
+Default: `false`
+
+By default, if `Gruntfile.js` is being watched, then changes to it will trigger the watch task to restart, and reload the `Gruntfile.js` changes.
+When `reload` is set to `true`, changes to *any* of the watched files will trigger the watch task to restart.
+This is especially useful if your `Gruntfile.js` is dependent on other files.
+
+```js
+watch: {
+  configFiles: {
+    files: [ 'Gruntfile.js', 'config/*.js' ],
+    options: {
+      reload: true
+    }
+  }
+}
+```
+
+
 ## options.forever
 Type: `Boolean`
 Default: true
