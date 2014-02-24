@@ -32,11 +32,22 @@ module.exports = function(grunt) {
       },
       targetOne: { files: ['lib/one/*.js'] },
       targetTwo: { files: ['lib/two/*.js'] },
+      changeTasks: {
+        files: ['lib/*.js'],
+        tasks: ['echo:prechange']
+      },
+    },
+    echo: {
+      prechange: { message: 'I havent changed' },
+      postchange: { message: 'Ive changed' },
     },
   });
 
   // Load this watch task
   grunt.loadTasks('../../../tasks');
+
+  // Load the echo task
+  grunt.loadTasks('../tasks');
 
   var timeout;
 
@@ -50,6 +61,10 @@ module.exports = function(grunt) {
     timeout = setTimeout(function() {
       grunt.util.exit(0);
     }, 2000);
+
+    if (target === 'changeTasks') {
+      grunt.config('watch.changeTasks.tasks',['echo:postchange']);
+    }
   });
 
 };

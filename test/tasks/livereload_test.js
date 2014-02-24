@@ -180,4 +180,49 @@ exports.livereload = {
       test.done();
     });
   },
+  livereloadOnErrorTrue: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'livereload');
+    var assertWatch = helper.assertTask(['watch:livereloadOnErrorTrue', '-v'], {cwd: cwd});
+    assertWatch([function() {
+      request(35729, function(data) {
+        grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
+      });
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'Should livereload when a task errors w/o flag');
+      test.done();
+    });
+  },
+  livereloadOnErrorFalse: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'livereload');
+    var assertWatch = helper.assertTask(['watch:livereloadOnErrorFalse', '-v'], {cwd: cwd});
+    assertWatch([function() {
+      request(35729, function(data) {
+        grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
+      });
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('Live reloading lib/one.js...') === -1, 'Should not livereload when a task errors with flag');
+      test.done();
+    });
+  },
+  livereloadOnErrorFalseNoSpawn: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'livereload');
+    var assertWatch = helper.assertTask(['watch:livereloadOnErrorFalseNoSpawn', '-v'], {cwd: cwd});
+    assertWatch([function() {
+      request(35729, function(data) {
+        grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
+      });
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('Live reloading lib/one.js...') === -1, 'Should not livereload when a task errors with flag and spawn=false');
+      test.done();
+    });
+  },
 };
