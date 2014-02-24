@@ -198,6 +198,12 @@ watch: {
 ```
 
 
+#### options.livereloadOnError
+Type: `Boolean`
+Default: `true`
+
+Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
+
 #### options.cwd
 Type: `String|Object`
 Default: `process.cwd()`

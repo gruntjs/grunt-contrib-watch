@@ -292,7 +292,10 @@ module.exports = function(grunt) {
       grunt.task.run(self.nameArgs);
       self.running = false;
     }
+    grunt.fail.forever_warncount = 0;
+    grunt.fail.forever_errorcount = 0;
     grunt.warn = grunt.fail.warn = function(e) {
+      grunt.fail.forever_warncount ++;
       var message = typeof e === 'string' ? e : e.message;
       grunt.log.writeln(('Warning: ' + message).yellow);
       if (!grunt.option('force')) {
@@ -300,6 +303,7 @@ module.exports = function(grunt) {
       }
     };
     grunt.fatal = grunt.fail.fatal = function(e) {
+      grunt.fail.forever_errorcount ++;
       var message = typeof e === 'string' ? e : e.message;
       grunt.log.writeln(('Fatal error: ' + message).red);
       rerun();

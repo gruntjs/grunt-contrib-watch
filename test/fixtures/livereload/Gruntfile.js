@@ -59,6 +59,31 @@ module.exports = function(grunt) {
       triggerlr: {
         files: ['css/*'],
       },
+      livereloadOnErrorTrue: {
+        files: ['lib/*.js'],
+        tasks: ['iamerror'],
+        options: {
+          livereload: true
+          //normal, no flag
+        }
+      },
+      livereloadOnErrorFalse: {
+        files: ['lib/*.js'],
+        tasks: ['iamerror'],
+        options: {
+          livereload: true,
+          livereloadOnError: false
+        }
+      },
+      livereloadOnErrorFalseNoSpawn: {
+        files: ['lib/*.js'],
+        tasks: ['iamerror'],
+        options: {
+          livereload: true,
+          spawn: false,
+          livereloadOnError: false
+        },
+      },
     },
   });
 
@@ -71,5 +96,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('writecss', function() {
     grunt.file.write(path.join(__dirname, 'css', 'one.css'), '#one {}');
+  });
+
+  grunt.registerTask('iamerror', function() {
+    grunt.fail.warn('I am an error/warning');
   });
 };
