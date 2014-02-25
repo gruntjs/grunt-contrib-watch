@@ -8,7 +8,7 @@
 
 'use strict';
 
-var tinylr = require('tiny-lr');
+var tinylr = require('teeny-lr');
 var _ = require('lodash');
 
 // Holds the servers out of scope in case watch is reloaded
