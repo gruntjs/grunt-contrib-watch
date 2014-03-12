@@ -195,3 +195,9 @@ Type: `String|Object`
 Default: `process.cwd()`
 
 Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
+
+## options.livereloadOnError
+Type: `Boolean`  
+Default: `true`  
+
+Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
