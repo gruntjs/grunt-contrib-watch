@@ -1,4 +1,4 @@
-# grunt-contrib-watch [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch v0.6.0 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
@@ -124,6 +124,26 @@ watch: {
 },
 ```
 
+#### options.reload
+Type: `Boolean`
+Default: `false`
+
+By default, if `Gruntfile.js` is being watched, then changes to it will trigger the watch task to restart, and reload the `Gruntfile.js` changes.
+When `reload` is set to `true`, changes to *any* of the watched files will trigger the watch task to restart.
+This is especially useful if your `Gruntfile.js` is dependent on other files.
+
+```js
+watch: {
+  configFiles: {
+    files: [ 'Gruntfile.js', 'config/*.js' ],
+    options: {
+      reload: true
+    }
+  }
+}
+```
+
+
 #### options.forever
 Type: `Boolean`
 Default: true
@@ -198,17 +218,17 @@ watch: {
 ```
 
 
-#### options.livereloadOnError
-Type: `Boolean`
-Default: `true`
-
-Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
-
 #### options.cwd
 Type: `String|Object`
 Default: `process.cwd()`
 
 Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
+
+#### options.livereloadOnError
+Type: `Boolean`  
+Default: `true`  
+
+Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
 
 ### Examples
 
@@ -436,6 +456,7 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
+ * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. cwd option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...' Remove deprecated grunt.util libs Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1 Use fork of tiny-lr (which has quiter operation, support for HTTPS and windows path fixes) Add livereloadOnError, which if set to false will not trigger live reload if there is an error.
  * 2013-08-25   v0.5.3   Fixed for live reload missing files.
  * 2013-08-16   v0.5.2   Fixed issue running tasks after gruntfile is reloaded. Ignores empty file paths.
  * 2013-07-20   v0.5.1   Fixed issue with options resetting.
@@ -461,4 +482,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Tue Oct 15 2013 12:20:09.*
+*This file was generated on Tue Mar 11 2014 22:38:20.*

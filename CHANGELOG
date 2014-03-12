@@ -1,3 +1,16 @@
+v0.6.0:
+  date: 2014-03-11
+  changes:
+    - Clear changed files after triggering live reload to ensure they're only triggered once.
+    - cwd option now accepts separate settings for files and spawn.
+    - Fix to make interrupt work more than once.
+    - Enable live reload over HTTPS.
+    - Print newline after initial 'Waiting...'
+    - Remove deprecated grunt.util libs
+    - Add reload option to specify files other than Gruntfile files to reload.
+    - Update to gaze@0.5.1
+    - Use fork of tiny-lr (which has quiter operation, support for HTTPS and windows path fixes)
+    - Add livereloadOnError, which if set to false will not trigger live reload if there is an error.
 v0.5.3:
   date: 2013-08-25
   changes:
