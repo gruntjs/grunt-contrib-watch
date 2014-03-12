@@ -129,5 +129,19 @@ exports.events = {
       test.ok(result.indexOf('lib/two/test.js was indeed changed\ntargetTwo specifc event was fired') !== -1, 'event should have been emitted with targetTwo specified');
       test.done();
     });
-  }
+  },
+  changeTasks: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'events');
+    var assertWatch = helper.assertTask('watch:changeTasks', {cwd: cwd});
+    assertWatch([function() {
+      writeAll(cwd);
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(result.indexOf('I havent changed') === -1, 'should not run task that was previously set');
+      test.ok(result.indexOf('Ive changed') !== -1, 'should run task set in event listener');
+      test.done();
+    });
+  },
 };
