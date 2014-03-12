@@ -35,8 +35,8 @@
   "devDependencies": {
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-nodeunit": "~0.3.0",
-    "grunt-contrib-internal": "~0.4.6",
+    "grunt-contrib-nodeunit": "~0.3.3",
+    "grunt-contrib-internal": "~0.4.7",
     "underscore.string": "~2.3.3"
   },
   "peerDependencies": {
