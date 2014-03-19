@@ -218,7 +218,15 @@ module.exports = function(grunt) {
 
   // Push targets onto the queue
   Runner.prototype.add = function add(target) {
+    var self = this;
     if (!this.targets[target.name || 0]) {
+
+      // Private method for getting latest config for a watch target
+      target._getConfig = function(name) {
+        return grunt.config([self.name, target.name, name || '']);
+      };
+
+      // Create a new TaskRun instance
       var tr = new TaskRun(target);
 
       // Add livereload to task runs

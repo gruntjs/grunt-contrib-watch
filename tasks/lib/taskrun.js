@@ -20,6 +20,7 @@ module.exports = function(grunt) {
   function TaskRun(target) {
     this.name = target.name || 0;
     this.files = target.files || [];
+    this._getConfig = target._getConfig;
     this.options = target.options;
     this.startedAt = false;
     this.spawned = null;
@@ -49,13 +50,13 @@ module.exports = function(grunt) {
     // Start this task run
     self.startedAt = Date.now();
 
-    //reset before each run
+    // reset before each run
     self.spawnTaskFailure = false;
     self.errorsAndWarningsCount = getErrorCount();
 
-    //pull the tasks here in case they were changed by a watch event listener
-    self.tasks = grunt.config('watch' + (this.name === 'default' ? '' : '.' + this.name) + '.tasks') || [];
-    if (typeof this.tasks === 'string') {
+    // pull the tasks here in case they were changed by a watch event listener
+    self.tasks = self._getConfig('tasks') || [];
+    if (typeof self.tasks === 'string') {
       self.tasks = [self.tasks];
     }
 
