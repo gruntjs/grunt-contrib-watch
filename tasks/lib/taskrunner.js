@@ -17,6 +17,9 @@ var async = require('async');
 // Track which targets to run after reload
 var reloadTargets = [];
 
+// A default target name for config where targets are not used (keep this unique)
+var defaultTargetName = '_$_default_$_';
+
 module.exports = function(grunt) {
 
   var TaskRun = require('./taskrun')(grunt);
@@ -130,7 +133,7 @@ module.exports = function(grunt) {
       var cfg = {
         files: config.files,
         tasks: config.tasks,
-        name: 'default',
+        name: defaultTargetName,
         options: self._options(config.options || {}, self.options),
       };
       targets.push(cfg);
@@ -223,7 +226,10 @@ module.exports = function(grunt) {
 
       // Private method for getting latest config for a watch target
       target._getConfig = function(name) {
-        return grunt.config([self.name, target.name, name || '']);
+        var cfgPath = [self.name];
+        if (target.name !== defaultTargetName) { cfgPath.push(target.name); }
+        if (name) { cfgPath.push(name); }
+        return grunt.config(cfgPath);
       };
 
       // Create a new TaskRun instance
