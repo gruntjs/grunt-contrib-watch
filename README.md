@@ -1,4 +1,4 @@
-# grunt-contrib-watch v0.6.0 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch v0.6.1 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted.
 
@@ -456,6 +456,7 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ## Release History
 
+ * 2014-03-19   v0.6.1   Fix for watch targets named "default"
  * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. cwd option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...' Remove deprecated grunt.util libs Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1 Use fork of tiny-lr (which has quiter operation, support for HTTPS and windows path fixes) Add livereloadOnError, which if set to false will not trigger live reload if there is an error.
  * 2013-08-25   v0.5.3   Fixed for live reload missing files.
  * 2013-08-16   v0.5.2   Fixed issue running tasks after gruntfile is reloaded. Ignores empty file paths.
@@ -482,4 +483,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Tue Mar 11 2014 22:38:20.*
+*This file was generated on Wed Mar 19 2014 13:09:11.*

@@ -1,3 +1,7 @@
+v0.6.1:
+  date: 2014-03-19
+  changes:
+    - Fix for watch targets named "default"
 v0.6.0:
   date: 2014-03-11
   changes:
