@@ -154,7 +154,7 @@ Default: false
 
 Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
 
-If enabled a live reload server will be started with the watch task per target. Then after the indicated tasks have ran, the live reload server will be triggered with the modified files.
+If enabled a live reload server will be started with the watch task per target. Then after the indicated tasks have run, the live reload server will be triggered with the modified files.
 
 Example:
 ```js
