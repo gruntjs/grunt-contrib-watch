@@ -165,6 +165,11 @@ module.exports = function(grunt) {
           taskrun.run();
         });
 
+        // Emit ready event once gaze is ready if anyone is listening
+        if (grunt.event.listeners('watch-ready').length > 0) {
+            grunt.event.emit('watch-ready');
+        }
+
         // On watcher error
         this.on('error', function(err) {
           if (typeof err === 'string') { err = new Error(err); }
