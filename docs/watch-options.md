@@ -156,6 +156,8 @@ Set to `true` or set `livereload: 1337` to a port number to enable live reloadin
 
 If enabled a live reload server will be started with the watch task per target. Then after the indicated tasks have run, the live reload server will be triggered with the modified files.
 
+See also how to [enable livereload on your HTML](https://github.com/gruntjs/grunt-contrib-watch/blob/master/docs/watch-examples.md#enabling-live-reload-in-your-html).
+
 Example:
 ```js
 watch: {
