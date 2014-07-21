@@ -93,12 +93,20 @@ module.exports = function(grunt) {
       reloadTargets = [];
       self.run();
     } else {
-      // Check whether target's tasks should run at start w/ atBegin option
-      self.queue = targets.filter(function(tr) {
-        return tr.options.atBegin === true && tr.tasks.length > 0;
-      }).map(function(tr) {
-        return tr.name;
-      });
+      if (!self.hadError) {
+        // Check whether target's tasks should run at start w/ atBegin option
+        self.queue = targets.filter(function(tr) {
+          return tr.options.atBegin === true && tr.tasks.length > 0;
+        }).map(function(tr) {
+          return tr.name;
+        });
+      } else {
+        // There was an error in atBegin task, we can't re-run it, as this would
+        // create an infinite loop of failing tasks
+        // See https://github.com/gruntjs/grunt-contrib-watch/issues/169
+        self.queue = [];
+        self.hadError = false;
+      }
       if (self.queue.length > 0) {
         self.run();
       }
@@ -305,6 +313,8 @@ module.exports = function(grunt) {
       grunt.task.clearQueue();
       grunt.task.run(self.nameArgs);
       self.running = false;
+      // Mark that there was an error and we needed to rerun
+      self.hadError = true;
     }
     grunt.fail.forever_warncount = 0;
     grunt.fail.forever_errorcount = 0;
