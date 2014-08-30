@@ -24,7 +24,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt nodeunit -v"
+    "test": "grunt test -v"
   },
   "dependencies": {
     "gaze": "~0.5.1",

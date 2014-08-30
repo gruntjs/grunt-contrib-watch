@@ -43,5 +43,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-internal');
 
-  grunt.registerTask('default', ['jshint', 'nodeunit', 'build-contrib']);
+  grunt.registerTask('test', ['jshint', 'nodeunit']);
+  grunt.registerTask('default', ['test', 'build-contrib']);
 };
