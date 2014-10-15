@@ -61,6 +61,12 @@ watch: {
 
 *For backwards compatibility the option `nospawn` is still available and will do the opposite of `spawn`.*
 
+#### options.runDelay
+Type: `Number`
+Default: 0
+
+Wait given miliseconds before run given tasks.
+
 #### options.interrupt
 Type: `Boolean`
 Default: false

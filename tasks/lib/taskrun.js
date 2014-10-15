@@ -63,28 +63,40 @@ module.exports = function(grunt) {
     // If no tasks just call done to trigger potential livereload
     if (self.tasks.length < 1) { return done(); }
 
+    var action_fn;
+
     if (self.options.spawn === false || self.options.nospawn === true) {
-      grunt.task.run(self.tasks);
-      done();
+      action_fn = function() {
+        grunt.task.run(self.tasks);
+        done();
+      };
     } else {
-      self.spawned = grunt.util.spawn({
-        // Spawn with the grunt bin
-        grunt: true,
-        // Run from current working dir and inherit stdio from process
-        opts: {
-          cwd: self.options.cwd.spawn,
-          stdio: 'inherit',
-        },
-        // Run grunt this process uses, append the task to be run and any cli options
-        args: self.tasks.concat(self.options.cliArgs || []),
-      }, function(err, res, code) {
-        self.spawnTaskFailure = (code !== 0);
-        if (self.options.interrupt !== true || (code !== 130 && code !== 1)) {
-          // Spawn is done
-          self.spawned = null;
-          done();
-        }
-      });
+      action_fn = function() {
+        self.spawned = grunt.util.spawn({
+          // Spawn with the grunt bin
+          grunt: true,
+          // Run from current working dir and inherit stdio from process
+          opts: {
+            cwd: self.options.cwd.spawn,
+            stdio: 'inherit',
+          },
+          // Run grunt this process uses, append the task to be run and any cli options
+          args: self.tasks.concat(self.options.cliArgs || []),
+        }, function(err, res, code) {
+          self.spawnTaskFailure = (code !== 0);
+          if (self.options.interrupt !== true || (code !== 130 && code !== 1)) {
+            // Spawn is done
+            self.spawned = null;
+            done();
+          }
+        });
+      }
+    }
+
+    if (self.options.runDelay) {
+      setTimeout(action_fn, self.options.runDelay);
+    } else {
+      action_fn();
     }
   };
 
@@ -110,3 +122,4 @@ module.exports = function(grunt) {
 
   return TaskRun;
 };
+
