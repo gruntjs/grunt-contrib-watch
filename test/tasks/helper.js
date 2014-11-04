@@ -90,7 +90,7 @@ helper.assertTask = function assertTask(task, options) {
 
 // clean up files within fixtures
 helper.cleanUp = function cleanUp(files) {
-  if (typeof files === 'string') files = [files];
+  if (typeof files === 'string') { files = [files]; }
   files.forEach(function(filepath) {
     filepath = path.join(helper.fixtures, filepath);
     if (grunt.file.exists(filepath)) {

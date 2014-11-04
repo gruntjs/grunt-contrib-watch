@@ -56,7 +56,8 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 35729') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on port: 35729') !== -1,
+        'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
@@ -77,7 +78,8 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 8675') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on port: 8675') !== -1,
+        'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
@@ -97,7 +99,8 @@ exports.livereload = {
       helper.verboseLog(result);
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       test.ok(result.indexOf('Live reloading lib/two.js...') !== -1, 'live reload should have triggered on lib/two.js');
-      test.ok(!/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result), 'live reload should have cleared js file that was already reloaded');
+      test.ok(!/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result),
+        'live reload should have cleared js file that was already reloaded');
       test.done();
     });
   },
@@ -116,8 +119,10 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 9876') !== -1, 'live reload server should have been started on port 9876.');
-      test.ok(/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result), 'live reload should have triggered on lib/one.js and lib/two.js');
+      test.ok(result.indexOf('Live reload server started on port: 9876') !== -1,
+        'live reload server should have been started on port 9876.');
+      test.ok(/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result),
+        'live reload should have triggered on lib/one.js and lib/two.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
       test.done();
@@ -137,7 +142,8 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 1337') !== -1, 'live reload server should have been started on port 1337.');
+      test.ok(result.indexOf('Live reload server started on port: 1337') !== -1,
+        'live reload server should have been started on port 1337.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
@@ -157,7 +163,8 @@ exports.livereload = {
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
-      test.ok(result.indexOf('Live reload server started on port: 35729') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on port: 35729') !== -1,
+        'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
@@ -175,8 +182,10 @@ exports.livereload = {
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
-      test.ok(result.indexOf('Live reloading sass/one.scss') === -1, 'Should not trigger live reload on non livereload targets.');
-      test.ok(result.indexOf('Live reloading css/one.css') !== -1, 'Should trigger live reload when other tasks trigger livereload targets.');
+      test.ok(result.indexOf('Live reloading sass/one.scss') === -1,
+        'Should not trigger live reload on non livereload targets.');
+      test.ok(result.indexOf('Live reloading css/one.css') !== -1,
+        'Should trigger live reload when other tasks trigger livereload targets.');
       test.done();
     });
   },
@@ -206,7 +215,8 @@ exports.livereload = {
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
-      test.ok(result.indexOf('Live reloading lib/one.js...') === -1, 'Should not livereload when a task errors with flag');
+      test.ok(result.indexOf('Live reloading lib/one.js...') === -1,
+        'Should not livereload when a task errors with flag');
       test.done();
     });
   },
@@ -221,7 +231,8 @@ exports.livereload = {
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
-      test.ok(result.indexOf('Live reloading lib/one.js...') === -1, 'Should not livereload when a task errors with flag and spawn=false');
+      test.ok(result.indexOf('Live reloading lib/one.js...') === -1,
+        'Should not livereload when a task errors with flag and spawn=false');
       test.done();
     });
   },
