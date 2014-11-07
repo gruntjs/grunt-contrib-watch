@@ -192,6 +192,15 @@ watch: {
 ```
 
 
+## options.livereloadListen
+Type: `Boolean`
+Default: true
+
+Set `livereloadListen: true` to start the livereload server on startup. This is the default.
+
+With `livereload: true` and `livereloadListen: false`, watch will not start the livereload server, but will trigger changed events when files change. Since restarting grunt will restart the livereload server, this option is useful in conjunction with `reload: true`. By starting the livereload server outside of grunt (e.g. using a Procfile) it can persist between grunt restarts.
+
+
 ## options.cwd
 Type: `String|Object`
 Default: `process.cwd()`

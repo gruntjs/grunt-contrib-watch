@@ -24,6 +24,7 @@ module.exports = function(grunt) {
 
   var TaskRun = require('./taskrun')(grunt);
   var livereload = require('./livereload')(grunt);
+  var livereloadNotifier = require('./livereload-notifier')(grunt);
 
   function Runner() {
     EE.call(this);
@@ -70,6 +71,7 @@ module.exports = function(grunt) {
     // If a default livereload server for all targets
     // Use task level unless target level overrides
     var taskLRConfig = grunt.config([self.name, 'options', 'livereload']);
+    var taskLRListen = grunt.config([self.name, 'options', 'livereloadListen']);
     if (self.options.target && taskLRConfig) {
       var targetLRConfig = grunt.config([self.name, self.options.target, 'options', 'livereload']);
       if (targetLRConfig) {
@@ -77,8 +79,10 @@ module.exports = function(grunt) {
         taskLRConfig = false;
       }
     }
-    if (taskLRConfig) {
+    if (taskLRConfig && taskLRListen !== false) {
       self.livereload = livereload(taskLRConfig);
+    } else if (taskLRConfig) {
+      self.livereload = livereloadNotifier(taskLRConfig);
     }
 
     // Return the targets normalized
@@ -248,8 +252,11 @@ module.exports = function(grunt) {
       // We only want a single default LR server and then
       // allow each target to override their own.
       var lrconfig = grunt.config([this.name, target.name || 0, 'options', 'livereload']);
-      if (lrconfig) {
+      var lrlisten = grunt.config([this.name, target.name || 0, 'options', 'livereloadListen']);
+      if (lrconfig && lrlisten !== false) {
         tr.livereload = livereload(lrconfig);
+      } else if (lrconfig) {
+        tr.livereload = livereloadNotifier(lrconfig);
       } else if (this.livereload && lrconfig !== false) {
         tr.livereload = this.livereload;
       }
