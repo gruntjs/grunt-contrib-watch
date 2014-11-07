@@ -56,18 +56,18 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 35729') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on :35729') !== -1, 'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
       test.done();
     });
   },
-  customport: function(test) {
+  customhost: function(test) {
     test.expect(4);
     var resultData = '';
     var cwd = path.resolve(fixtures, 'livereload');
-    var assertWatch = helper.assertTask(['watch:customport', '-v'], {cwd: cwd});
+    var assertWatch = helper.assertTask(['watch:customhost', '-v'], {cwd: cwd});
     assertWatch([function() {
       request(8675, function(data) {
         resultData += data;
@@ -77,7 +77,7 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 8675') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on localhost:8675') !== -1, 'live reload server should have been started on localhost:8675.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
@@ -116,7 +116,7 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 9876') !== -1, 'live reload server should have been started on port 9876.');
+      test.ok(result.indexOf('Live reload server started on :9876') !== -1, 'live reload server should have been started on port 9876.');
       test.ok(/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result), 'live reload should have triggered on lib/one.js and lib/two.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
@@ -137,7 +137,7 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on port: 1337') !== -1, 'live reload server should have been started on port 1337.');
+      test.ok(result.indexOf('Live reload server started on :1337') !== -1, 'live reload server should have been started on port 1337.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
@@ -157,7 +157,7 @@ exports.livereload = {
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
-      test.ok(result.indexOf('Live reload server started on port: 35729') !== -1, 'live reload server should have been started on port 35729.');
+      test.ok(result.indexOf('Live reload server started on :35729') !== -1, 'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
       test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
