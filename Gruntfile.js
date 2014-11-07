@@ -33,6 +33,7 @@ module.exports = function(grunt) {
 
   // Dynamic alias task to nodeunit. Run individual tests with: grunt test:events
   grunt.registerTask('test', function(file) {
+    grunt.task.run('jshint');
     grunt.config('nodeunit.tests', String(grunt.config('nodeunit.tests')).replace('*', file || '*'));
     grunt.task.run('nodeunit');
   });
@@ -43,6 +44,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-internal');
 
-  grunt.registerTask('test', ['jshint', 'nodeunit']);
   grunt.registerTask('default', ['test', 'build-contrib']);
 };
