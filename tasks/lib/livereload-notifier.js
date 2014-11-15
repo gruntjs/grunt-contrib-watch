@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       if (error) {
         grunt.log.writeln('Error triggering live reload to ' + uri);
         grunt.log.writeln(error);
-      } else if (response.statusCode != 200) {
+      } else if (response.statusCode !== 200) {
         grunt.log.writeln('Error triggering live reload to ' + uri);
         grunt.log.writeln(JSON.stringify(body));
       } else {
