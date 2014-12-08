@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 
     // Normalize cwd option
     if (typeof self.options.cwd === 'string') {
-      self.options.cwd = { files: self.options.cwd, spawn: self.options.cwd };
+      self.options.cwd = {files: self.options.cwd, spawn: self.options.cwd};
     }
 
     // Function to call when closing the task

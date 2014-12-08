@@ -32,7 +32,7 @@ module.exports = function(grunt) {
     }
   }
 
-  var getErrorCount = function(){
+  var getErrorCount = function() {
     if (typeof grunt.fail.forever_warncount !== 'undefined') {
       return grunt.fail.forever_warncount + grunt.fail.forever_errorcount;
     } else {
