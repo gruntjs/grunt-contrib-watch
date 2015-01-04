@@ -79,7 +79,7 @@ module.exports = function(grunt) {
         args: self.tasks.concat(self.options.cliArgs || []),
       }, function(err, res, code) {
         self.spawnTaskFailure = (code !== 0);
-        if (self.options.interrupt !== true || (code !== 130 && code !== 1)) {
+        if (self.options.interrupt !== true || (code !== null && code !== 130 && code !== 1)) {
           // Spawn is done
           self.spawned = null;
           done();
