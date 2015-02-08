@@ -1,19 +1,12 @@
 {
   "name": "grunt-contrib-watch",
-  "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted.",
+  "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted",
   "version": "0.6.1",
-  "homepage": "https://github.com/gruntjs/grunt-contrib-watch",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/gruntjs/grunt-contrib-watch.git"
-  },
-  "bugs": {
-    "url": "https://github.com/gruntjs/grunt-contrib-watch/issues"
-  },
+  "repository": "gruntjs/grunt-contrib-watch",
   "licenses": [
     {
       "type": "MIT",
@@ -21,34 +14,35 @@
     }
   ],
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">=0.10.0"
   },
   "scripts": {
     "test": "grunt test -v"
   },
   "dependencies": {
-    "gaze": "~0.5.1",
-    "tiny-lr": "~0.1.4",
-    "lodash": "~2.4.1",
-    "async": "~0.9.0"
+    "gaze": "^0.5.1",
+    "tiny-lr": "^0.1.4",
+    "lodash": "^2.4.1",
+    "async": "^0.9.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-internal": "~0.4.7",
-    "underscore.string": "~2.3.3",
-    "grunt-jscs": "~1.0.0"
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-internal": "^0.4.7",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-jscs": "^1.0.0",
+    "underscore.string": "^2.3.3"
   },
   "peerDependencies": {
-    "grunt": "~0.4.0"
+    "grunt": ">=0.4.0"
   },
   "keywords": [
     "gruntplugin",
-    "watch"
+    "watch",
+    "livereload"
   ],
   "files": [
-    "tasks",
-    "LICENSE-MIT"
+    "tasks"
   ]
 }
