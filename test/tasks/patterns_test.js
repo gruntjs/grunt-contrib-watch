@@ -34,8 +34,10 @@ exports.patterns = {
       }, 3000);
     }, function(result) {
       helper.verboseLog(result);
-      test.ok(result.indexOf('File "lib' + path.sep + 'edit.js" changed') !== -1, 'Watch should have been triggered when edit.js was edited.');
-      test.ok(result.indexOf('File "lib' + path.sep + 'dontedit.js" changed') === -1, 'Watch should NOT have been triggered when dontedit.js was edited.');
+      test.ok(result.indexOf('File "lib' + path.sep + 'edit.js" changed') !== -1,
+        'Watch should have been triggered when edit.js was edited.');
+      test.ok(result.indexOf('File "lib' + path.sep + 'dontedit.js" changed') === -1,
+        'Watch should NOT have been triggered when dontedit.js was edited.');
       test.done();
     });
   },

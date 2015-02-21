@@ -2,7 +2,7 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2014 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2015 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
@@ -16,7 +16,7 @@ var servers = Object.create(null);
 
 module.exports = function(grunt) {
 
-  var defaults = { port: 35729 };
+  var defaults = {port: 35729};
 
   function LR(options) {
     if (options === true) {

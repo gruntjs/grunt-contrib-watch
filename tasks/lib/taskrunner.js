@@ -2,7 +2,7 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2014 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2015 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 
     // Normalize cwd option
     if (typeof self.options.cwd === 'string') {
-      self.options.cwd = { files: self.options.cwd, spawn: self.options.cwd };
+      self.options.cwd = {files: self.options.cwd, spawn: self.options.cwd};
     }
 
     // Function to call when closing the task

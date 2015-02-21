@@ -45,7 +45,7 @@ exports.watch = {
     var cwd = path.resolve(fixtures, 'dateFormat');
     var assertWatch = helper.assertTask(['watch', '--debug'], {cwd:cwd});
     assertWatch(function() {
-       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
+      grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
     }, function(result) {
       helper.verboseLog(result);
       test.ok(result.indexOf('dateFormat has worked!') !== -1, 'Should have displayed a custom dateFormat.');
@@ -61,7 +61,8 @@ exports.watch = {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
     }, function(result) {
       helper.verboseLog(result);
-      test.ok(result.indexOf('File "lib' + path.sep + 'one.js" changed') !== -1, 'Watch should have fired when oneTarget/lib/one.js has changed.');
+      test.ok(result.indexOf('File "lib' + path.sep + 'one.js" changed') !== -1,
+        'Watch should have fired when oneTarget/lib/one.js has changed.');
       test.ok(result.indexOf('I do absolutely nothing.') !== -1, 'echo task should have fired.');
       test.done();
     });
@@ -141,7 +142,8 @@ exports.watch = {
       var interruptMatches = result.match(/have been interrupted/g);
       test.ok(interruptMatches && interruptMatches.length === 2, 'Task should have been interrupted 2 times.');
       var unInterruptMatches = result.match(/I want to be interrupted/g);
-      test.ok(unInterruptMatches && unInterruptMatches.length === 1, 'Only the last time should be working (without interruption)');
+      test.ok(unInterruptMatches && unInterruptMatches.length === 1,
+        'Only the last time should be working (without interruption)');
       test.done();
     });
   },

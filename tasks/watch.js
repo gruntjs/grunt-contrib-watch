@@ -95,6 +95,11 @@ module.exports = function(grunt) {
         target.options.event = [target.options.event];
       }
 
+      var eventCwd = process.cwd();
+      if (target.options.cwd && target.options.cwd.event) {
+        eventCwd = target.options.cwd.event;
+      }
+
       // Set cwd if options.cwd.file is set
       if (typeof target.options.cwd !== 'string' && target.options.cwd.files) {
         target.options.cwd = target.options.cwd.files;
@@ -128,7 +133,7 @@ module.exports = function(grunt) {
             return;
           }
 
-          filepath = path.relative(process.cwd(), filepath);
+          filepath = path.relative(eventCwd, filepath);
 
           // Skip empty filepaths
           if (filepath === '') {

@@ -2,7 +2,7 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2014 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2015 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
@@ -20,6 +20,12 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc',
       },
     },
+    jscs: {
+      src: ['tasks/**/*.js', 'test/tasks/**/*.js'],
+      options: {
+        config: '.jscsrc'
+      }
+    },
     watch: {
       all: {
         files: ['<%= jshint.all %>'],
@@ -33,6 +39,8 @@ module.exports = function(grunt) {
 
   // Dynamic alias task to nodeunit. Run individual tests with: grunt test:events
   grunt.registerTask('test', function(file) {
+    grunt.task.run('jshint');
+    grunt.task.run('jscs');
     grunt.config('nodeunit.tests', String(grunt.config('nodeunit.tests')).replace('*', file || '*'));
     grunt.task.run('nodeunit');
   });
@@ -42,7 +50,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-internal');
+  grunt.loadNpmTasks('grunt-jscs');
 
-  grunt.registerTask('test', ['jshint', 'nodeunit']);
   grunt.registerTask('default', ['test', 'build-contrib']);
 };
