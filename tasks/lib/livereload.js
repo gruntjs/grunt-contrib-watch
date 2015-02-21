@@ -27,7 +27,7 @@ module.exports = function(grunt) {
       options = _.defaults(options, defaults);
     }
 
-    var host = (options.hostname || '') + ':' + options.port;
+    var host = (options.host || '*') + ':' + options.port;
 
     if (servers[host]) {
       this.server = servers[host];
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
         }
         process.exit(1);
       });
-      this.server.listen(options.port, options.hostname, function (err) {
+      this.server.listen(options.port, options.host, function(err) {
         if (err) { return grunt.fatal(err); }
         grunt.log.verbose.writeln('Live reload server started on ' + host);
       });

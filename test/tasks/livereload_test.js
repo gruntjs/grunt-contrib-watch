@@ -56,7 +56,7 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on :35729') !== -1,
+      test.ok(result.indexOf('Live reload server started on *:35729') !== -1,
         'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
@@ -119,7 +119,7 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on :9876') !== -1,
+      test.ok(result.indexOf('Live reload server started on *:9876') !== -1,
         'live reload server should have been started on port 9876.');
       test.ok(/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result),
         'live reload should have triggered on lib/one.js and lib/two.js');
@@ -142,7 +142,7 @@ exports.livereload = {
       result = helper.unixify(result);
       helper.verboseLog(result);
       test.ok(result.indexOf('I ran before livereload.') !== -1, 'task should have ran before live reload.');
-      test.ok(result.indexOf('Live reload server started on :1337') !== -1,
+      test.ok(result.indexOf('Live reload server started on *:1337') !== -1,
         'live reload server should have been started on port 1337.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
@@ -163,7 +163,7 @@ exports.livereload = {
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
-      test.ok(result.indexOf('Live reload server started on :35729') !== -1,
+      test.ok(result.indexOf('Live reload server started on *:35729') !== -1,
         'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
