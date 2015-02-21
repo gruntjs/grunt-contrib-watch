@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         tasks: ['before'],
         options: {
           livereload: {
-            hostname: 'localhost',
+            host: 'localhost',
             port: 8675,
           },
         },
