@@ -171,7 +171,7 @@ watch: {
 },
 ```
 
-It's possible to get livereload working over https connections. To do this, pass an object to `livereload` with a `key` and `cert` paths specified.
+Passing an object to `livereload` allows listening on a specific port and hostname/IP or over https connections (by specifying `key` and `cert` paths).
 
 Example:
 ```js
@@ -181,6 +181,7 @@ watch: {
     tasks: ['sass'],
     options: {
       livereload: {
+        host: 'localhost',
         port: 9000,
         key: grunt.file.read('path/to/ssl.key'),
         cert: grunt.file.read('path/to/ssl.crt')
