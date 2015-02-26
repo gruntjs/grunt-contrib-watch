@@ -12,11 +12,12 @@ module.exports = function(grunt) {
         files: ['lib/*.js'],
         tasks: ['before'],
       },
-      customport: {
+      customhost: {
         files: ['lib/*.js'],
         tasks: ['before'],
         options: {
           livereload: {
+            host: 'localhost',
             port: 8675,
           },
         },

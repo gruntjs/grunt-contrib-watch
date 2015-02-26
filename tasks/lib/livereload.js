@@ -26,8 +26,11 @@ module.exports = function(grunt) {
     } else {
       options = _.defaults(options, defaults);
     }
-    if (servers[options.port]) {
-      this.server = servers[options.port];
+
+    var host = (options.host || '*') + ':' + options.port;
+
+    if (servers[host]) {
+      this.server = servers[host];
     } else {
       this.server = tinylr(options);
       this.server.server.removeAllListeners('error');
@@ -39,11 +42,11 @@ module.exports = function(grunt) {
         }
         process.exit(1);
       });
-      this.server.listen(options.port, function(err) {
+      this.server.listen(options.port, options.host, function(err) {
         if (err) { return grunt.fatal(err); }
-        grunt.log.verbose.writeln('Live reload server started on port: ' + options.port);
+        grunt.log.verbose.writeln('Live reload server started on ' + host);
       });
-      servers[options.port] = this.server;
+      servers[host] = this.server;
     }
   }
 
