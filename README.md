@@ -53,10 +53,10 @@ watch: {
     files: ['**/*.js'],
     tasks: ['jshint'],
     options: {
-      spawn: false,
-    },
-  },
-},
+      spawn: false
+    }
+  }
+}
 ```
 
 *For backwards compatibility the option `nospawn` is still available and will do the opposite of `spawn`.*
@@ -74,10 +74,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      interrupt: true,
-    },
-  },
-},
+      interrupt: true
+    }
+  }
+}
 ```
 
 #### options.debounceDelay
@@ -93,10 +93,10 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      debounceDelay: 250,
-    },
-  },
-},
+      debounceDelay: 250
+    }
+  }
+}
 ```
 
 #### options.interval
@@ -118,10 +118,10 @@ watch: {
     files: '**/*.js',
     tasks: ['generateFileManifest'],
     options: {
-      event: ['added', 'deleted'],
-    },
-  },
-},
+      event: ['added', 'deleted']
+    }
+  }
+}
 ```
 
 #### options.reload
@@ -165,9 +165,9 @@ watch: {
   },
   scripts: {
     files: '**/*.js',
-    tasks: 'jshint',
-  },
-},
+    tasks: 'jshint'
+  }
+}
 ```
 
 #### options.atBegin
@@ -193,10 +193,10 @@ watch: {
     files: '**/*.sass',
     tasks: ['sass'],
     options: {
-      livereload: true,
-    },
-  },
-},
+      livereload: true
+    }
+  }
+}
 ```
 
 It's possible to get livereload working over https connections. To do this, pass an object to `livereload` with a `key` and `cert` paths specified.
@@ -214,9 +214,9 @@ watch: {
         cert: grunt.file.read('path/to/ssl.crt')
         // you can pass in any other options you'd like to the https server, as listed here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
       }
-    },
-  },
-},
+    }
+  }
+}
 ```
 
 
@@ -239,8 +239,8 @@ Option to prevent the livereload if the executed tasks encountered an error.  If
 grunt.initConfig({
   watch: {
     files: ['**/*'],
-    tasks: ['jshint'],
-  },
+    tasks: ['jshint']
+  }
 });
 ```
 
@@ -250,17 +250,17 @@ grunt.initConfig({
   watch: {
     gruntfile: {
       files: 'Gruntfile.js',
-      tasks: ['jshint:gruntfile'],
+      tasks: ['jshint:gruntfile']
     },
     src: {
       files: ['lib/*.js', 'css/**/*.scss', '!lib/dontwatch.js'],
-      tasks: ['default'],
+      tasks: ['default']
     },
     test: {
       files: '<%= jshint.test.src %>',
-      tasks: ['jshint:test', 'qunit'],
-    },
-  },
+      tasks: ['jshint:test', 'qunit']
+    }
+  }
 });
 ```
 
@@ -271,9 +271,9 @@ This task will emit a `watch` event when watched files are modified. This is use
 grunt.initConfig({
   watch: {
     scripts: {
-      files: ['lib/*.js'],
-    },
-  },
+      files: ['lib/*.js']
+    }
+  }
 });
 grunt.event.on('watch', function(action, filepath, target) {
   grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
@@ -292,15 +292,15 @@ grunt.initConfig({
       files: ['lib/*.js'],
       tasks: ['jshint'],
       options: {
-        spawn: false,
-      },
-    },
+        spawn: false
+      }
+    }
   },
   jshint: {
     all: {
-      src: ['lib/*.js'],
-    },
-  },
+      src: ['lib/*.js']
+    }
+  }
 });
 
 // on watch events configure jshint:all to only run on changed file
@@ -334,13 +334,13 @@ The simplest way to add live reloading to all your watch targets is by setting `
 grunt.initConfig({
   watch: {
     options: {
-      livereload: true,
+      livereload: true
     },
     css: {
       files: ['public/scss/*.scss'],
-      tasks: ['compass'],
-    },
-  },
+      tasks: ['compass']
+    }
+  }
 });
 ```
 
@@ -354,22 +354,22 @@ grunt.initConfig({
       tasks: ['compass'],
       options: {
         // Start a live reload server on the default port 35729
-        livereload: true,
-      },
+        livereload: true
+      }
     },
     another: {
       files: ['lib/*.js'],
       tasks: ['anothertask'],
       options: {
         // Start another live reload server on port 1337
-        livereload: 1337,
-      },
+        livereload: 1337
+      }
     },
     dont: {
       files: ['other/stuff/*'],
-      tasks: ['dostuff'],
-    },
-  },
+      tasks: ['dostuff']
+    }
+  }
 });
 ```
 
@@ -414,22 +414,22 @@ grunt.initConfig({
   sass: {
     dev: {
       src: ['src/sass/*.sass'],
-      dest: 'dest/css/index.css',
-    },
+      dest: 'dest/css/index.css'
+    }
   },
   watch: {
     sass: {
       // We watch and compile sass files as normal but don't live reload here
       files: ['src/sass/*.sass'],
-      tasks: ['sass'],
+      tasks: ['sass']
     },
     livereload: {
       // Here we watch the files the sass task will compile to
       // These files are sent to the live reload server after sass compiles to them
       options: { livereload: true },
-      files: ['dest/**/*'],
-    },
-  },
+      files: ['dest/**/*']
+    }
+  }
 });
 ```
 
