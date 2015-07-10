@@ -146,7 +146,7 @@ watch: {
 
 #### options.forever
 Type: `Boolean`
-Default: true
+Default: `true`
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
 
@@ -172,13 +172,13 @@ watch: {
 
 #### options.atBegin
 Type: `Boolean`
-Default: false
+Default: `false`
 
 This option will trigger the run of each specified task at startup of the watcher.
 
 #### options.livereload
 Type: `Boolean|Number|Object`
-Default: false
+Default: `false`
 
 Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
 
@@ -221,13 +221,21 @@ watch: {
 
 
 #### options.cwd
-Type: `String|Object`
+Type: `String|Object` 
 Default: `process.cwd()`
 
-Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
+Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as:
+````js
+options: {
+  cwd: {
+    files: 'match/files/from/here',
+    spawn: 'but/spawn/files/from/here'
+  }
+}
+````
 
 #### options.livereloadOnError
-Type: `Boolean`  
+Type: `Boolean` 
 Default: `true`  
 
 Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
