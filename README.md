@@ -1,4 +1,4 @@
-# grunt-chokidar v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-chokidar.png?branch=master)](https://travis-ci.org/gruntjs/grunt-chokidar)
+# grunt-chokidar v1.0.0 [![Build Status: Linux](https://travis-ci.org/JimRobs/grunt-chokidar.png?branch=master)](https://travis-ci.org/JimRobs/grunt-chokidar)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted using [chokidar](http://github.com/paulmillr/chokidar).
 
