@@ -26,7 +26,7 @@ exports.patterns = {
   negate: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'patterns');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('chokidar', {cwd:cwd});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'sub', 'dontedit.js'), 'var dontedit = true;');
       setTimeout(function() {
@@ -34,6 +34,7 @@ exports.patterns = {
       }, 3000);
     }, function(result) {
       helper.verboseLog(result);
+      console.log(result);
       test.ok(result.indexOf('File "lib' + path.sep + 'edit.js" changed') !== -1,
         'Watch should have been triggered when edit.js was edited.');
       test.ok(result.indexOf('File "lib' + path.sep + 'dontedit.js" changed') === -1,

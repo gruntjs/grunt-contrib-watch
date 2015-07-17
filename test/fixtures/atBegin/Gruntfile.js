@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     echo: {
       one: { message: 'one has changed' }
     },
-    watch: {
+    chokidar: {
       options:{
         atBegin: true
       },
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
   });
   // Load the echo task
   grunt.loadTasks('../tasks');
-  // Load this watch task
+  // Load this chokidar task
   grunt.loadTasks('../../../tasks');
   grunt.registerTask('default', ['echo']);
 };

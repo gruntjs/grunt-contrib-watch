@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       fail: { fail: 1, message: 'This task should fail', wait: 1000 },
       cwd: { message: 'cwd works' },
     },
-    watch: {
+    chokidar: {
       one: {
         files: ['lib/one.js', 'Gruntfile.js'],
         tasks: 'echo:one',
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
   });
   // Load the echo task
   grunt.loadTasks('../tasks');
-  // Load this watch task
+  // Load this chokidar task
   grunt.loadTasks('../../../tasks');
   grunt.registerTask('default', ['echo']);
 };

@@ -38,7 +38,7 @@ exports.events = {
   events: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'events');
-    var assertWatch = helper.assertTask('watch:all', {cwd: cwd});
+    var assertWatch = helper.assertTask('chokidar:all', {cwd: cwd});
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
@@ -56,7 +56,7 @@ exports.events = {
   onlyAdded: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'events');
-    var assertWatch = helper.assertTask('watch:onlyAdded', {cwd: cwd});
+    var assertWatch = helper.assertTask('chokidar:onlyAdded', {cwd: cwd});
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
@@ -74,7 +74,7 @@ exports.events = {
   onlyChanged: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'events');
-    var assertWatch = helper.assertTask('watch:onlyChanged', {cwd: cwd});
+    var assertWatch = helper.assertTask('chokidar:onlyChanged', {cwd: cwd});
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
@@ -92,7 +92,7 @@ exports.events = {
   onlyDeleted: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'events');
-    var assertWatch = helper.assertTask('watch:onlyDeleted', {cwd: cwd});
+    var assertWatch = helper.assertTask('chokidar:onlyDeleted', {cwd: cwd});
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
@@ -110,7 +110,7 @@ exports.events = {
   onlyAddedAndDeleted: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'events');
-    var assertWatch = helper.assertTask('watch:onlyAddedAndDeleted', {cwd: cwd});
+    var assertWatch = helper.assertTask('chokidar:onlyAddedAndDeleted', {cwd: cwd});
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {
@@ -129,7 +129,7 @@ exports.events = {
   targetSpecific: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'events');
-    var assertWatch = helper.assertTask('watch', {cwd: cwd});
+    var assertWatch = helper.assertTask('chokidar', {cwd: cwd});
     assertWatch([function() {
       var write = 'var test = false;';
       setTimeout(function() {
@@ -151,7 +151,7 @@ exports.events = {
   changeTasks: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'events');
-    var assertWatch = helper.assertTask('watch:changeTasks', {cwd: cwd});
+    var assertWatch = helper.assertTask('chokidar:changeTasks', {cwd: cwd});
     assertWatch([function() {
       writeAll(cwd);
     }], function(result) {

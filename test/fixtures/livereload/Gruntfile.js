@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   var path = require('path');
 
   grunt.initConfig({
-    watch: {
+    chokidar: {
       options: {
         livereload: true,
       },
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
     },
   });
 
-  // Load this watch task
+  // Load this chokidar task
   grunt.loadTasks('../../../tasks');
 
   grunt.registerTask('before', function() {

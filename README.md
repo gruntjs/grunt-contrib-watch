@@ -1,6 +1,6 @@
-# grunt-contrib-watch v0.6.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-chokidar v0.9 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-chokidar.png?branch=master)](https://travis-ci.org/gruntjs/grunt-chokidar)
 
-> Run predefined tasks whenever watched file patterns are added, changed or deleted.
+> Run predefined tasks whenever watched file patterns are added, changed or deleted using [chokidar](http://github.com/paulmillr/chokidar).
 
 
 
@@ -10,20 +10,20 @@ This plugin requires Grunt `~0.4.0`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-contrib-watch --save-dev
+npm install grunt-chokidar --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-chokidar');
 ```
 
 
 
 
-## Watch task
-_Run this task with the `grunt watch` command._
+## Chokidar task
+_Run this task with the `grunt chokidar` command._
 
 
 ### Settings
@@ -69,7 +69,7 @@ As files are modified this watch task will spawn tasks in child processes. The d
 
 Example:
 ```js
-watch: {
+chokidar: {
   scripts: {
     files: '**/*.js',
     tasks: ['jshint'],
@@ -88,7 +88,7 @@ How long to wait before emitting events in succession for the same filepath and 
 
 Example:
 ```js
-watch: {
+chokidar: {
   scripts: {
     files: '**/*.js',
     tasks: ['jshint'],
@@ -109,16 +109,16 @@ The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs
 Type: `String|Array`
 Default: `'all'`
 
-Specify the type of watch events that triggers the specified task. This option can be one or many of: `'all'`, `'changed'`, `'added'` and `'deleted'`.
+Specify the type of watch events that triggers the specified task. This option can be one or many of: `'all'`, `'change'`, `'add'`, `'addDir'`, `'unlink'` and `'unlinkDir'`.
 
 Example:
 ```js
-watch: {
+chokidar: {
   scripts: {
     files: '**/*.js',
     tasks: ['generateFileManifest'],
     options: {
-      event: ['added', 'deleted'],
+      event: ['add', 'unlink'],
     },
   },
 },
@@ -128,12 +128,12 @@ watch: {
 Type: `Boolean`
 Default: `false`
 
-By default, if `Gruntfile.js` is being watched, then changes to it will trigger the watch task to restart, and reload the `Gruntfile.js` changes.
-When `reload` is set to `true`, changes to *any* of the watched files will trigger the watch task to restart.
+By default, if `Gruntfile.js` is being watched, then changes to it will trigger the chokidar task to restart, and reload the `Gruntfile.js` changes.
+When `reload` is set to `true`, changes to *any* of the watched files will trigger the chokidar task to restart.
 This is especially useful if your `Gruntfile.js` is dependent on other files.
 
 ```js
-watch: {
+chokidar: {
   configFiles: {
     files: [ 'Gruntfile.js', 'config/*.js' ],
     options: {
@@ -156,7 +156,7 @@ Type: `Function`
 This is *only a task level option* and cannot be configured per target. By default when the watch has finished running tasks it will display the message `Completed in 1.301s at Thu Jul 18 2013 14:58:21 GMT-0700 (PDT) - Waiting...`. You can override this message by supplying your own function:
 
 ```js
-watch: {
+chokidar: {
   options: {
     dateFormat: function(time) {
       grunt.log.writeln('The watch finished in ' + time + 'ms at' + (new Date()).toString());
@@ -182,13 +182,11 @@ Default: false
 
 Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
 
-If enabled a live reload server will be started with the watch task per target. Then after the indicated tasks have run, the live reload server will be triggered with the modified files.
-
-See also how to [enable livereload on your HTML](https://github.com/gruntjs/grunt-contrib-watch/blob/master/docs/watch-examples.md#enabling-live-reload-in-your-html).
+If enabled a live reload server will be started with the chokidar task per target. Then after the indicated tasks have run, the live reload server will be triggered with the modified files.
 
 Example:
 ```js
-watch: {
+chokidar: {
   css: {
     files: '**/*.sass',
     tasks: ['sass'],
@@ -203,7 +201,7 @@ It's possible to get livereload working over https connections. To do this, pass
 
 Example:
 ```js
-watch: {
+chokidar: {
   css: {
     files: '**/*.sass',
     tasks: ['sass'],
@@ -227,8 +225,8 @@ Default: `process.cwd()`
 Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
 
 #### options.livereloadOnError
-Type: `Boolean`  
-Default: `true`  
+Type: `Boolean`
+Default: `true`
 
 Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
 
@@ -237,7 +235,7 @@ Option to prevent the livereload if the executed tasks encountered an error.  If
 ```js
 // Simple config to run jshint any time a file is added, changed or deleted
 grunt.initConfig({
-  watch: {
+  chokidar: {
     files: ['**/*'],
     tasks: ['jshint'],
   },
@@ -247,7 +245,7 @@ grunt.initConfig({
 ```js
 // Advanced config. Run specific tasks when specific files are added, changed or deleted.
 grunt.initConfig({
-  watch: {
+  chokidar: {
     gruntfile: {
       files: 'Gruntfile.js',
       tasks: ['jshint:gruntfile'],
@@ -264,30 +262,30 @@ grunt.initConfig({
 });
 ```
 
-#### Using the `watch` event
-This task will emit a `watch` event when watched files are modified. This is useful if you would like a simple notification when files are edited or if you're using this task in tandem with another task. Here is a simple example using the `watch` event:
+#### Using the `chokidar` event
+This task will emit a `chokidar` event when watched files are modified. This is useful if you would like a simple notification when files are edited or if you're using this task in tandem with another task. Here is a simple example using the `chokidar` event:
 
 ```js
 grunt.initConfig({
-  watch: {
+  chokidar: {
     scripts: {
       files: ['lib/*.js'],
     },
   },
 });
-grunt.event.on('watch', function(action, filepath, target) {
+grunt.event.on('chokidar', function(action, filepath, target) {
   grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
 });
 ```
 
-**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](http://gruntjs.com/configuring-tasks).**
+**The `chokidar` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `chokidar` event you're more than likely doing it wrong. Please read [configuring tasks](http://gruntjs.com/configuring-tasks).**
 
 ##### Compiling Files As Needed
 A very common request is to only compile files as needed. Here is an example that will only lint changed files with the `jshint` task:
 
 ```js
 grunt.initConfig({
-  watch: {
+  chokidar: {
     scripts: {
       files: ['lib/*.js'],
       tasks: ['jshint'],
@@ -304,7 +302,7 @@ grunt.initConfig({
 });
 
 // on watch events configure jshint:all to only run on changed file
-grunt.event.on('watch', function(action, filepath) {
+grunt.event.on('chokidar', function(action, filepath) {
   grunt.config('jshint.all.src', filepath);
 });
 ```
@@ -319,20 +317,20 @@ var onChange = grunt.util._.debounce(function() {
   grunt.config('jshint.all.src', Object.keys(changedFiles));
   changedFiles = Object.create(null);
 }, 200);
-grunt.event.on('watch', function(action, filepath) {
+grunt.event.on('chokidar', function(action, filepath) {
   changedFiles[filepath] = action;
   onChange();
 });
 ```
 
 #### Live Reloading
-Live reloading is built into the watch task. Set the option `livereload` to `true` to enable on the default port `35729` or set to a custom port: `livereload: 1337`.
+Live reloading is built into the chokidar task. Set the option `livereload` to `true` to enable on the default port `35729` or set to a custom port: `livereload: 1337`.
 
-The simplest way to add live reloading to all your watch targets is by setting `livereload` to `true` at the task level. This will run a single live reload server and trigger the live reload for all your watch targets:
+The simplest way to add live reloading to all your chokidar targets is by setting `livereload` to `true` at the task level. This will run a single live reload server and trigger the live reload for all your chokidar targets:
 
 ```js
 grunt.initConfig({
-  watch: {
+  chokidar: {
     options: {
       livereload: true,
     },
@@ -344,11 +342,11 @@ grunt.initConfig({
 });
 ```
 
-You can also configure live reload for individual watch targets or run multiple live reload servers. Just be sure if you're starting multiple servers they operate on different ports:
+You can also configure live reload for individual chokidar targets or run multiple live reload servers. Just be sure if you're starting multiple servers they operate on different ports:
 
 ```js
 grunt.initConfig({
-  watch: {
+  chokidar: {
     css: {
       files: ['public/scss/*.scss'],
       tasks: ['compass'],
@@ -407,7 +405,7 @@ lrserver.changed({body:{files:['public/css/changed.css']}});
 ##### Live Reload with Preprocessors
 Any time a watched file is edited with the `livereload` option enabled, the file will be sent to the live reload server. Some edited files you may desire to have sent to the live reload server, such as when preprocessing (`sass`, `less`, `coffeescript`, etc). As any file not recognized will reload the entire page as opposed to just the `css` or `javascript`.
 
-The solution is to point a `livereload` watch target to your destination files:
+The solution is to point a `livereload` chokidar target to your destination files:
 
 ```js
 grunt.initConfig({
@@ -417,7 +415,7 @@ grunt.initConfig({
       dest: 'dest/css/index.css',
     },
   },
-  watch: {
+  chokidar: {
     sass: {
       // We watch and compile sass files as normal but don't live reload here
       files: ['src/sass/*.sass'],
@@ -440,24 +438,21 @@ This is because of your system's max opened file limit. For OSX the default is v
 
 In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](http://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
 
-#### Can I use this with Grunt v0.3?
-`grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3 but it is highly recommended to upgrade Grunt instead.
-
 #### Why is the watch devouring all my memory/cpu?
 Likely because of an enthusiastic pattern trying to watch thousands of files. Such as `'**/*.js'` but forgetting to exclude the `node_modules` folder with `'!**/node_modules/**'`. Try grouping your files within a subfolder or be more explicit with your file matching pattern.
 
 Another reason if you're watching a large number of files could be the low default `interval`. Try increasing with `options: { interval: 5007 }`. Please see issues [#35](https://github.com/gruntjs/grunt-contrib-watch/issues/35) and [#145](https://github.com/gruntjs/grunt-contrib-watch/issues/145) for more information.
 
 #### Why spawn as child processes as a default?
-The goal of this watch task is as files are changed, run tasks as if they were triggered by the user themself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continually produce expected results, this watch task spawns tasks as child processes by default.
+The goal of this chokidar task is as files are changed, run tasks as if they were triggered by the user themself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continually produce expected results, this chokidar task spawns tasks as child processes by default.
 
-Sandboxing task runs also allows this watch task to run more stable over long periods of time. As well as more efficiently with more complex tasks and file structures.
+Sandboxing task runs also allows this chokiar task to run more stable over long periods of time. As well as more efficiently with more complex tasks and file structures.
 
 Spawning does cause a performance hit (usually 500ms for most environments). It also cripples tasks that rely on the watch task to share the context with each subsequent run (i.e., reload tasks). If you would like a faster watch task or need to share the context please set the `spawn` option to `false`. Just be aware that with this option enabled, the watch task is more prone to failure.
 
 
 ## Release History
-
+ * 2015-07-17   v1.0.0   Replace `gaze` with `chokidar`
  * 2014-03-19   v0.6.1   Fix for watch targets named "default"
  * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. cwd option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...' Remove deprecated grunt.util libs Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1 Use fork of tiny-lr (which has quiter operation, support for HTTPS and windows path fixes) Add livereloadOnError, which if set to false will not trigger live reload if there is an error.
  * 2013-08-25   v0.5.3   Fixed for live reload missing files.
@@ -483,6 +478,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 ---
 
-Task submitted by [Kyle Robinson Young](http://dontkry.com)
-
-*This file was generated on Sun Apr 20 2014 10:32:11.*
+Task submitted by [JimRobs](http://github.com/JimRobs)

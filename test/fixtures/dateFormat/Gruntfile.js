@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     echo: {
       one: { message: 'one has changed' }
     },
-    watch: {
+    chokidar: {
       options:{
         dateFormat: function(time) {
           grunt.log.writeln('dateFormat has worked! Done in ' + time + 'ms. Waiting...');
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
   });
   // Load the echo task
   grunt.loadTasks('../tasks');
-  // Load this watch task
+  // Load this chokidar task
   grunt.loadTasks('../../../tasks');
   grunt.registerTask('default', ['echo']);
 };

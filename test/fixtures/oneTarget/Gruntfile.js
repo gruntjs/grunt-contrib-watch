@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     echo: {
       files: ['lib/*.js'],
     },
-    watch: {
+    chokidar: {
       files: ['<%= echo.files %>'],
       // Dont make tasks an array
       // To ensure it works with cliArgs: See #115
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
   });
   // Load the echo task
   grunt.loadTasks('../tasks');
-  // Load this watch task
+  // Load this chokidar task
   grunt.loadTasks('../../../tasks');
   grunt.registerTask('default', ['echo']);
 };

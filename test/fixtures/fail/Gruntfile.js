@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   'use strict';
 
   grunt.initConfig({
-    watch: {
+    chokidar: {
       options: {
         spawn: false,
       },
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
     },
   });
 
-  // Load this watch task
+  // Load this chokidar task
   grunt.loadTasks('../../../tasks');
 
   grunt.registerTask('warn', function() {

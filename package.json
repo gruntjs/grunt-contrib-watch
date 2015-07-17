@@ -1,24 +1,36 @@
 {
-  "name": "grunt-contrib-watch",
-  "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted",
-  "version": "0.6.1",
+  "name": "grunt-chokidar",
+  "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted using Chokidar",
+  "version": "1.0.0",
   "author": {
-    "name": "Grunt Team",
-    "url": "http://gruntjs.com/"
+    "name": "jimrobs",
+    "email": "jimmy@jimrobs.com",
+    "url": "https://github.com/JimRobs"
   },
-  "repository": "gruntjs/grunt-contrib-watch",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JimRobs/grunt-chokidar.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JimRobs/grunt-chokidar/issues"
+  },
+  "license": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/JimRobs/grunt-chokidar/blob/master/LICENSE-MIT"
+    }
+  ],
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test -v"
+    "test": "grunt test"
   },
   "dependencies": {
-    "gaze": "^0.5.1",
-    "tiny-lr": "^0.1.4",
+    "async": "^0.9.0",
+    "chokidar": "^1.0.4",
     "lodash": "^2.4.1",
-    "async": "^0.9.0"
+    "tiny-lr": "^0.1.4"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -35,7 +47,8 @@
   "keywords": [
     "gruntplugin",
     "watch",
-    "livereload"
+    "livereload",
+    "chokidar"
   ],
   "files": [
     "tasks"

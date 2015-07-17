@@ -2,31 +2,31 @@ module.exports = function(grunt) {
   'use strict';
 
   grunt.initConfig({
-    watch: {
+    chokidar: {
       all: {
         files: ['lib/*.js'],
       },
       onlyAdded: {
         options: {
-          event: 'added',
+          event: 'add',
         },
         files: ['lib/*.js'],
       },
       onlyChanged: {
         options: {
-          event: 'changed',
+          event: 'change',
         },
         files: ['lib/*.js'],
       },
       onlyDeleted: {
         options: {
-          event: 'deleted',
+          event: 'unlink',
         },
         files: ['lib/*.js'],
       },
       onlyAddedAndDeleted: {
         options: {
-          event: ['added', 'deleted'],
+          event: ['add', 'unlink'],
         },
         files: ['lib/*.js'],
       },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
     },
   });
 
-  // Load this watch task
+  // Load this chokidar task
   grunt.loadTasks('../../../tasks');
 
   // Load the echo task
@@ -51,9 +51,18 @@ module.exports = function(grunt) {
 
   var timeout;
 
-  // trigger on watch events
-  grunt.event.on('watch', function(action, filepath, target) {
-    grunt.log.writeln(filepath + ' was indeed ' + action);
+  // trigger on chokidar events
+  grunt.event.on('chokidar', function(action, filepath, target) {
+    var map = {
+      add: 'added',
+      addDir: 'added',
+      unlink: 'deleted',
+      unlinkDir: 'deleted',
+      change: 'changed',
+      error: 'error'
+    };
+
+    grunt.log.writeln(filepath + ' was indeed ' + map[action]);
     if (target !== undefined) {
       grunt.log.writeln(target + ' specifc event was fired')
     }
@@ -63,7 +72,7 @@ module.exports = function(grunt) {
     }, 2000);
 
     if (target === 'changeTasks') {
-      grunt.config('watch.changeTasks.tasks',['echo:postchange']);
+      grunt.config('chokidar.changeTasks.tasks',['echo:postchange']);
     }
   });
 
