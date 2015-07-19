@@ -171,6 +171,7 @@ module.exports = function(grunt) {
   // Run the current queue of task runs
   Runner.prototype.run = _.debounce(function run() {
     var self = this;
+
     if (self.queue.length < 1) {
       self.running = false;
       return;
@@ -196,7 +197,6 @@ module.exports = function(grunt) {
         return;
       }
     }
-
     // If we should reload
     if (self.reload) { return self.reloadTask(); }
 

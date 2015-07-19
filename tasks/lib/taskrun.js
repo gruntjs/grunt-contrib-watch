@@ -11,6 +11,7 @@
 var path = require('path');
 var EE = require('events').EventEmitter;
 var util = require('util');
+var spawn = require('child_process').spawn;
 
 module.exports = function(grunt) {
 
@@ -67,19 +68,16 @@ module.exports = function(grunt) {
       grunt.task.run(self.tasks);
       done();
     } else {
-      self.spawned = grunt.util.spawn({
-        // Spawn with the grunt bin
-        grunt: true,
-        // Run from current working dir and inherit stdio from process
-        opts: {
-          cwd: self.options.cwd.spawn,
-          stdio: 'inherit',
-        },
-        // Run grunt this process uses, append the task to be run and any cli options
-        args: self.tasks.concat(self.options.cliArgs || []),
-      }, function(err, res, code) {
+      var cmd = process.execPath;
+      var args = process.execArgv.concat(process.argv[1]);
+      args = args.concat(self.tasks.concat(self.options.cliArgs || []));
+      var child = self.spawned = spawn(cmd, args, {
+        cwd: self.options.cwd.spawn,
+        stdio: 'inherit'
+      });
+      child.on('close', function(code, signal) {
         self.spawnTaskFailure = (code !== 0);
-        if (self.options.interrupt !== true || (code !== 130 && code !== 1)) {
+        if (self.options.interrupt !== true || (code !== 130 && code !== 1 && signal !== 'SIGINT')) {
           // Spawn is done
           self.spawned = null;
           done();
