@@ -23,10 +23,10 @@ exports.patterns = {
     cleanUp();
     done();
   },
-  negate: function(test) {
+  negateVerbose: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'patterns');
-    var assertWatch = helper.assertTask('watch', {cwd: cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd, verbose: true});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'sub', 'dontedit.js'), 'var dontedit = true;');
       setTimeout(function() {
@@ -38,6 +38,21 @@ exports.patterns = {
         'Watch should have been triggered when edit.js was edited.');
       test.ok(result.indexOf('File "lib' + path.sep + 'dontedit.js" changed') === -1,
         'Watch should NOT have been triggered when dontedit.js was edited.');
+      test.done();
+    });
+  },
+  negate: function(test) {
+    test.expect(1);
+    var cwd = path.resolve(fixtures, 'patterns');
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
+    assertWatch(function() {
+      grunt.file.write(path.join(cwd, 'lib', 'sub', 'dontedit.js'), 'var dontedit = true;');
+      setTimeout(function() {
+        grunt.file.write(path.join(cwd, 'lib', 'edit.js'), 'var edit = true;');
+      }, 3000);
+    }, function(result) {
+      test.ok(result.indexOf('1 file changed.') !== -1,
+        'Watch should have been triggered when edit.js was edited.');
       test.done();
     });
   },
