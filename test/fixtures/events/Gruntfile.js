@@ -55,7 +55,7 @@ module.exports = function(grunt) {
   grunt.event.on('watch', function(action, filepath, target) {
     grunt.log.writeln(filepath + ' was indeed ' + action);
     if (target !== undefined) {
-      grunt.log.writeln(target + ' specifc event was fired')
+      grunt.log.writeln(target + ' specific event was fired');
     }
     clearTimeout(timeout);
     timeout = setTimeout(function() {
