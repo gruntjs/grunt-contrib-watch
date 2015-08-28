@@ -141,9 +141,9 @@ exports.events = {
     }], function(result) {
       result = helper.unixify(result);
       helper.verboseLog(result);
-      test.ok(result.indexOf('lib/one/test.js was indeed changed\ntargetOne specifc event was fired') !== -1,
+      test.ok(result.indexOf('lib/one/test.js was indeed changed\ntargetOne specific event was fired') !== -1,
         'event should have been emitted with targetOne specified');
-      test.ok(result.indexOf('lib/two/test.js was indeed changed\ntargetTwo specifc event was fired') !== -1,
+      test.ok(result.indexOf('lib/two/test.js was indeed changed\ntargetTwo specific event was fired') !== -1,
         'event should have been emitted with targetTwo specified');
       test.done();
     });
