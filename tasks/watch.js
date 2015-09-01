@@ -83,10 +83,11 @@ module.exports = function(grunt) {
     var targets = taskrun.init(name, {target: target});
 
     targets.forEach(function(target, i) {
-      if (typeof target.files === 'string') { target.files = [target.files]; }
+      var targetFiles = _.result(target, 'files');
+      if (typeof targetFiles === 'string') { targetFiles = [targetFiles]; }
 
       // Process into raw patterns
-      var patterns = _.chain(target.files).flatten().map(function(pattern) {
+      var patterns = _.chain(targetFiles).flatten().map(function(pattern) {
         return grunt.config.process(pattern);
       }).value();
 
