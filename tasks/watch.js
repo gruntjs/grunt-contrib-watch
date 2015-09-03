@@ -82,6 +82,18 @@ module.exports = function(grunt) {
     // initialize taskrun
     var targets = taskrun.init(name, {target: target});
 
+    var targetsReady = targets.length;
+    function watcherIsReady() {
+        targetsReady--;
+
+        // Take action when all Gaze tasks report ready
+        if(targetsReady < 1) {
+            // Emit ready event if anyone is listening
+            if (grunt.event.listeners('watch-ready').length > 0) {
+                grunt.event.emit('watch-ready');
+            }
+        }
+    }
     targets.forEach(function(target, i) {
       if (typeof target.files === 'string') { target.files = [target.files]; }
 
@@ -175,6 +187,9 @@ module.exports = function(grunt) {
           if (typeof err === 'string') { err = new Error(err); }
           grunt.log.error(err.message);
         });
+
+        //
+        watcherIsReady();
       }));
     });
 
