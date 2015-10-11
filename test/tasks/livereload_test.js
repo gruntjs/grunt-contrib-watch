@@ -176,7 +176,7 @@ exports.livereload = {
     var cwd = path.resolve(fixtures, 'livereload');
     var assertWatch = helper.assertTask(['watch', '-v'], {cwd: cwd});
     assertWatch([function() {
-      request(35729, function(data) {
+      request(35729, function() {
         grunt.file.write(path.join(cwd, 'sass', 'one.scss'), '#one {}');
       });
     }], function(result) {
@@ -194,7 +194,7 @@ exports.livereload = {
     var cwd = path.resolve(fixtures, 'livereload');
     var assertWatch = helper.assertTask(['watch:livereloadOnErrorTrue', '-v'], {cwd: cwd});
     assertWatch([function() {
-      request(35729, function(data) {
+      request(35729, function() {
         grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
       });
     }], function(result) {
@@ -209,7 +209,7 @@ exports.livereload = {
     var cwd = path.resolve(fixtures, 'livereload');
     var assertWatch = helper.assertTask(['watch:livereloadOnErrorFalse', '-v'], {cwd: cwd});
     assertWatch([function() {
-      request(35729, function(data) {
+      request(35729, function() {
         grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
       });
     }], function(result) {
@@ -225,7 +225,7 @@ exports.livereload = {
     var cwd = path.resolve(fixtures, 'livereload');
     var assertWatch = helper.assertTask(['watch:livereloadOnErrorFalseNoSpawn', '-v'], {cwd: cwd});
     assertWatch([function() {
-      request(35729, function(data) {
+      request(35729, function() {
         grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
       });
     }], function(result) {

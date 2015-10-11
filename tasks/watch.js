@@ -82,7 +82,7 @@ module.exports = function(grunt) {
     // initialize taskrun
     var targets = taskrun.init(name, {target: target});
 
-    targets.forEach(function(target, i) {
+    targets.forEach(function(target) {
       if (typeof target.files === 'string') { target.files = [target.files]; }
 
       // Process into raw patterns

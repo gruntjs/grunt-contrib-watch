@@ -2,19 +2,13 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2014 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2015 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
 'use strict';
 
-var path = require('path');
-var EE = require('events').EventEmitter;
-var util = require('util');
-
 module.exports = function(grunt) {
-
-  var livereload = require('./livereload')(grunt);
 
   // Create a TaskRun on a target
   function TaskRun(target) {
