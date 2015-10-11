@@ -8,7 +8,7 @@
 
 'use strict';
 
-var tinylr = require('tiny-lr');
+var minilr = require('mini-lr');
 var _ = require('lodash');
 
 // Holds the servers out of scope in case watch is reloaded
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
     if (servers[host]) {
       this.server = servers[host];
     } else {
-      this.server = tinylr(options);
+      this.server = minilr(options);
       this.server.server.removeAllListeners('error');
       this.server.server.on('error', function(err) {
         if (err.code === 'EADDRINUSE') {

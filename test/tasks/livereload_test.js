@@ -60,7 +60,7 @@ exports.livereload = {
         'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
-      test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
+      test.equal(resultData.minilr, 'Welcome', 'minilr server should have welcomed you.');
       test.done();
     });
   },
@@ -82,7 +82,7 @@ exports.livereload = {
         'live reload server should have been started on localhost:8675.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
-      test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
+      test.equal(resultData.minilr, 'Welcome', 'minilr server should have welcomed you.');
       test.done();
     });
   },
@@ -124,7 +124,7 @@ exports.livereload = {
       test.ok(/Live reloading (lib\/one\.js, lib\/two.js|lib\/two.js, lib\/one.js)\.\.\./.test(result),
         'live reload should have triggered on lib/one.js and lib/two.js');
       resultData = JSON.parse(resultData);
-      test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
+      test.equal(resultData.minilr, 'Welcome', 'minilr server should have welcomed you.');
       test.done();
     });
   },
@@ -146,7 +146,7 @@ exports.livereload = {
         'live reload server should have been started on port 1337.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
-      test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
+      test.equal(resultData.minilr, 'Welcome', 'minilr server should have welcomed you.');
       test.done();
     });
   },
@@ -167,7 +167,7 @@ exports.livereload = {
         'live reload server should have been started on port 35729.');
       test.ok(result.indexOf('Live reloading lib/one.js...') !== -1, 'live reload should have triggered on lib/one.js');
       resultData = JSON.parse(resultData);
-      test.equal(resultData.tinylr, 'Welcome', 'tinylr server should have welcomed you.');
+      test.equal(resultData.minilr, 'Welcome', 'minilr server should have welcomed you.');
       test.done();
     });
   },
