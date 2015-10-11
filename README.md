@@ -1,11 +1,11 @@
-# grunt-contrib-watch v0.6.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch v0.6.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
 
-> Run predefined tasks whenever watched file patterns are added, changed or deleted.
+> Run predefined tasks whenever watched file patterns are added, changed or deleted
 
 
 
 ## Getting Started
-This plugin requires Grunt `~0.4.0`
+This plugin requires Grunt `>=0.4.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -199,7 +199,7 @@ watch: {
 },
 ```
 
-It's possible to get livereload working over https connections. To do this, pass an object to `livereload` with a `key` and `cert` paths specified.
+Passing an object to `livereload` allows listening on a specific port and hostname/IP or over https connections (by specifying `key` and `cert` paths).
 
 Example:
 ```js
@@ -209,6 +209,7 @@ watch: {
     tasks: ['sass'],
     options: {
       livereload: {
+        host: 'localhost',
         port: 9000,
         key: grunt.file.read('path/to/ssl.key'),
         cert: grunt.file.read('path/to/ssl.crt')
@@ -225,6 +226,9 @@ Type: `String|Object`
 Default: `process.cwd()`
 
 Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
+
+Set `options: { cwd: { files: 'a/path', event: 'a/path' }}` to strip off `a/path` before emitting events. This option is useful for specifying the base directory to use with livereload.
+
 
 #### options.livereloadOnError
 Type: `Boolean`  
@@ -485,4 +489,4 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sun Apr 20 2014 10:32:11.*
+*This file was generated on Sun Oct 11 2015 13:29:21.*
