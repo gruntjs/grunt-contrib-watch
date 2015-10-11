@@ -26,7 +26,7 @@ exports.patterns = {
   negate: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'patterns');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'sub', 'dontedit.js'), 'var dontedit = true;');
       setTimeout(function() {

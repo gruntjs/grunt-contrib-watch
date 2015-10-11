@@ -29,7 +29,7 @@ exports.nospawn = {
   nospawn: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'nospawn');
-    var assertWatch = helper.assertTask(['server', 'watch'], {cwd:cwd});
+    var assertWatch = helper.assertTask(['server', 'watch'], {cwd: cwd});
     assertWatch(function() {
       var write = 'var nospawn = true;';
       grunt.file.write(path.join(cwd, 'lib', 'nospawn.js'), write);
@@ -45,7 +45,7 @@ exports.nospawn = {
   interrupt: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'nospawn');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch([function() {
       var write = 'var interrupt = true;';
       grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), write);

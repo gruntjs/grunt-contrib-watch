@@ -30,7 +30,7 @@ exports.watch = {
   atBegin: function(test) {
     test.expect(1);
     var cwd = path.resolve(fixtures, 'atBegin');
-    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd:cwd});
+    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd: cwd});
     assertWatch(function() {
        // noop. Does not modify any watched files.
     }, function(result) {
@@ -43,7 +43,7 @@ exports.watch = {
   dateFormat: function(test) {
     test.expect(1);
     var cwd = path.resolve(fixtures, 'dateFormat');
-    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd:cwd});
+    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd: cwd});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
     }, function(result) {
@@ -55,7 +55,7 @@ exports.watch = {
   oneTarget: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'oneTarget');
-    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd:cwd});
+    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd: cwd});
     assertWatch(function() {
       var write = 'var test = true;';
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
@@ -70,7 +70,7 @@ exports.watch = {
   multiTargetsTriggerOneNotTwo: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch(function() {
       var write = 'var test = true;';
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
@@ -84,7 +84,7 @@ exports.watch = {
   multiTargetsSequentialFilesChangeTriggerBoth: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch([function() {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var test = true;');
     }, function() {
@@ -99,7 +99,7 @@ exports.watch = {
   multiTargetsSimultaneousFilesChangeTriggerBoth: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch([function() {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var test = true;');
       grunt.file.write(path.join(cwd, 'lib', 'two.js'), 'var test = true;');
@@ -113,7 +113,7 @@ exports.watch = {
   spawnOneAtATime: function(test) {
     test.expect(1);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'wait.js'), 'var wait = false;');
       setTimeout(function() {
@@ -128,7 +128,7 @@ exports.watch = {
   interrupt: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 1;');
       setTimeout(function() {
@@ -150,7 +150,7 @@ exports.watch = {
   failingTask: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'fail.js'), 'var fail = false;');
     }, function(result) {
@@ -163,7 +163,7 @@ exports.watch = {
   cwd: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch:cwd', {cwd:cwd});
+    var assertWatch = helper.assertTask('watch:cwd', {cwd: cwd});
     assertWatch(function() {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var test = true;');
     }, function(result) {
