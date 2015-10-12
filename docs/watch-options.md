@@ -13,7 +13,7 @@ Type: `String|Array`
 This defines which tasks to run when a watched file event occurs.
 
 ## options.spawn
-Type: `Boolean`
+Type: `Boolean`  
 Default: true
 
 Whether to spawn task runs in a child process. Setting this option to `false` speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context. Not spawning task runs can make the watch more prone to failing so please use as needed.
@@ -34,7 +34,7 @@ watch: {
 *For backwards compatibility the option `nospawn` is still available and will do the opposite of `spawn`.*
 
 ## options.interrupt
-Type: `Boolean`
+Type: `Boolean`  
 Default: false
 
 As files are modified this watch task will spawn tasks in child processes. The default behavior will only spawn a new child process per target when the previous process has finished. Set the `interrupt` option to true to terminate the previous process and spawn a new one upon later changes.
@@ -53,7 +53,7 @@ watch: {
 ```
 
 ## options.debounceDelay
-Type: `Integer`
+Type: `Integer`  
 Default: 500
 
 How long to wait before emitting events in succession for the same filepath and status. For example if your `Gruntfile.js` file was `changed`, a `changed` event will only fire again after the given milliseconds.
@@ -72,13 +72,13 @@ watch: {
 ```
 
 ## options.interval
-Type: `Integer`
+Type: `Integer`  
 Default: 100
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
 
 ## options.event
-Type: `String|Array`
+Type: `String|Array`  
 Default: `'all'`
 
 Specify the type of watch events that triggers the specified task. This option can be one or many of: `'all'`, `'changed'`, `'added'` and `'deleted'`.
@@ -97,7 +97,7 @@ watch: {
 ```
 
 ## options.reload
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 By default, if `Gruntfile.js` is being watched, then changes to it will trigger the watch task to restart, and reload the `Gruntfile.js` changes.
@@ -117,7 +117,7 @@ watch: {
 
 
 ## options.forever
-Type: `Boolean`
+Type: `Boolean`  
 Default: true
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
@@ -143,13 +143,13 @@ watch: {
 ```
 
 ## options.atBegin
-Type: `Boolean`
+Type: `Boolean`  
 Default: false
 
 This option will trigger the run of each specified task at startup of the watcher.
 
 ## options.livereload
-Type: `Boolean|Number|Object`
+Type: `Boolean|Number|Object`  
 Default: false
 
 Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
@@ -194,7 +194,7 @@ watch: {
 
 
 ## options.cwd
-Type: `String|Object`
+Type: `String|Object`  
 Default: `process.cwd()`
 
 Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
@@ -206,4 +206,4 @@ Set `options: { cwd: { files: 'a/path', event: 'a/path' }}` to strip off `a/path
 Type: `Boolean`  
 Default: `true`  
 
-Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
+Option to prevent the livereload if the executed tasks encountered an error. If set to `false`, the livereload will only be triggered if all tasks completed successfully.
