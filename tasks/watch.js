@@ -2,7 +2,7 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2014 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2015 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 
     if (taskrun.running === false) { grunt.log.writeln(waiting); }
 
-    // initialize taskrun
+    // Initialize taskrun
     var targets = taskrun.init(name, {target: target});
 
     targets.forEach(function(target, i) {
