@@ -46,6 +46,18 @@ grunt.event.on('watch', function(action, filepath, target) {
 });
 ```
 
+Simple events are also available for 'watch-start' and 'watch-end'. These will fire before/after your watch tasks have run. Here is a simple example of using the `watch-start` and `watch-end` events.
+
+```js
+grunt.event.on('watch-start', function() {
+  grunt.log.writeln('Watch tasks are about to be run!');
+});
+
+grunt.event.on('watch-end', function() {
+  grunt.log.writeln('Watch tasks are finished running!');
+});
+```
+
 **The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](http://gruntjs.com/configuring-tasks).**
 
 ### Compiling Files As Needed

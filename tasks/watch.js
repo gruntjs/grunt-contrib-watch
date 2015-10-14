@@ -30,6 +30,10 @@ module.exports = function(grunt) {
 
   // When task runner has started
   taskrun.on('start', function() {
+    if (grunt.event.listeners('watch-start').length > 0) {
+      grunt.event.emit('watch-start');
+    }
+
     Object.keys(changedFiles).forEach(function(filepath) {
       // Log which file has changed, and how.
       grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
@@ -40,6 +44,10 @@ module.exports = function(grunt) {
 
   // When task runner has ended
   taskrun.on('end', function(time) {
+    if (grunt.event.listeners('watch-end').length > 0) {
+      grunt.event.emit('watch-end');
+    }
+
     if (time > 0) {
       dateFormat(time);
     }

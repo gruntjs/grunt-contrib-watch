@@ -162,4 +162,21 @@ exports.events = {
       test.done();
     });
   },
+  watchStartEnd: function(test) {
+    test.expect(5);
+    var cwd = path.resolve(fixtures, 'events');
+    var assertWatch = helper.assertTask('watch:all', {cwd: cwd});
+    assertWatch([function() {
+      writeAll(cwd);
+    }], function(result) {
+      result = helper.unixify(result);
+      helper.verboseLog(result);
+      test.ok(/watch started/.test(result), 'event not emitted when watch started');
+      test.ok(/watch ended/.test(result), 'event not emitted when watch ended');
+      test.ok(result.indexOf('watch started') < result.indexOf('watch ended'), 'start event fired after watch event');
+      test.ok(result.indexOf('watch started') < result.indexOf('>> File'), 'watch-started fired late');
+      test.ok(result.indexOf('>> File') < result.indexOf('watch ended'), 'watch-ended fired early');
+      test.done();
+    });
+  }
 };
