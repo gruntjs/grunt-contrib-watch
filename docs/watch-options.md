@@ -5,7 +5,7 @@ There are a number of options available. Please review the [minimatch options he
 ## files
 Type: `String|Array`
 
-This defines what file patterns this task will watch. Can be a string or an array of files and/or minimatch patterns.
+This defines what file patterns this task will watch. It can be a string or an array of files and/or minimatch patterns.
 
 ## tasks
 Type: `String|Array`
@@ -14,7 +14,7 @@ This defines which tasks to run when a watched file event occurs.
 
 ## options.spawn
 Type: `Boolean`  
-Default: true
+Default: `true`
 
 Whether to spawn task runs in a child process. Setting this option to `false` speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context. Not spawning task runs can make the watch more prone to failing so please use as needed.
 
@@ -35,7 +35,7 @@ watch: {
 
 ## options.interrupt
 Type: `Boolean`  
-Default: false
+Default: `false`
 
 As files are modified this watch task will spawn tasks in child processes. The default behavior will only spawn a new child process per target when the previous process has finished. Set the `interrupt` option to true to terminate the previous process and spawn a new one upon later changes.
 
@@ -54,7 +54,7 @@ watch: {
 
 ## options.debounceDelay
 Type: `Integer`  
-Default: 500
+Default: `500`
 
 How long to wait before emitting events in succession for the same filepath and status. For example if your `Gruntfile.js` file was `changed`, a `changed` event will only fire again after the given milliseconds.
 
@@ -73,7 +73,7 @@ watch: {
 
 ## options.interval
 Type: `Integer`  
-Default: 100
+Default: `100`
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
 
@@ -118,7 +118,7 @@ watch: {
 
 ## options.forever
 Type: `Boolean`  
-Default: true
+Default: `true`
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
 
@@ -144,13 +144,13 @@ watch: {
 
 ## options.atBegin
 Type: `Boolean`  
-Default: false
+Default: `false`
 
 This option will trigger the run of each specified task at startup of the watcher.
 
 ## options.livereload
 Type: `Boolean|Number|Object`  
-Default: false
+Default: `false`
 
 Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
 
@@ -197,9 +197,26 @@ watch: {
 Type: `String|Object`  
 Default: `process.cwd()`
 
-Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
+Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks or an object to set each independently. Such as:
+```js
+options: {
+  cwd: {
+    files: 'match/files/from/here',
+    spawn: 'but/spawn/files/from/here'
+  }
+}
+```
 
-Set `options: { cwd: { files: 'a/path', event: 'a/path' }}` to strip off `a/path` before emitting events. This option is useful for specifying the base directory to use with livereload.
+To strip off a path before emitting events:
+```js
+options: {
+  cwd: {
+    files: 'a/path',
+    event: 'a/path'
+  }
+}
+```
+This will strip off `a/path` before emitting events. This option is useful for specifying the base directory to use with livereload.
 
 
 ## options.livereloadOnError
