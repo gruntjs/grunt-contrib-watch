@@ -236,6 +236,14 @@ Default: `true`
 
 Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
 
+#### options.silently
+Type: `Boolean`
+Default: `false`
+
+Option to mute log messages. Ignored when running grunt in verbose mode.
+
+This is *only a task level option* and cannot be configured per target.
+
 ### Examples
 
 ```js

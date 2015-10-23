@@ -18,9 +18,14 @@ module.exports = function(grunt) {
 
   var taskrun = require('./lib/taskrunner')(grunt);
 
+  // Default or verbose logger
+  var logger = function() {
+    return taskrun.options.silently ? grunt.verbose : grunt.log;
+  };
+
   // Default date format logged
   var dateFormat = function(time) {
-    grunt.log.writeln(String(
+    logger().writeln(String(
       'Completed in ' +
       time.toFixed(3) +
       's at ' +
@@ -32,7 +37,7 @@ module.exports = function(grunt) {
   taskrun.on('start', function() {
     Object.keys(changedFiles).forEach(function(filepath) {
       // Log which file has changed, and how.
-      grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
+      logger().ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
     });
     // Reset changedFiles
     changedFiles = Object.create(null);
@@ -77,7 +82,7 @@ module.exports = function(grunt) {
       dateFormat = df;
     }
 
-    if (taskrun.running === false) { grunt.log.writeln(waiting); }
+    if (taskrun.running === false) { logger().writeln(waiting); }
 
     // Initialize taskrun
     var targets = taskrun.init(name, {target: target});
