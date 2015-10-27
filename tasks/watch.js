@@ -20,7 +20,9 @@ module.exports = function(grunt) {
 
   // Default or verbose logger
   var logger = function() {
-    return taskrun.options.silently ? grunt.verbose : grunt.log;
+    var options = taskrun.options;
+    var silent = (typeof options.silent === 'undefined') ? options.silently : options.silent;
+    return silent ? grunt.verbose : grunt.log;
   };
 
   // Default date format logged
