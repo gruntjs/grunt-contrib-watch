@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "gaze": "^0.5.1",
-    "tiny-lr": "^0.1.4",
+    "tiny-lr": "^0.2.1",
     "lodash": "^2.4.1",
     "async": "^0.9.0"
   },
