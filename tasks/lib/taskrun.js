@@ -61,6 +61,12 @@ module.exports = function(grunt) {
       grunt.task.run(self.tasks);
       done();
     } else {
+      var cliArgs = self.options.cliArgs.slice();
+      var stripArgs = ['gruntfile', 'base'];
+      for (var idx in stripArgs) {
+        var pos = cliArgs.indexOf('--' + stripArgs[idx]);
+        if (pos >= 0) cliArgs.splice(pos, 2);
+      }
       self.spawned = grunt.util.spawn({
         // Spawn with the grunt bin
         grunt: true,
@@ -70,7 +76,7 @@ module.exports = function(grunt) {
           stdio: 'inherit',
         },
         // Run grunt this process uses, append the task to be run and any cli options
-        args: self.tasks.concat(self.options.cliArgs || []),
+        args: self.tasks.concat(cliArgs || []),
       }, function(err, res, code) {
         self.spawnTaskFailure = (code !== 0);
         if (self.options.interrupt !== true || (code !== 130 && code !== 1)) {
