@@ -8,6 +8,8 @@
 
 'use strict';
 
+var path = require('path');
+
 module.exports = function(grunt) {
 
   // Create a TaskRun on a target
@@ -62,12 +64,13 @@ module.exports = function(grunt) {
       done();
     } else {
       var cliArgs = self.options.cliArgs.slice();
-      var stripArgs = ['gruntfile', 'base'];
-      for (var idx in stripArgs) {
-        var pos = cliArgs.indexOf('--' + stripArgs[idx]);
-        if (pos >= 0) {
-          cliArgs.splice(pos, 2);
-        }
+      var pos = cliArgs.indexOf('--base');
+      if (pos >= 0) {
+        cliArgs.splice(pos, 2);
+      }
+      pos = cliArgs.indexOf('--gruntfile');
+      if (pos >= 0) {
+        cliArgs[pos + 1] = path.basename(cliArgs[pos + 1]);
       }
       self.spawned = grunt.util.spawn({
         // Spawn with the grunt bin
