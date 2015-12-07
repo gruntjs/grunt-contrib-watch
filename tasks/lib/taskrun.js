@@ -65,7 +65,9 @@ module.exports = function(grunt) {
       var stripArgs = ['gruntfile', 'base'];
       for (var idx in stripArgs) {
         var pos = cliArgs.indexOf('--' + stripArgs[idx]);
-        if (pos >= 0) cliArgs.splice(pos, 2);
+        if (pos >= 0) {
+          cliArgs.splice(pos, 2);
+        }
       }
       self.spawned = grunt.util.spawn({
         // Spawn with the grunt bin
