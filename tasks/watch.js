@@ -6,6 +6,8 @@
  * Licensed under the MIT license.
  */
 
+'use strict';
+
 var path = require('path');
 var Gaze = require('gaze').Gaze;
 var _ = require('lodash');
@@ -14,7 +16,6 @@ var changedFiles = Object.create(null);
 var watchers = [];
 
 module.exports = function(grunt) {
-  'use strict';
 
   var taskrun = require('./lib/taskrunner')(grunt);
 
@@ -77,13 +78,17 @@ module.exports = function(grunt) {
       dateFormat = df;
     }
 
-    if (taskrun.running === false) { grunt.log.writeln(waiting); }
+    if (taskrun.running === false) {
+      grunt.log.writeln(waiting);
+    }
 
     // Initialize taskrun
     var targets = taskrun.init(name, {target: target});
 
     targets.forEach(function(target) {
-      if (typeof target.files === 'string') { target.files = [target.files]; }
+      if (typeof target.files === 'string') {
+        target.files = [target.files];
+      }
 
       // Process into raw patterns
       var patterns = _.chain(target.files).flatten().map(function(pattern) {
@@ -108,7 +113,9 @@ module.exports = function(grunt) {
       // Create watcher per target
       watchers.push(new Gaze(patterns, target.options, function(err) {
         if (err) {
-          if (typeof err === 'string') { err = new Error(err); }
+          if (typeof err === 'string') {
+            err = new Error(err);
+          }
           grunt.log.writeln('ERROR'.red);
           grunt.fatal(err);
           return taskrun.done();
@@ -172,7 +179,9 @@ module.exports = function(grunt) {
 
         // On watcher error
         this.on('error', function(err) {
-          if (typeof err === 'string') { err = new Error(err); }
+          if (typeof err === 'string') {
+            err = new Error(err);
+          }
           grunt.log.error(err.message);
         });
       }));

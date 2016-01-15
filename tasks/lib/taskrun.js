@@ -39,7 +39,9 @@ module.exports = function(grunt) {
     var self = this;
 
     // Dont run if already running
-    if (self.startedAt !== false) { return; }
+    if (self.startedAt !== false) {
+      return;
+    }
 
     // Start this task run
     self.startedAt = Date.now();
@@ -55,7 +57,9 @@ module.exports = function(grunt) {
     }
 
     // If no tasks just call done to trigger potential livereload
-    if (self.tasks.length < 1) { return done(); }
+    if (self.tasks.length < 1) {
+      return done();
+    }
 
     if (self.options.spawn === false || self.options.nospawn === true) {
       grunt.task.run(self.tasks);
@@ -67,10 +71,10 @@ module.exports = function(grunt) {
         // Run from current working dir and inherit stdio from process
         opts: {
           cwd: self.options.cwd.spawn,
-          stdio: 'inherit',
+          stdio: 'inherit'
         },
         // Run grunt this process uses, append the task to be run and any cli options
-        args: self.tasks.concat(self.options.cliArgs || []),
+        args: self.tasks.concat(self.options.cliArgs || [])
       }, function(err, res, code) {
         self.spawnTaskFailure = (code !== 0);
         if (self.options.interrupt !== true || (code !== 130 && code !== 1)) {
