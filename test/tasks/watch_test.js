@@ -133,10 +133,10 @@ exports.watch = {
       grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 1;');
       setTimeout(function() {
         grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 2;');
-      }, 1000);
+      }, 5000);
       setTimeout(function() {
         grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 3;');
-      }, 2000);
+      }, 5000);
     }, function(result) {
       helper.verboseLog(result);
       var interruptMatches = result.match(/have been interrupted/g);
