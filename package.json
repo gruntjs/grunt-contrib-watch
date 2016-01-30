@@ -29,9 +29,6 @@
     "grunt-jscs": "^2.1.0",
     "underscore.string": "^2.3.3"
   },
-  "peerDependencies": {
-    "grunt": ">=0.4.0"
-  },
   "keywords": [
     "gruntplugin",
     "watch",
