@@ -16,19 +16,19 @@
     "test": "grunt test -v"
   },
   "dependencies": {
-    "gaze": "^0.5.1",
+    "gaze": "^0.5.2",
     "tiny-lr": "^0.2.1",
-    "lodash": "^3.10.1",
-    "async": "^1.5.0"
+    "lodash": "^4.6.1",
+    "async": "^1.5.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
-    "grunt-contrib-internal": "^0.4.7",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-nodeunit": "^0.4.1",
-    "grunt-jscs": "^2.1.0",
-    "underscore.string": "^3.2.2"
+    "grunt-contrib-internal": "^0.4.14",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "grunt-jscs": "^2.8.0",
+    "underscore.string": "^3.3.4"
   },
   "keywords": [
     "gruntplugin",
