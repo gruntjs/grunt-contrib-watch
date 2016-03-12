@@ -16,10 +16,10 @@
     "test": "grunt test -v"
   },
   "dependencies": {
-    "gaze": "^0.5.1",
-    "tiny-lr": "^0.2.1",
+    "async": "^1.5.0",
+    "gaze": "^1.0.0",
     "lodash": "^3.10.1",
-    "async": "^1.5.0"
+    "tiny-lr": "^0.2.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
