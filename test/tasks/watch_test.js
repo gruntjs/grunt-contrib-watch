@@ -5,6 +5,7 @@ var path = require('path');
 var fs = require('fs');
 var helper = require('./helper');
 var _s = require('underscore.string');
+var spawn = require('child_process').spawn;
 
 var fixtures = helper.fixtures;
 var useFixtures = ['multiTargets', 'oneTarget', 'atBegin', 'dateFormat'];
@@ -128,8 +129,8 @@ exports.watch = {
   interrupt: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('watch', {cwd: cwd});
-    assertWatch(function() {
+
+    function interrupt() {
       grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 1;');
       setTimeout(function() {
         grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 2;');
@@ -137,7 +138,22 @@ exports.watch = {
       setTimeout(function() {
         grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), 'var interrupt = 3;');
       }, 2000);
-    }, function(result) {
+    }
+
+    var output = [];
+    var child = spawn(process.execPath, [process.argv[1], 'watch'], {cwd: cwd});
+    child.stdout.on('data', function(data) {
+      data = grunt.log.uncolor(data.toString());
+      output.push(data);
+      if (data.indexOf('Done') !== -1) {
+        child.kill('SIGINT');
+      } else if (data.indexOf('Waiting...') !== -1) {
+        setTimeout(interrupt, 1000);
+      }
+    });
+
+    child.on('exit', function() {
+      var result = output.join('\n');
       helper.verboseLog(result);
       var interruptMatches = result.match(/have been interrupted/g);
       test.ok(interruptMatches && interruptMatches.length === 2, 'Task should have been interrupted 2 times.');
