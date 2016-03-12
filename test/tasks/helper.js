@@ -49,7 +49,11 @@ helper.assertTask = function assertTask(task, options) {
 
     // Append a last function to kill spawnGrunt
     runs.push(function() {
-      spawnGrunt.kill('SIGINT');
+      // TODO: This pattern needs to be fixed. It causes async timing issues.
+      // each run() function should let it know when its done.
+      setTimeout(function() {
+        spawnGrunt.kill('SIGINT');
+      }, 1000);
     });
 
     // After watch starts waiting, run our commands then exit
