@@ -1,3 +1,11 @@
+v1.0.0:
+  date: 2016-03-12
+  changes:
+    - Updated tiny-lr, gaze, async, lodash dependencies
+    - Fix endless loop issue with atBegin/nospawn
+    - Expose hostname parameter of tiny-lr
+    - Support cwd.event to emit events relative to path
+    - Removed peerDependencies setting
 v0.6.1:
   date: 2014-03-19
   changes:
