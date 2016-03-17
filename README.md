@@ -1,4 +1,4 @@
-# grunt-contrib-watch v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/olyu3uhcq59avm8v/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-watch/branch/master)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted
 
@@ -511,4 +511,4 @@ You'll have the `connect` web server on seperate port ex: port 9000 from your ma
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sat Mar 12 2016 14:08:17.*
+*This file was generated on Thu Mar 17 2016 19:29:27.*
