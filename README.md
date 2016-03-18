@@ -483,32 +483,32 @@ You'll have the `connect` web server on seperate port ex: port 9000 from your ma
 
 ## Release History
 
- * 2016-03-12   v1.0.0   Updated tiny-lr, gaze, async, lodash dependencies Fix endless loop issue with atBegin/nospawn Expose hostname parameter of tiny-lr Support cwd.event to emit events relative to path Removed peerDependencies setting
- * 2014-03-19   v0.6.1   Fix for watch targets named "default"
- * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. cwd option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...' Remove deprecated grunt.util libs Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1 Use fork of tiny-lr (which has quiter operation, support for HTTPS and windows path fixes) Add livereloadOnError, which if set to false will not trigger live reload if there is an error.
+ * 2016-03-12   v1.0.0   Updated tiny-lr, gaze, async and lodash dependencies. Fix endless loop issue with `atBegin`/`nospawn`. Expose hostname parameter of tiny-lr. Support `cwd.event` to emit events relative to path. Removed peerDependencies setting.
+ * 2014-03-19   v0.6.1   Fix for watch targets named "default".
+ * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. `cwd` option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...'. Remove deprecated `grunt.util` libs. Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1. Use a fork of tiny-lr (which has quiter operation, support for HTTPS and Windows path fixes). Add `livereloadOnError`, which if set to `false` will not trigger live reload if there is an error.
  * 2013-08-25   v0.5.3   Fixed for live reload missing files.
  * 2013-08-16   v0.5.2   Fixed issue running tasks after gruntfile is reloaded. Ignores empty file paths.
  * 2013-07-20   v0.5.1   Fixed issue with options resetting.
- * 2013-07-18   v0.5.0   Added target name to watch event. Added atBegin option to run tasks when watcher starts. Changed nospawn option to spawn (nospawn still available for backwards compatibility). Moved libs/vars into top scope to prevent re-init. Bumped Gaze version to ~0.4. Re-grab task/target options upon each task run. Add dateFormat option to override the date/time output upon completion.
- * 2013-05-27   v0.4.4   Remove gracefully closing SIGINT. Not needed and causes problems for Windows. Ensure tasks are an array to not conflict with cliArgs.
+ * 2013-07-18   v0.5.0   Added target name to watch event. Added `atBegin` option to run tasks when watcher starts. Changed `nospawn` option to `spawn` (`nospawn` still available for backwards compatibility). Moved libs/vars into top scope to prevent re-init. Bumped Gaze version to ~0.4. Re-grab task/target options upon each task run. Add dateFormat option to override the date/time output upon completion.
+ * 2013-05-27   v0.4.4   Remove gracefully closing SIGINT. Not needed and causes problems for Windows. Ensure tasks are an array to not conflict with `cliArgs`.
  * 2013-05-11   v0.4.3   Only group changed files per target to send correct files to live reload.
  * 2013-05-09   v0.4.2   Fix for closing watchers.
  * 2013-05-09   v0.4.1   Removed "beep" notification. Tasks now optional with livereload option. Reverted "run again" with interrupt off to fix infinite recursion issue. Watchers now close more properly on task run.
- * 2013-05-03   v0.4.0   Option livereload to start live reload servers. Will reload a Gruntfile before running tasks if Gruntfile is modified. Option event to only trigger watch on certain events. Refactor watch task into separate task runs per target. Option forever to override grunt.fatal/warn to help keeping the watch alive with nospawn enabled. Emit a beep upon complete. Logs all watched files with verbose flag set. If interrupt is off, will run the tasks once more if watch triggered during a previous task run. tasks property is optional for use with watch event. Watchers properly closed when exiting.
+ * 2013-05-03   v0.4.0   Option `livereload` to start live reload servers. Will reload a Gruntfile before running tasks if Gruntfile is modified. Option event to only trigger watch on certain events. Refactor watch task into separate task runs per target. Option `forever` to override `grunt.fatal`/`warn` to help keeping the watch alive with `nospawn` enabled. Emit a beep upon complete. Logs all watched files with verbose flag set. If interrupt is off, will run the tasks once more if watch triggered during a previous task run. tasks property is optional for use with watch event. Watchers properly closed when exiting.
  * 2013-02-28   v0.3.1   Fix for top level options.
- * 2013-02-27   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
+ * 2013-02-27   v0.3.0   `nospawn` option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with `grunt.event`. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with `--stack` CLI option. Code complexity reduced making the watch task code easier to read.
  * 2013-02-15   v0.2.0   First official release for Grunt 0.4.0.
  * 2013-01-18   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
  * 2013-01-09   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
- * 2012-12-15   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
- * 2012-11-01   v0.1.4   Prevent watch from spawning duplicate watch tasks
- * 2012-10-28   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
- * 2012-10-17   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
- * 2012-10-16   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
- * 2012-10-08   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
+ * 2012-12-15   v0.2.0a   Conversion to grunt v0.4 conventions. Remove Node.js v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use `grunt.util.spawn` "grunt" option. Updated to gaze@0.3.0, `forceWatchMethod` option removed.
+ * 2012-11-01   v0.1.4   Prevent watch from spawning duplicate watch tasks.
+ * 2012-10-28   v0.1.3   Better method to spawn the grunt bin. Bump gaze to v0.2.0. Better handles some events and new option `forceWatchMethod`. Only support Node.js >= v0.8.
+ * 2012-10-17   v0.1.2   Only spawn a process per task one at a time. Add `interrupt` option to cancel previous spawned process. Grunt v0.3 compatibility changes.
+ * 2012-10-16   v0.1.1   Fallback to global grunt bin if local doesn't exist. Fatal if bin cannot be found. Update to gaze 0.1.6.
+ * 2012-10-08   v0.1.0   Release watch task. Remove spawn from helper. Run on Grunt v0.4.
 
 ---
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Thu Mar 17 2016 19:29:27.*
+*This file was generated on Fri Mar 18 2016 19:24:09.*
