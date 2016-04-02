@@ -316,7 +316,7 @@ module.exports = function(grunt) {
   Runner.prototype.interrupt = function interrupt() {
     var self = this;
     self._completeQueue();
-    grunt.task.clearQueue();
+    grunt.task.clearQueue({untilMarker: true});
     self.emit('interrupt');
   };
 
