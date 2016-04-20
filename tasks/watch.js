@@ -135,8 +135,8 @@ module.exports = function(grunt) {
         this.on('all', function(status, filepath) {
 
           // Skip events not specified
-          if (!_.contains(target.options.event, 'all') &&
-              !_.contains(target.options.event, status)) {
+          if (!_.includes(target.options.event, 'all') &&
+              !_.includes(target.options.event, status)) {
             return;
           }
 
