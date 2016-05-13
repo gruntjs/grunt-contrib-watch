@@ -61,7 +61,11 @@ module.exports = function(grunt) {
     var self = this;
     var name = self.name || 'watch';
 
-    // keep track of previous watchers to delete them later
+    // As the context may have changed, it might be necessary
+    // to recreate the watchers. However, we do not delete
+    // the previous watchers immediately, or we take the
+    // risk to miss changes in the file system.
+    // Hence, keep track of previous watchers to delete them after
     var previousWatchers = watchers;
     watchers = [];
 
@@ -185,7 +189,7 @@ module.exports = function(grunt) {
       }));
     });
     // Close any previously opened watchers
-    prevousWatchers.forEach(function(watcher) {
+    previousWatchers.forEach(function(watcher) {
       watcher.close();
     });
   });
