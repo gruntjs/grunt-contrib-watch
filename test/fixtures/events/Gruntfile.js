@@ -67,4 +67,12 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.event.on('watch-start', function() {
+    grunt.log.writeln('watch started');
+  });
+
+  grunt.event.on('watch-end', function() {
+    grunt.log.writeln('watch ended');
+  });
+
 };
