@@ -62,4 +62,18 @@ exports.nospawn = {
       test.done();
     });
   },
+  cascading: function(test) {
+    test.expect(2);
+    var cwd = path.resolve(fixtures, 'nospawn');
+    var assertWatch = helper.assertTask('watch', {cwd: cwd});
+    assertWatch(function() {
+      var write = 'var cascading = true;';
+      grunt.file.write(path.join(cwd, 'lib', 'source.js'), write);
+    }, function(result) {
+      helper.verboseLog(result);
+      test.ok(result.indexOf('File "lib/source.js" changed') !== -1, 'Cascading file should have been detected.');
+      test.ok(result.indexOf('File "lib/destination.js" changed') !== -1, 'Cascaded file should have been detected.');
+      test.done();
+    });
+  },
 };

@@ -4,7 +4,15 @@ module.exports = function(grunt) {
   var http = require('http');
   var port = 1337;
 
+  grunt.loadNpmTasks('grunt-contrib-copy');
+
   grunt.initConfig({
+    copy: {
+      cascade: {
+          src: 'lib/source.js',
+          dest: 'lib/destination.js',
+      },
+    },
     watch: {
       nospawn: {
         files: ['lib/nospawn.js'],
@@ -16,6 +24,16 @@ module.exports = function(grunt) {
       spawn: {
         files: ['lib/spawn.js'],
         tasks: ['server'],
+      },
+      cascading: {
+        files: ['lib/source.js'],
+        tasks: ['copy:cascade'],
+        options: {
+          nospawn: true,
+        },
+      },
+      cascaded: {
+        files: ['lib/destination.js'],
       },
       interrupt: {
         files: ['lib/interrupt.js'],
@@ -56,5 +74,5 @@ module.exports = function(grunt) {
     setTimeout(this.async(), 2000);
   });
 
-  grunt.registerTask('default', ['server', 'watch']);
+    grunt.registerTask('default', ['server', 'watch']);
 };
