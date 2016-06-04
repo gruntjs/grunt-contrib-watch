@@ -62,7 +62,7 @@ exports.watch = {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);
     }, function(result) {
       helper.verboseLog(result);
-      test.ok(result.indexOf('File "lib' + path.sep + 'one.js" changed') !== -1,
+      test.ok(result.indexOf('1 file changed.') !== -1,
         'Watch should have fired when oneTarget/lib/one.js has changed.');
       test.ok(result.indexOf('I do absolutely nothing.') !== -1, 'echo task should have fired.');
       test.done();

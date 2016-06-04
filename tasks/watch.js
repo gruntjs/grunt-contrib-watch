@@ -31,9 +31,25 @@ module.exports = function(grunt) {
 
   // When task runner has started
   taskrun.on('start', function() {
-    Object.keys(changedFiles).forEach(function(filepath) {
+    var changed = Object.keys(changedFiles);
+    var changedHow = {};
+    changed.forEach(function(filepath) {
+      var how = changedFiles[filepath];
       // Log which file has changed, and how.
-      grunt.log.ok('File "' + filepath + '" ' + changedFiles[filepath] + '.');
+      grunt.verbose.writeln('File "' + filepath + '" ' + how + '.');
+      if (typeof changedHow[how] === 'undefined') {
+        changedHow[how] = 0;
+      }
+      changedHow[how]++;
+    });
+    Object.keys(changedHow).forEach(function(how) {
+      if (changedHow[how] > 0) {
+        grunt.log.ok(
+          changedHow[how] + ' ' +
+          grunt.util.pluralize(changedHow[how], 'file/files') +
+          ' ' + how + '.'
+        );
+      }
     });
     // Reset changedFiles
     changedFiles = Object.create(null);
