@@ -71,8 +71,10 @@ exports.nospawn = {
       grunt.file.write(path.join(cwd, 'lib', 'source.js'), write);
     }, function(result) {
       helper.verboseLog(result);
-      test.ok(result.indexOf('File "lib/source.js" changed') !== -1, 'Cascading file should have been detected.');
-      test.ok(result.indexOf('File "lib/destination.js" changed') !== -1, 'Cascaded file should have been detected.');
+      test.ok(/File "lib[\/\\]source\.js" changed/.test(result),
+              'Cascading file should have been detected.');
+      test.ok(/File "lib[\/\\]destination\.js" changed/.test(result),
+              'Cascaded file should have been detected.');
       test.done();
     });
   },
