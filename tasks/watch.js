@@ -62,10 +62,12 @@ module.exports = function(grunt) {
     var name = self.name || 'watch';
 
     // Close any previously opened watchers
-    watchers.forEach(function(watcher) {
-      watcher.close();
-    });
-    watchers = [];
+    if (!taskrun.running) {
+      watchers.forEach(function(watcher) {
+        watcher.close();
+      });
+      watchers = [];
+    }
 
     // Never gonna give you up, never gonna let you down
     if (grunt.config([name, 'options', 'forever']) !== false) {
@@ -111,80 +113,82 @@ module.exports = function(grunt) {
       }
 
       // Create watcher per target
-      watchers.push(new Gaze(patterns, target.options, function(err) {
-        if (err) {
-          if (typeof err === 'string') {
-            err = new Error(err);
-          }
-          grunt.log.writeln('ERROR'.red);
-          grunt.fatal(err);
-          return taskrun.done();
-        }
-
-        // Log all watched files with --verbose set
-        if (grunt.option('verbose')) {
-          var watched = this.watched();
-          Object.keys(watched).forEach(function(watchedDir) {
-            watched[watchedDir].forEach(function(watchedFile) {
-              grunt.log.writeln('Watching ' + path.relative(process.cwd(), watchedFile) + ' for changes.');
-            });
-          });
-        }
-
-        // On changed/added/deleted
-        this.on('all', function(status, filepath) {
-
-          // Skip events not specified
-          if (!_.includes(target.options.event, 'all') &&
-              !_.includes(target.options.event, status)) {
-            return;
-          }
-
-          filepath = path.relative(eventCwd, filepath);
-
-          // Skip empty filepaths
-          if (filepath === '') {
-            return;
-          }
-
-          // If Gruntfile.js changed, reload self task
-          if (target.options.reload || /gruntfile\.(js|coffee)/i.test(filepath)) {
-            taskrun.reload = true;
-          }
-
-          // Emit watch events if anyone is listening
-          if (grunt.event.listeners('watch').length > 0) {
-            grunt.event.emit('watch', status, filepath, target.name);
-          }
-
-          // Group changed files only for display
-          changedFiles[filepath] = status;
-
-          // Add changed files to the target
-          if (taskrun.targets[target.name]) {
-            if (!taskrun.targets[target.name].changedFiles) {
-              taskrun.targets[target.name].changedFiles = Object.create(null);
+      if (!taskrun.running) {
+        watchers.push(new Gaze(patterns, target.options, function(err) {
+          if (err) {
+            if (typeof err === 'string') {
+              err = new Error(err);
             }
-            taskrun.targets[target.name].changedFiles[filepath] = status;
+            grunt.log.writeln('ERROR'.red);
+            grunt.fatal(err);
+            return taskrun.done();
           }
 
-          // Queue the target
-          if (taskrun.queue.indexOf(target.name) === -1) {
-            taskrun.queue.push(target.name);
+          // Log all watched files with --verbose set
+          if (grunt.option('verbose')) {
+            var watched = this.watched();
+            Object.keys(watched).forEach(function(watchedDir) {
+              watched[watchedDir].forEach(function(watchedFile) {
+                grunt.log.writeln('Watching ' + path.relative(process.cwd(), watchedFile) + ' for changes.');
+              });
+            });
           }
 
-          // Run the tasks
-          taskrun.run();
-        });
+          // On changed/added/deleted
+          this.on('all', function(status, filepath) {
 
-        // On watcher error
-        this.on('error', function(err) {
-          if (typeof err === 'string') {
-            err = new Error(err);
-          }
-          grunt.log.error(err.message);
-        });
-      }));
+            // Skip events not specified
+            if (!_.includes(target.options.event, 'all') &&
+                !_.includes(target.options.event, status)) {
+              return;
+            }
+
+            filepath = path.relative(eventCwd, filepath);
+
+            // Skip empty filepaths
+            if (filepath === '') {
+              return;
+            }
+
+            // If Gruntfile.js changed, reload self task
+            if (target.options.reload || /gruntfile\.(js|coffee)/i.test(filepath)) {
+              taskrun.reload = true;
+            }
+
+            // Emit watch events if anyone is listening
+            if (grunt.event.listeners('watch').length > 0) {
+              grunt.event.emit('watch', status, filepath, target.name);
+            }
+
+            // Group changed files only for display
+            changedFiles[filepath] = status;
+
+            // Add changed files to the target
+            if (taskrun.targets[target.name]) {
+              if (!taskrun.targets[target.name].changedFiles) {
+                taskrun.targets[target.name].changedFiles = Object.create(null);
+              }
+              taskrun.targets[target.name].changedFiles[filepath] = status;
+            }
+
+            // Queue the target
+            if (taskrun.queue.indexOf(target.name) === -1) {
+              taskrun.queue.push(target.name);
+            }
+
+            // Run the tasks
+            taskrun.run();
+          });
+
+          // On watcher error
+          this.on('error', function(err) {
+            if (typeof err === 'string') {
+              err = new Error(err);
+            }
+            grunt.log.error(err.message);
+          });
+        }));
+      }
     });
 
   });

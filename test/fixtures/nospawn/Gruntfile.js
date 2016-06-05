@@ -5,6 +5,12 @@ module.exports = function(grunt) {
   var port = 1337;
 
   grunt.initConfig({
+    simplecopy: {
+      cascade: {
+        src: 'lib/source.js',
+        dest: 'lib/destination.js',
+      },
+    },
     watch: {
       nospawn: {
         files: ['lib/nospawn.js'],
@@ -17,6 +23,16 @@ module.exports = function(grunt) {
         files: ['lib/spawn.js'],
         tasks: ['server'],
       },
+      cascading: {
+        files: ['lib/source.js'],
+        tasks: ['simplecopy:cascade'],
+        options: {
+          nospawn: true,
+        },
+      },
+      cascaded: {
+        files: ['lib/destination.js'],
+      },
       interrupt: {
         files: ['lib/interrupt.js'],
         tasks: ['long', 'long', 'long'],
@@ -27,6 +43,9 @@ module.exports = function(grunt) {
       },
     },
   });
+
+  // Load the simplecopy task
+  grunt.loadTasks('../tasks');
 
   // Load this watch task
   grunt.loadTasks('../../../tasks');
