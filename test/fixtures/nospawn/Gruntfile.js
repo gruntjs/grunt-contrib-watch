@@ -4,13 +4,11 @@ module.exports = function(grunt) {
   var http = require('http');
   var port = 1337;
 
-  grunt.loadNpmTasks('grunt-contrib-copy');
-
   grunt.initConfig({
-    copy: {
+    simplecopy: {
       cascade: {
-          src: 'lib/source.js',
-          dest: 'lib/destination.js',
+        src: 'lib/source.js',
+        dest: 'lib/destination.js',
       },
     },
     watch: {
@@ -27,7 +25,7 @@ module.exports = function(grunt) {
       },
       cascading: {
         files: ['lib/source.js'],
-        tasks: ['copy:cascade'],
+        tasks: ['simplecopy:cascade'],
         options: {
           nospawn: true,
         },
@@ -45,6 +43,9 @@ module.exports = function(grunt) {
       },
     },
   });
+
+  // Load the simplecopy task
+  grunt.loadTasks('../tasks');
 
   // Load this watch task
   grunt.loadTasks('../../../tasks');

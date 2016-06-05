@@ -27,7 +27,6 @@
     "grunt-contrib-internal": "^0.4.14",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-nodeunit": "^1.0.0",
-    "grunt-contrib-copy": "*",
     "grunt-jscs": "^2.8.0",
     "underscore.string": "^3.2.2"
   },
