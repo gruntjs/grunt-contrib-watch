@@ -51,5 +51,5 @@ exports.fail = {
       test.ok(result.match(/This task should be fatal/g).length === 2, 'grunt.fatal should not stop the watch task.');
       test.done();
     });
-  },
+  }
 };

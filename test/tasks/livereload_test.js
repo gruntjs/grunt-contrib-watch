@@ -10,7 +10,7 @@ var fixtures = helper.fixtures;
 
 function cleanUp() {
   helper.cleanUp([
-    'livereload/node_modules',
+    'livereload/node_modules'
   ]);
 }
 
@@ -19,7 +19,7 @@ function request(port, done) {
   var data = '';
   var req = http.request({
     hostname: 'localhost',
-    port: port,
+    port: port
   }, function(res) {
     res.setEncoding('utf8');
     res.on('data', function(chunk) {
@@ -235,5 +235,5 @@ exports.livereload = {
         'Should not livereload when a task errors with flag and spawn=false');
       test.done();
     });
-  },
+  }
 };

@@ -10,7 +10,9 @@ helper.fixtures = path.join(__dirname, '..', 'fixtures');
 // If verbose flag set, display output
 helper.verboseLog = function() {};
 if (_.indexOf(process.argv, '-v') !== -1) {
-  helper.verboseLog = function() { console.log.apply(null, arguments); };
+  helper.verboseLog = function() {
+    console.log.apply(null, arguments);
+  };
 }
 
 // helper for creating assertTasks for testing tasks in child processes
@@ -73,7 +75,9 @@ helper.assertTask = function assertTask(task, options) {
       if (shouldRun) {
         setTimeout(function() {
           var run = runs.shift();
-          if (typeof run === 'function') { run(); }
+          if (typeof run === 'function') {
+            run();
+          }
         }, 500);
       }
     });
@@ -94,7 +98,9 @@ helper.assertTask = function assertTask(task, options) {
 
 // clean up files within fixtures
 helper.cleanUp = function cleanUp(files) {
-  if (typeof files === 'string') { files = [files]; }
+  if (typeof files === 'string') {
+    files = [files];
+  }
   files.forEach(function(filepath) {
     filepath = path.join(helper.fixtures, filepath);
     if (grunt.file.exists(filepath)) {

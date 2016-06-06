@@ -35,7 +35,7 @@ exports.nospawn = {
       grunt.file.write(path.join(cwd, 'lib', 'nospawn.js'), write);
     }, function(result) {
       helper.verboseLog(result);
-      var count = result.match((new RegExp('Running "watch" task', 'g'))).length;
+      var count = result.match(new RegExp('Running "watch" task', 'g')).length;
       test.equal(count, 2, 'Watch should have fired twice.');
       test.ok(result.indexOf('Server is listening...') !== -1, 'server should have been started.');
       test.ok(result.indexOf('Server is talking!') !== -1, 'server should have responded.');
@@ -56,10 +56,10 @@ exports.nospawn = {
       // Two functions needed to run two rounds of watching
     }], function(result) {
       helper.verboseLog(result);
-      var count = result.match((new RegExp('Running "long" task', 'g'))).length;
+      var count = result.match(new RegExp('Running "long" task', 'g')).length;
       test.equal(count, 4, 'long task should have been ran only 4 times.');
       test.ok(result.indexOf('have been interrupted') !== -1, 'tasks should have been interrupted.');
       test.done();
     });
-  },
+  }
 };

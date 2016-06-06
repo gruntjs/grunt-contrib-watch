@@ -40,5 +40,5 @@ exports.patterns = {
         'Watch should NOT have been triggered when dontedit.js was edited.');
       test.done();
     });
-  },
+  }
 };

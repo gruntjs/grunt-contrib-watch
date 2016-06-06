@@ -33,7 +33,7 @@ exports.watch = {
     var cwd = path.resolve(fixtures, 'atBegin');
     var assertWatch = helper.assertTask(['watch', '--debug'], {cwd: cwd});
     assertWatch(function() {
-       // noop. Does not modify any watched files.
+      // noop. Does not modify any watched files.
     }, function(result) {
       helper.verboseLog(result);
       var firstIndex = result.indexOf('one has changed');

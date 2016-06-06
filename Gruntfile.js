@@ -14,11 +14,11 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'tasks/**/*.js',
-        '<%= nodeunit.tests %>',
+        '<%= nodeunit.tests %>'
       ],
       options: {
-        jshintrc: '.jshintrc',
-      },
+        jshintrc: '.jshintrc'
+      }
     },
     jscs: {
       src: ['tasks/**/*.js', 'test/tasks/**/*.js'],
@@ -29,12 +29,12 @@ module.exports = function(grunt) {
     watch: {
       all: {
         files: ['<%= jshint.all %>'],
-        tasks: ['jshint', 'nodeunit'],
-      },
+        tasks: ['jshint', 'nodeunit']
+      }
     },
     nodeunit: {
-      tests: ['test/tasks/*_test.js'],
-    },
+      tests: ['test/tasks/*_test.js']
+    }
   });
 
   // Dynamic alias task to nodeunit. Run individual tests with: grunt test:events
