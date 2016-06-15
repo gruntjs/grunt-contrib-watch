@@ -52,8 +52,6 @@ exports.nospawn = {
       setTimeout(function() {
         grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), write);
       }, 1000);
-    }, function() {
-      // Two functions needed to run two rounds of watching
     }], function(result) {
       helper.verboseLog(result);
       var count = result.match(new RegExp('Running "long" task', 'g')).length;
