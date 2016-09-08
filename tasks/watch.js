@@ -11,6 +11,7 @@
 var path = require('path');
 var Gaze = require('gaze').Gaze;
 var _ = require('lodash');
+var globule = require('globule');
 var waiting = 'Waiting...';
 var changedFiles = Object.create(null);
 var watchers = [];
@@ -144,6 +145,11 @@ module.exports = function(grunt) {
 
           // Skip empty filepaths
           if (filepath === '') {
+            return;
+          }
+
+          // Skip non matching hits caused by Gaze on some systems
+          if (!globule.isMatch(patterns, filepath)) {
             return;
           }
 
