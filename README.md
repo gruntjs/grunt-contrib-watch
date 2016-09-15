@@ -324,7 +324,7 @@ grunt.initConfig({
 });
 
 // On watch events configure jshint:all to only run on changed file
-grunt.event.on('watch', function(action, filepath) {
+grunt.event.on('watch', function(action, filepath, target) {
   grunt.config('jshint.all.src', filepath);
 });
 ```
@@ -339,7 +339,7 @@ var onChange = grunt.util._.debounce(function() {
   grunt.config('jshint.all.src', Object.keys(changedFiles));
   changedFiles = Object.create(null);
 }, 200);
-grunt.event.on('watch', function(action, filepath) {
+grunt.event.on('watch', function(action, filepath, target) {
   changedFiles[filepath] = action;
   onChange();
 });
