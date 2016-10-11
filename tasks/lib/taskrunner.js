@@ -2,7 +2,7 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2015 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2016 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
     self.name = name || grunt.task.current.name || 'watch';
     self.options = self._options(grunt.config([self.name, 'options']) || {}, defaults || {});
     self.reload = false;
-    self.nameArgs = (grunt.task.current.nameArgs) ? grunt.task.current.nameArgs : self.name;
+    self.nameArgs = grunt.task.current.nameArgs ? grunt.task.current.nameArgs : self.name;
 
     // Normalize cwd option
     if (typeof self.options.cwd === 'string') {
@@ -121,10 +121,12 @@ module.exports = function(grunt) {
 
     grunt.task.current.requiresConfig(name);
     var config = grunt.config(name);
-    var onlyTarget = (self.options.target) ? self.options.target : false;
+    var onlyTarget = self.options.target ? self.options.target : false;
 
     var targets = (onlyTarget ? [onlyTarget] : Object.keys(config)).filter(function(key) {
-      if (key === 'options') { return false; }
+      if (key === 'options') {
+        return false;
+      }
       return typeof config[key] !== 'string' && !Array.isArray(config[key]);
     }).map(function(target) {
       // Fail if any required config properties have been omitted
@@ -142,7 +144,7 @@ module.exports = function(grunt) {
         files: config.files,
         tasks: config.tasks,
         name: defaultTargetName,
-        options: self._options(config.options || {}, self.options),
+        options: self._options(config.options || {}, self.options)
       };
       targets.push(cfg);
       self.add(cfg);
@@ -163,7 +165,7 @@ module.exports = function(grunt) {
       spawn: true,
       atBegin: false,
       event: ['all'],
-      target: null,
+      target: null
     });
     return _.defaults.apply(_, args);
   };
@@ -198,7 +200,9 @@ module.exports = function(grunt) {
     }
 
     // If we should reload
-    if (self.reload) { return self.reloadTask(); }
+    if (self.reload) {
+      return self.reloadTask();
+    }
 
     // Trigger that tasks runs have started
     self.emit('start');
@@ -208,7 +212,9 @@ module.exports = function(grunt) {
     var shouldComplete = true;
     async.forEachSeries(self.queue, function(name, next) {
       var tr = self.targets[name];
-      if (!tr) { return next(); }
+      if (!tr) {
+        return next();
+      }
 
       // Re-grab options in case they changed between runs
       tr.options = self._options(grunt.config([self.name, name, 'options']) || {}, tr.options, self.options);
@@ -235,8 +241,12 @@ module.exports = function(grunt) {
       // Private method for getting latest config for a watch target
       target._getConfig = function(name) {
         var cfgPath = [self.name];
-        if (target.name !== defaultTargetName) { cfgPath.push(target.name); }
-        if (name) { cfgPath.push(name); }
+        if (target.name !== defaultTargetName) {
+          cfgPath.push(target.name);
+        }
+        if (name) {
+          cfgPath.push(name);
+        }
         return grunt.config(cfgPath);
       };
 
@@ -262,13 +272,17 @@ module.exports = function(grunt) {
   // Do this when queued task runs have completed/scheduled
   Runner.prototype.complete = function complete() {
     var self = this;
-    if (self.running === false) { return; }
+    if (self.running === false) {
+      return;
+    }
     self.running = false;
     var time = 0;
     for (var i = 0, len = self.queue.length; i < len; ++i) {
       var name = self.queue[i];
       var target = self.targets[name];
-      if (!target) { return; }
+      if (!target) {
+        return;
+      }
       if (target.startedAt !== false) {
         time += target.complete();
         self.queue.splice(i--, 1);
@@ -291,7 +305,9 @@ module.exports = function(grunt) {
     var self = this;
     self.queue.forEach(function(name) {
       var target = self.targets[name];
-      if (!target) { return; }
+      if (!target) {
+        return;
+      }
       target.complete();
     });
   };

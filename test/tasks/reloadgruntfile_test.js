@@ -10,7 +10,7 @@ var fixtures = helper.fixtures;
 function cleanUp() {
   helper.cleanUp([
     'multiTargets/node_modules',
-    'multiTargets/Gruntfile.js.bak',
+    'multiTargets/Gruntfile.js.bak'
   ]);
 }
 
@@ -45,11 +45,11 @@ exports.reloadgruntfile = {
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');
     }], function(result) {
       helper.verboseLog(result);
-      var count = result.match((new RegExp('Running "watch" task', 'g'))).length;
+      var count = result.match(new RegExp('Running "watch" task', 'g')).length;
       test.equal(count, 2, 'Watch should have fired twice.');
       test.ok(result.indexOf('one has changed') !== -1, 'task one should have been triggered.');
       test.ok(result.indexOf('two has changed') !== -1, 'task two should have been triggered.');
       test.done();
     });
-  },
+  }
 };

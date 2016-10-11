@@ -2,7 +2,7 @@
  * grunt-contrib-watch
  * http://gruntjs.com/
  *
- * Copyright (c) 2015 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2016 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
@@ -43,7 +43,9 @@ module.exports = function(grunt) {
         process.exit(1);
       });
       this.server.listen(options.port, options.host, function(err) {
-        if (err) { return grunt.fatal(err); }
+        if (err) {
+          return grunt.fatal(err);
+        }
         grunt.log.verbose.writeln('Live reload server started on ' + host);
       });
       servers[host] = this.server;

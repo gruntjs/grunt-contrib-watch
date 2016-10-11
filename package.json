@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-watch",
   "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted",
-  "version": "0.6.1",
+  "version": "1.0.0",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
@@ -11,26 +11,24 @@
   "engines": {
     "node": ">=0.10.0"
   },
+  "main": "tasks/watch.js",
   "scripts": {
     "test": "grunt test -v"
   },
   "dependencies": {
-    "gaze": "^0.5.1",
-    "tiny-lr": "^0.1.4",
-    "lodash": "^2.4.1",
-    "async": "^0.9.0"
+    "async": "^1.5.0",
+    "gaze": "^1.1.0",
+    "lodash": "^4.0.0",
+    "tiny-lr": "^0.2.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-internal": "^0.4.7",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-nodeunit": "^0.4.1",
-    "grunt-jscs": "^2.1.0",
-    "underscore.string": "^2.3.3"
-  },
-  "peerDependencies": {
-    "grunt": ">=0.4.0"
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-internal": "^1.2.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "grunt-jscs": "^3.0.0",
+    "underscore.string": "^3.2.2"
   },
   "keywords": [
     "gruntplugin",
@@ -39,5 +37,6 @@
   ],
   "files": [
     "tasks"
-  ]
+  ],
+  "appveyor_id": "olyu3uhcq59avm8v"
 }

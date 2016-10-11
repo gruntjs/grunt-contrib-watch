@@ -1,11 +1,10 @@
-# grunt-contrib-watch v0.6.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch)
+# grunt-contrib-watch v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/olyu3uhcq59avm8v/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-watch/branch/master)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted
 
 
 
 ## Getting Started
-This plugin requires Grunt `>=0.4.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -33,7 +32,7 @@ There are a number of options available. Please review the [minimatch options he
 #### files
 Type: `String|Array`
 
-This defines what file patterns this task will watch. Can be a string or an array of files and/or minimatch patterns.
+This defines what file patterns this task will watch. It can be a string or an array of files and/or minimatch patterns.
 
 #### tasks
 Type: `String|Array`
@@ -41,8 +40,8 @@ Type: `String|Array`
 This defines which tasks to run when a watched file event occurs.
 
 #### options.spawn
-Type: `Boolean`
-Default: true
+Type: `Boolean`  
+Default: `true`
 
 Whether to spawn task runs in a child process. Setting this option to `false` speeds up the reaction time of the watch (usually 500ms faster for most) and allows subsequent task runs to share the same context. Not spawning task runs can make the watch more prone to failing so please use as needed.
 
@@ -62,8 +61,8 @@ watch: {
 *For backwards compatibility the option `nospawn` is still available and will do the opposite of `spawn`.*
 
 #### options.interrupt
-Type: `Boolean`
-Default: false
+Type: `Boolean`  
+Default: `false`
 
 As files are modified this watch task will spawn tasks in child processes. The default behavior will only spawn a new child process per target when the previous process has finished. Set the `interrupt` option to true to terminate the previous process and spawn a new one upon later changes.
 
@@ -81,8 +80,8 @@ watch: {
 ```
 
 #### options.debounceDelay
-Type: `Integer`
-Default: 500
+Type: `Integer`  
+Default: `500`
 
 How long to wait before emitting events in succession for the same filepath and status. For example if your `Gruntfile.js` file was `changed`, a `changed` event will only fire again after the given milliseconds.
 
@@ -100,13 +99,13 @@ watch: {
 ```
 
 #### options.interval
-Type: `Integer`
-Default: 100
+Type: `Integer`  
+Default: `100`
 
 The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs.watchFile` and this watcher also uses `fs.watch`; it is recommended to ignore this option. *Default is 100ms*.
 
 #### options.event
-Type: `String|Array`
+Type: `String|Array`  
 Default: `'all'`
 
 Specify the type of watch events that triggers the specified task. This option can be one or many of: `'all'`, `'changed'`, `'added'` and `'deleted'`.
@@ -125,7 +124,7 @@ watch: {
 ```
 
 #### options.reload
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 By default, if `Gruntfile.js` is being watched, then changes to it will trigger the watch task to restart, and reload the `Gruntfile.js` changes.
@@ -145,8 +144,8 @@ watch: {
 
 
 #### options.forever
-Type: `Boolean`
-Default: true
+Type: `Boolean`  
+Default: `true`
 
 This is *only a task level option* and cannot be configured per target. By default the watch task will duck punch `grunt.fatal` and `grunt.warn` to try and prevent them from exiting the watch process. If you don't want `grunt.fatal` and `grunt.warn` to be overridden set the `forever` option to `false`.
 
@@ -171,14 +170,14 @@ watch: {
 ```
 
 #### options.atBegin
-Type: `Boolean`
-Default: false
+Type: `Boolean`  
+Default: `false`
 
 This option will trigger the run of each specified task at startup of the watcher.
 
 #### options.livereload
-Type: `Boolean|Number|Object`
-Default: false
+Type: `Boolean|Number|Object`  
+Default: `false`
 
 Set to `true` or set `livereload: 1337` to a port number to enable live reloading. Default and recommended port is `35729`.
 
@@ -222,19 +221,36 @@ watch: {
 
 
 #### options.cwd
-Type: `String|Object`
+Type: `String|Object`  
 Default: `process.cwd()`
 
-Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks. Or an object to set each independently. Such as `options: { cwd: { files: 'match/files/from/here', spawn: 'but/spawn/files/from/here' } }`.
+Ability to set the current working directory. Defaults to `process.cwd()`. Can either be a string to set the cwd to match files and spawn tasks or an object to set each independently. Such as:
+```js
+options: {
+  cwd: {
+    files: 'match/files/from/here',
+    spawn: 'but/spawn/files/from/here'
+  }
+}
+```
 
-Set `options: { cwd: { files: 'a/path', event: 'a/path' }}` to strip off `a/path` before emitting events. This option is useful for specifying the base directory to use with livereload.
+To strip off a path before emitting events:
+```js
+options: {
+  cwd: {
+    files: 'a/path',
+    event: 'a/path'
+  }
+}
+```
+This will strip off `a/path` before emitting events. This option is useful for specifying the base directory to use with livereload.
 
 
 #### options.livereloadOnError
 Type: `Boolean`  
 Default: `true`  
 
-Option to prevent the livereload if the executed tasks encountered an error.  If set to `false`, the livereload will only be triggered if all tasks completed successfully.
+Option to prevent the livereload if the executed tasks encountered an error. If set to `false`, the livereload will only be triggered if all tasks completed successfully.
 
 ### Examples
 
@@ -307,7 +323,7 @@ grunt.initConfig({
   },
 });
 
-// on watch events configure jshint:all to only run on changed file
+// On watch events configure jshint:all to only run on changed file
 grunt.event.on('watch', function(action, filepath) {
   grunt.config('jshint.all.src', filepath);
 });
@@ -453,40 +469,46 @@ Likely because of an enthusiastic pattern trying to watch thousands of files. Su
 Another reason if you're watching a large number of files could be the low default `interval`. Try increasing with `options: { interval: 5007 }`. Please see issues [#35](https://github.com/gruntjs/grunt-contrib-watch/issues/35) and [#145](https://github.com/gruntjs/grunt-contrib-watch/issues/145) for more information.
 
 #### Why spawn as child processes as a default?
-The goal of this watch task is as files are changed, run tasks as if they were triggered by the user themself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continually produce expected results, this watch task spawns tasks as child processes by default.
+The goal of this watch task is as files are changed, run tasks as if they were triggered by the user himself or herself. Each time a user runs `grunt` a process is spawned and tasks are ran in succession. In an effort to keep the experience consistent and continually produce expected results, this watch task spawns tasks as child processes by default.
 
 Sandboxing task runs also allows this watch task to run more stable over long periods of time. As well as more efficiently with more complex tasks and file structures.
 
 Spawning does cause a performance hit (usually 500ms for most environments). It also cripples tasks that rely on the watch task to share the context with each subsequent run (i.e., reload tasks). If you would like a faster watch task or need to share the context please set the `spawn` option to `false`. Just be aware that with this option enabled, the watch task is more prone to failure.
 
+#### How can I have the browser reload for files listed in a task?
+Instead of restarting your server each time a static file is changed, start a static web server using (grunt-contrib-connect)[https://github.com/gruntjs/grunt-contrib-connect].
+
+You'll have the `connect` web server on seperate port ex: port 9000 from your main server. When the 'livereload' option is enabled for 'watch' tasks, it will handle triggerring the live reload server for each tasks and when files are modified, which then server back to main server ex: 3000. The main server must include a script tag or a browser extension to the livereload server in order for the browser automatically.
+
 
 ## Release History
 
- * 2014-03-19   v0.6.1   Fix for watch targets named "default"
- * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. cwd option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...' Remove deprecated grunt.util libs Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1 Use fork of tiny-lr (which has quiter operation, support for HTTPS and windows path fixes) Add livereloadOnError, which if set to false will not trigger live reload if there is an error.
+ * 2016-03-12   v1.0.0   Updated tiny-lr, gaze, async and lodash dependencies. Fix endless loop issue with `atBegin`/`nospawn`. Expose hostname parameter of tiny-lr. Support `cwd.event` to emit events relative to path. Removed peerDependencies setting.
+ * 2014-03-19   v0.6.1   Fix for watch targets named "default".
+ * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. `cwd` option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...'. Remove deprecated `grunt.util` libs. Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1. Use a fork of tiny-lr (which has quiter operation, support for HTTPS and Windows path fixes). Add `livereloadOnError`, which if set to `false` will not trigger live reload if there is an error.
  * 2013-08-25   v0.5.3   Fixed for live reload missing files.
  * 2013-08-16   v0.5.2   Fixed issue running tasks after gruntfile is reloaded. Ignores empty file paths.
  * 2013-07-20   v0.5.1   Fixed issue with options resetting.
- * 2013-07-18   v0.5.0   Added target name to watch event. Added atBegin option to run tasks when watcher starts. Changed nospawn option to spawn (nospawn still available for backwards compatibility). Moved libs/vars into top scope to prevent re-init. Bumped Gaze version to ~0.4. Re-grab task/target options upon each task run. Add dateFormat option to override the date/time output upon completion.
- * 2013-05-27   v0.4.4   Remove gracefully closing SIGINT. Not needed and causes problems for Windows. Ensure tasks are an array to not conflict with cliArgs.
+ * 2013-07-18   v0.5.0   Added target name to watch event. Added `atBegin` option to run tasks when watcher starts. Changed `nospawn` option to `spawn` (`nospawn` still available for backwards compatibility). Moved libs/vars into top scope to prevent re-init. Bumped Gaze version to ~0.4. Re-grab task/target options upon each task run. Add dateFormat option to override the date/time output upon completion.
+ * 2013-05-27   v0.4.4   Remove gracefully closing SIGINT. Not needed and causes problems for Windows. Ensure tasks are an array to not conflict with `cliArgs`.
  * 2013-05-11   v0.4.3   Only group changed files per target to send correct files to live reload.
  * 2013-05-09   v0.4.2   Fix for closing watchers.
  * 2013-05-09   v0.4.1   Removed "beep" notification. Tasks now optional with livereload option. Reverted "run again" with interrupt off to fix infinite recursion issue. Watchers now close more properly on task run.
- * 2013-05-03   v0.4.0   Option livereload to start live reload servers. Will reload a Gruntfile before running tasks if Gruntfile is modified. Option event to only trigger watch on certain events. Refactor watch task into separate task runs per target. Option forever to override grunt.fatal/warn to help keeping the watch alive with nospawn enabled. Emit a beep upon complete. Logs all watched files with verbose flag set. If interrupt is off, will run the tasks once more if watch triggered during a previous task run. tasks property is optional for use with watch event. Watchers properly closed when exiting.
+ * 2013-05-03   v0.4.0   Option `livereload` to start live reload servers. Will reload a Gruntfile before running tasks if Gruntfile is modified. Option event to only trigger watch on certain events. Refactor watch task into separate task runs per target. Option `forever` to override `grunt.fatal`/`warn` to help keeping the watch alive with `nospawn` enabled. Emit a beep upon complete. Logs all watched files with verbose flag set. If interrupt is off, will run the tasks once more if watch triggered during a previous task run. tasks property is optional for use with watch event. Watchers properly closed when exiting.
  * 2013-02-28   v0.3.1   Fix for top level options.
- * 2013-02-27   v0.3.0   nospawn option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with grunt.event. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with --stack cli option. Code complexity reduced making the watch task code easier to read.
+ * 2013-02-27   v0.3.0   `nospawn` option added to run tasks without spawning as child processes. Watch emits 'watch' events upon files being triggered with `grunt.event`. Completion time in seconds and date/time shown after tasks ran. Negate file patterns fixed. Tasks debounced individually to handle simultaneous triggering for multiple targets. Errors handled better and viewable with `--stack` CLI option. Code complexity reduced making the watch task code easier to read.
  * 2013-02-15   v0.2.0   First official release for Grunt 0.4.0.
  * 2013-01-18   v0.2.0rc7   Updating grunt/gruntplugin dependencies to rc6. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
  * 2013-01-09   v0.2.0rc5   Updating to work with grunt v0.4.0rc5.
- * 2012-12-15   v0.2.0a   Conversion to grunt v0.4 conventions. Remove node v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use grunt.util.spawn "grunt" option. Updated to gaze@0.3.0, forceWatchMethod option removed.
- * 2012-11-01   v0.1.4   Prevent watch from spawning duplicate watch tasks
- * 2012-10-28   v0.1.3   Better method to spawn the grunt bin Bump gaze to v0.2.0. Better handles some events and new option forceWatchMethod Only support Node.js >= v0.8
- * 2012-10-17   v0.1.2   Only spawn a process per task one at a time Add interrupt option to cancel previous spawned process Grunt v0.3 compatibility changes
- * 2012-10-16   v0.1.1   Fallback to global grunt bin if local doesnt exist. Fatal if bin cannot be found Update to gaze 0.1.6
- * 2012-10-08   v0.1.0   Release watch task Remove spawn from helper Run on Grunt v0.4
+ * 2012-12-15   v0.2.0a   Conversion to grunt v0.4 conventions. Remove Node.js v0.6 and grunt v0.3 support. Allow watch task to be renamed. Use `grunt.util.spawn` "grunt" option. Updated to gaze@0.3.0, `forceWatchMethod` option removed.
+ * 2012-11-01   v0.1.4   Prevent watch from spawning duplicate watch tasks.
+ * 2012-10-28   v0.1.3   Better method to spawn the grunt bin. Bump gaze to v0.2.0. Better handles some events and new option `forceWatchMethod`. Only support Node.js >= v0.8.
+ * 2012-10-17   v0.1.2   Only spawn a process per task one at a time. Add `interrupt` option to cancel previous spawned process. Grunt v0.3 compatibility changes.
+ * 2012-10-16   v0.1.1   Fallback to global grunt bin if local doesn't exist. Fatal if bin cannot be found. Update to gaze 0.1.6.
+ * 2012-10-08   v0.1.0   Release watch task. Remove spawn from helper. Run on Grunt v0.4.
 
 ---
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sun Oct 11 2015 13:29:21.*
+*This file was generated on Fri Mar 18 2016 19:24:09.*

@@ -161,5 +161,5 @@ exports.events = {
       test.ok(result.indexOf('Ive changed') !== -1, 'should run task set in event listener');
       test.done();
     });
-  },
+  }
 };
