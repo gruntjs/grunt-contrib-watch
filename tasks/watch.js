@@ -61,10 +61,12 @@ module.exports = function(grunt) {
     var self = this;
     var name = self.name || 'watch';
 
-    // Close any previously opened watchers
-    watchers.forEach(function(watcher) {
-      watcher.close();
-    });
+    // As the context may have changed, it might be necessary
+    // to recreate the watchers. However, we do not delete
+    // the previous watchers immediately, or we take the
+    // risk to miss changes in the file system.
+    // Hence, keep track of previous watchers to delete them after
+    var previousWatchers = watchers;
     watchers = [];
 
     // Never gonna give you up, never gonna let you down
@@ -186,6 +188,9 @@ module.exports = function(grunt) {
         });
       }));
     });
-
+    // Close any previously opened watchers
+    previousWatchers.forEach(function(watcher) {
+      watcher.close();
+    });
   });
 };
