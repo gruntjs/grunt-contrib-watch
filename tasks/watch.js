@@ -61,6 +61,12 @@ module.exports = function(grunt) {
     var self = this;
     var name = self.name || 'watch';
 
+    // On shutdown, close up watchers
+    process.on('SIGINT', function() {
+      grunt.log.writeln('').write('Shutting down the watch task...').ok();
+      process.exit();
+    });
+
     // Close any previously opened watchers
     watchers.forEach(function(watcher) {
       watcher.close();
