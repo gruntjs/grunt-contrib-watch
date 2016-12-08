@@ -61,6 +61,10 @@ module.exports = function(grunt) {
     var self = this;
     var name = self.name || 'watch';
 
+    if (!grunt.config.get([name, target])) {
+      return grunt.fail.fatal('Grunt ' + name + ' does not have a target called ' + target);
+    }
+
     // Close any previously opened watchers
     watchers.forEach(function(watcher) {
       watcher.close();
