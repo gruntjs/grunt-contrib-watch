@@ -52,7 +52,7 @@ watch: {
     files: ['**/*.js'],
     tasks: ['jshint'],
     options: {
-      spawn: false,
+      spawn: false
     },
   },
 },
@@ -73,7 +73,7 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      interrupt: true,
+      interrupt: true
     },
   },
 },
@@ -92,7 +92,7 @@ watch: {
     files: '**/*.js',
     tasks: ['jshint'],
     options: {
-      debounceDelay: 250,
+      debounceDelay: 250
     },
   },
 },
@@ -117,7 +117,7 @@ watch: {
     files: '**/*.js',
     tasks: ['generateFileManifest'],
     options: {
-      event: ['added', 'deleted'],
+      event: ['added', 'deleted']
     },
   },
 },
@@ -164,7 +164,7 @@ watch: {
   },
   scripts: {
     files: '**/*.js',
-    tasks: 'jshint',
+    tasks: 'jshint'
   },
 },
 ```
@@ -192,7 +192,7 @@ watch: {
     files: '**/*.sass',
     tasks: ['sass'],
     options: {
-      livereload: true,
+      livereload: true
     },
   },
 },
@@ -270,15 +270,15 @@ grunt.initConfig({
   watch: {
     gruntfile: {
       files: 'Gruntfile.js',
-      tasks: ['jshint:gruntfile'],
+      tasks: ['jshint:gruntfile']
     },
     src: {
       files: ['lib/*.js', 'css/**/*.scss', '!lib/dontwatch.js'],
-      tasks: ['default'],
+      tasks: ['default']
     },
     test: {
       files: '<%= jshint.test.src %>',
-      tasks: ['jshint:test', 'qunit'],
+      tasks: ['jshint:test', 'qunit']
     },
   },
 });
@@ -291,7 +291,7 @@ This task will emit a `watch` event when watched files are modified. This is use
 grunt.initConfig({
   watch: {
     scripts: {
-      files: ['lib/*.js'],
+      files: ['lib/*.js']
     },
   },
 });
@@ -374,7 +374,7 @@ grunt.initConfig({
       tasks: ['compass'],
       options: {
         // Start a live reload server on the default port 35729
-        livereload: true,
+        livereload: true
       },
     },
     another: {
@@ -382,12 +382,12 @@ grunt.initConfig({
       tasks: ['anothertask'],
       options: {
         // Start another live reload server on port 1337
-        livereload: 1337,
+        livereload: 1337
       },
     },
     dont: {
       files: ['other/stuff/*'],
-      tasks: ['dostuff'],
+      tasks: ['dostuff']
     },
   },
 });
