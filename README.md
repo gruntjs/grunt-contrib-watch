@@ -456,7 +456,9 @@ grunt.initConfig({
 ### FAQs
 
 #### How do I fix the error `EMFILE: Too many opened files.`?
-This is because of your system's max opened file limit. For OSX the default is very low (256). Temporarily increase your limit with `ulimit -n 10480`, the number being the new max limit.
+This is because of your system's max opened file limit. For OSX the default is very low (256). Temporarily increase your limit with `ulimit -n 10480`, the number being the new max limit. For OSX [you need to use](http://superuser.com/questions/302754/increase-the-maximum-number-of-open-file-descriptors-in-snow-leopard) `launchctl`:
+
+    sudo launchctl limit maxfiles 10000 10000
 
 In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](http://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
 
