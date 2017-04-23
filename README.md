@@ -70,7 +70,7 @@ Example:
 ```js
 watch: {
   scripts: {
-    files: '**/*.js',
+    files: ['**/*.js'],
     tasks: ['jshint'],
     options: {
       interrupt: true,
@@ -89,7 +89,7 @@ Example:
 ```js
 watch: {
   scripts: {
-    files: '**/*.js',
+    files: ['**/*.js'],
     tasks: ['jshint'],
     options: {
       debounceDelay: 250,
@@ -114,7 +114,7 @@ Example:
 ```js
 watch: {
   scripts: {
-    files: '**/*.js',
+    files: ['**/*.js'],
     tasks: ['generateFileManifest'],
     options: {
       event: ['added', 'deleted'],
@@ -163,7 +163,7 @@ watch: {
     },
   },
   scripts: {
-    files: '**/*.js',
+    files: ['**/*.js'],
     tasks: 'jshint',
   },
 },
