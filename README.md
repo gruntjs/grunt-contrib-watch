@@ -189,7 +189,7 @@ Example:
 ```js
 watch: {
   css: {
-    files: '**/*.sass',
+    files: ['**/*.sass'],
     tasks: ['sass'],
     options: {
       livereload: true,
@@ -204,7 +204,7 @@ Example:
 ```js
 watch: {
   css: {
-    files: '**/*.sass',
+    files: ['**/*.sass'],
     tasks: ['sass'],
     options: {
       livereload: {
@@ -228,7 +228,7 @@ Ability to set the current working directory. Defaults to `process.cwd()`. Can e
 ```js
 options: {
   cwd: {
-    files: 'match/files/from/here',
+    files: ['match/files/from/here'],
     spawn: 'but/spawn/files/from/here'
   }
 }
@@ -238,7 +238,7 @@ To strip off a path before emitting events:
 ```js
 options: {
   cwd: {
-    files: 'a/path',
+    files: ['a/path'],
     event: 'a/path'
   }
 }
