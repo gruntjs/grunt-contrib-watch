@@ -478,7 +478,7 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 #### How can I have the browser reload for files listed in a task?
 Instead of restarting your server each time a static file is changed, start a static web server using (grunt-contrib-connect)[https://github.com/gruntjs/grunt-contrib-connect].
 
-You'll have the `connect` web server on seperate port ex: port 9000 from your main server. When the 'livereload' option is enabled for 'watch' tasks, it will handle triggerring the live reload server for each tasks and when files are modified, which then server back to main server ex: 3000. The main server must include a script tag or a browser extension to the livereload server in order for the browser automatically.
+You'll have the `connect` web server on separate port ex: port 9000 from your main server. When the 'livereload' option is enabled for 'watch' tasks, it will handle triggering the live reload server for each tasks and when files are modified, which then server back to main server ex: 3000. The main server must include a script tag or a browser extension to the livereload server in order for the browser automatically.
 
 
 ## Release History
