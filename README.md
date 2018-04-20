@@ -1,4 +1,4 @@
-# grunt-contrib-watch v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/olyu3uhcq59avm8v/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-watch/branch/master)
+# grunt-contrib-watch v1.0.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/olyu3uhcq59avm8v/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-watch/branch/master)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted
 
@@ -478,11 +478,12 @@ Spawning does cause a performance hit (usually 500ms for most environments). It 
 #### How can I have the browser reload for files listed in a task?
 Instead of restarting your server each time a static file is changed, start a static web server using (grunt-contrib-connect)[https://github.com/gruntjs/grunt-contrib-connect].
 
-You'll have the `connect` web server on separate port ex: port 9000 from your main server. When the 'livereload' option is enabled for 'watch' tasks, it will handle triggering the live reload server for each tasks and when files are modified, which then server back to main server ex: 3000. The main server must include a script tag or a browser extension to the livereload server in order for the browser automatically.
+You'll have the `connect` web server on seperate port ex: port 9000 from your main server. When the 'livereload' option is enabled for 'watch' tasks, it will handle triggerring the live reload server for each tasks and when files are modified, which then server back to main server ex: 3000. The main server must include a script tag or a browser extension to the livereload server in order for the browser automatically.
 
 
 ## Release History
 
+ * 2018-04-20   v1.0.1   Update to `gaze@1.1`, `lodash@4`
  * 2016-03-12   v1.0.0   Updated tiny-lr, gaze, async and lodash dependencies. Fix endless loop issue with `atBegin`/`nospawn`. Expose hostname parameter of tiny-lr. Support `cwd.event` to emit events relative to path. Removed peerDependencies setting.
  * 2014-03-19   v0.6.1   Fix for watch targets named "default".
  * 2014-03-11   v0.6.0   Clear changed files after triggering live reload to ensure they're only triggered once. `cwd` option now accepts separate settings for files and spawn. Fix to make interrupt work more than once. Enable live reload over HTTPS. Print newline after initial 'Waiting...'. Remove deprecated `grunt.util` libs. Add reload option to specify files other than Gruntfile files to reload. Update to gaze@0.5.1. Use a fork of tiny-lr (which has quiter operation, support for HTTPS and Windows path fixes). Add `livereloadOnError`, which if set to `false` will not trigger live reload if there is an error.
@@ -511,4 +512,4 @@ You'll have the `connect` web server on separate port ex: port 9000 from your ma
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Fri Mar 18 2016 19:24:09.*
+*This file was generated on Fri Apr 20 2018 15:26:14.*

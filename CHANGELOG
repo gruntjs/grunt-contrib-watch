@@ -1,3 +1,7 @@
+v1.0.1:
+  date: 2018-04-20
+  changes:
+    - Update to `gaze@1.1`, `lodash@4`
 v1.0.0:
   date: 2016-03-12
   changes:
