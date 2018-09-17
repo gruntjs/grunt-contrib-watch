@@ -1,6 +1,6 @@
 /*
  * grunt-contrib-watch
- * http://gruntjs.com/
+ * https://gruntjs.com/
  *
  * Copyright (c) 2018 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
@@ -52,5 +52,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-internal');
   grunt.loadNpmTasks('grunt-jscs');
 
-  grunt.registerTask('default', ['test', 'build-contrib']);
+  grunt.registerTask('default', ['test', 'contrib-core', 'contrib-ci:skipIfExists']);
 };

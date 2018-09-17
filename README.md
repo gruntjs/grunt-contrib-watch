@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt](https://gruntjs.com/) before, be sure to check out the [Getting Started](https://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](https://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install grunt-contrib-watch --save-dev
@@ -212,7 +212,7 @@ watch: {
         port: 9000,
         key: grunt.file.read('path/to/ssl.key'),
         cert: grunt.file.read('path/to/ssl.crt')
-        // you can pass in any other options you'd like to the https server, as listed here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
+        // you can pass in any other options you'd like to the https server, as listed here: https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
       }
     },
   },
@@ -300,7 +300,7 @@ grunt.event.on('watch', function(action, filepath, target) {
 });
 ```
 
-**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](http://gruntjs.com/configuring-tasks).**
+**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](https://gruntjs.com/configuring-tasks).**
 
 ##### Compiling Files As Needed
 A very common request is to only compile files as needed. Here is an example that will only lint changed files with the `jshint` task:
@@ -458,7 +458,7 @@ grunt.initConfig({
 #### How do I fix the error `EMFILE: Too many opened files.`?
 This is because of your system's max opened file limit. For OSX the default is very low (256). Temporarily increase your limit with `ulimit -n 10480`, the number being the new max limit.
 
-In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](http://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
+In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](https://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
 
 #### Can I use this with Grunt v0.3?
 `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3 but it is highly recommended to upgrade Grunt instead.
@@ -513,4 +513,4 @@ You'll have the `connect` web server on seperate port ex: port 9000 from your ma
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sat May 12 2018 21:15:02.*
+*This file was generated on Mon Sep 17 2018 22:46:42.*

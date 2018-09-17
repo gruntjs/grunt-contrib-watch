@@ -46,7 +46,7 @@ grunt.event.on('watch', function(action, filepath, target) {
 });
 ```
 
-**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](http://gruntjs.com/configuring-tasks).**
+**The `watch` event is not intended for replacing the standard Grunt API for configuring and running tasks. If you're trying to run tasks from within the `watch` event you're more than likely doing it wrong. Please read [configuring tasks](https://gruntjs.com/configuring-tasks).**
 
 ### Compiling Files As Needed
 A very common request is to only compile files as needed. Here is an example that will only lint changed files with the `jshint` task:
@@ -204,7 +204,7 @@ grunt.initConfig({
 ## How do I fix the error `EMFILE: Too many opened files.`?
 This is because of your system's max opened file limit. For OSX the default is very low (256). Temporarily increase your limit with `ulimit -n 10480`, the number being the new max limit.
 
-In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](http://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
+In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](https://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
 
 ## Can I use this with Grunt v0.3?
 `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3 but it is highly recommended to upgrade Grunt instead.

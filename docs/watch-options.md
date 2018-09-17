@@ -185,7 +185,7 @@ watch: {
         port: 9000,
         key: grunt.file.read('path/to/ssl.key'),
         cert: grunt.file.read('path/to/ssl.crt')
-        // you can pass in any other options you'd like to the https server, as listed here: http://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
+        // you can pass in any other options you'd like to the https server, as listed here: https://nodejs.org/api/tls.html#tls_tls_createserver_options_secureconnectionlistener
       }
     },
   },
