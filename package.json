@@ -1,23 +1,23 @@
 {
   "name": "grunt-chokidar",
   "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted using Chokidar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "jimrobs",
-    "email": "jimmy@jimrobs.com",
-    "url": "https://github.com/JimRobs"
+    "email": "jimmy@robz.re",
+    "url": "https://github.com/JimmyRobz"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/JimRobs/grunt-chokidar.git"
+    "url": "git://github.com/JimmyRobz/grunt-chokidar.git"
   },
   "bugs": {
-    "url": "https://github.com/JimRobs/grunt-chokidar/issues"
+    "url": "https://github.com/JimmyRobz/grunt-chokidar/issues"
   },
   "license": [
     {
       "type": "MIT",
-      "url": "https://github.com/JimRobs/grunt-chokidar/blob/master/LICENSE-MIT"
+      "url": "https://github.com/JimmyRobz/grunt-chokidar/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
