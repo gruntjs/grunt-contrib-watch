@@ -29,8 +29,8 @@
   "dependencies": {
     "async": "^0.9.0",
     "chokidar": "^2.0.4",
-    "lodash": "^2.4.1",
-    "tiny-lr": "^0.1.4"
+    "lodash": "^4.7.11",
+    "tiny-lr": "^1.1.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
