@@ -119,7 +119,7 @@ module.exports = function(grunt) {
 
       watcher.on('all', function(event, filepath) {
         // Skip events not specified
-        if (!_.contains(target.options.event, 'all') && !_.contains(target.options.event, event)) {
+        if (!_.includes(target.options.event, 'all') && !_.includes(target.options.event, event)) {
           return;
         }
 
