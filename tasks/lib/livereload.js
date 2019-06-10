@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 
   LR.prototype.trigger = function(files) {
     grunt.log.verbose.writeln('Live reloading ' + grunt.log.wordlist(files) + '...');
-    this.server.changed({body:{files:files}});
+    this.server.changed({body: {files: files}});
   };
 
   return function(options) {

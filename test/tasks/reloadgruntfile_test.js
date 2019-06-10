@@ -32,7 +32,7 @@ exports.reloadgruntfile = {
   reloadgruntfile: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'multiTargets');
-    var assertWatch = helper.assertTask('chokidar', {cwd:cwd});
+    var assertWatch = helper.assertTask('chokidar', {cwd: cwd});
     assertWatch([function() {
       // First edit a file and trigger the watch
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), 'var one = true;');

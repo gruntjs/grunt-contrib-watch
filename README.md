@@ -1,11 +1,11 @@
-# grunt-chokidar v1.0.1 [![Build Status: Linux](https://travis-ci.org/JimmyRobz/grunt-chokidar.png?branch=master)](https://travis-ci.org/JimmyRobz/grunt-chokidar)
+# grunt-chokidar v1.0.1 [![Build Status: Linux](https://travis-ci.org/JimmyRobz/grunt-chokidar.svg?branch=master)](https://travis-ci.org/JimmyRobz/grunt-chokidar)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted using [chokidar](http://github.com/paulmillr/chokidar).
 
 
 
 ## Getting Started
-This plugin requires Grunt `~0.4.0`
+This plugin requires Grunt `>=1.0.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 

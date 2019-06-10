@@ -29,7 +29,7 @@ exports.nospawn = {
   nospawn: function(test) {
     test.expect(3);
     var cwd = path.resolve(fixtures, 'nospawn');
-    var assertWatch = helper.assertTask(['server', 'chokidar'], {cwd:cwd});
+    var assertWatch = helper.assertTask(['server', 'chokidar'], {cwd: cwd});
     assertWatch(function() {
       var write = 'var nospawn = true;';
       grunt.file.write(path.join(cwd, 'lib', 'nospawn.js'), write);
@@ -45,15 +45,13 @@ exports.nospawn = {
   interrupt: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'nospawn');
-    var assertWatch = helper.assertTask('chokidar', {cwd:cwd});
+    var assertWatch = helper.assertTask('chokidar', {cwd: cwd});
     assertWatch([function() {
       var write = 'var interrupt = true;';
       grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), write);
       setTimeout(function() {
         grunt.file.write(path.join(cwd, 'lib', 'interrupt.js'), write);
       }, 1000);
-    }, function() {
-      // Two functions needed to run two rounds of watching
     }], function(result) {
       helper.verboseLog(result);
       var count = result.match((new RegExp('Running "long" task', 'g'))).length;
