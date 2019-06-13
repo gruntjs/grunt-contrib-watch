@@ -40,7 +40,7 @@ helper.assertTask = function assertTask(task, options) {
   // Return an interface for testing this task
   function returnFunc(runs, done) {
     // Spawn the node this process uses
-    var spawnGrunt = spawn(process.argv[0], spawnOptions, {cwd:cwd});
+    var spawnGrunt = spawn(process.argv[0], spawnOptions, {cwd: cwd});
     var out = '';
 
     if (!Array.isArray(runs)) {
