@@ -1,7 +1,7 @@
 {
   "name": "grunt-chokidar",
   "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted using Chokidar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "jimrobs",
     "email": "jimmy@robz.re",
