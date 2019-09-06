@@ -1,6 +1,7 @@
 var grunt = require('grunt');
 var path = require('path');
 var _ = require('lodash');
+var helper = {};
 
 module.exports = helper = {};
 

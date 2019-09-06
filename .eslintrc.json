@@ -1,0 +1,25 @@
+{
+  "extends": ["eslint:recommended"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "ecmaVersion": 8,
+      "jsx": true
+    }
+  },
+  "rules":{
+    "no-console": 0,
+    "curly": 1,
+    "eqeqeq": 1,
+    "no-eq-null": 1,
+    "wrap-iife": 1,
+    "no-use-before-define": 1,
+    "new-cap": 1,
+    "no-caller": 1,
+    "dot-notation": 1
+  }
+}
