@@ -460,6 +460,11 @@ This is because of your system's max opened file limit. For OSX the default is v
 
 In some versions of OSX the above solution doesn't work. In that case try `launchctl limit maxfiles 10480 10480 ` and restart your terminal. See [here](http://superuser.com/questions/261023/how-to-change-default-ulimit-values-in-mac-os-x-10-6).
 
+If you are using the Sublime Text editor, make sure you are ignoring files sublime shouldn't need to care about by adding something like the following to your User Settings JSON file:
+```
+"folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "tmp/*"] 
+```
+
 #### Can I use this with Grunt v0.3?
 `grunt-contrib-watch@0.1.x` is compatible with Grunt v0.3 but it is highly recommended to upgrade Grunt instead.
 
