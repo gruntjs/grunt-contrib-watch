@@ -153,6 +153,8 @@ Instead of adding a script tag to your page, you can live reload your page by in
 
 Once installed please use the default live reload port `35729` and the browser extension will automatically reload your page without needing the `<script>` tag.
 
+Note: Chrome extension LiveReload#2.1.0 does not support `Https` and must be injected manually.
+
 ### Using Connect Middleware
 Since live reloading is used when developing, you may want to disable building for production (and are not using the browser extension). One method is to use Connect middleware to inject the script tag into your page. Try the [connect-livereload](https://github.com/intesso/connect-livereload) middleware for injecting the live reload script into your page.
 
