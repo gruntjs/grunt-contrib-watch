@@ -20,11 +20,11 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc'
       }
     },
-    jscs: {
-      src: ['tasks/**/*.js', 'test/tasks/**/*.js'],
+    eslint: {
       options: {
-        config: '.jscsrc'
-      }
+        configFile: '.eslintrc.json'
+      },
+      target: ['tasks/**/*.js', 'test/tasks/**/*.js', 'Gruntfile.js', ]
     },
     watch: {
       all: {
@@ -40,17 +40,18 @@ module.exports = function(grunt) {
   // Dynamic alias task to nodeunit. Run individual tests with: grunt test:events
   grunt.registerTask('test', function(file) {
     grunt.task.run('jshint');
-    grunt.task.run('jscs');
+    grunt.task.run('eslint');
     grunt.config('nodeunit.tests', String(grunt.config('nodeunit.tests')).replace('*', file || '*'));
     grunt.task.run('nodeunit');
   });
 
-  grunt.loadTasks('tasks');
-
   grunt.loadNpmTasks('grunt-contrib-jshint');
+
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-internal');
-  grunt.loadNpmTasks('grunt-jscs');
+  grunt.loadNpmTasks('grunt-eslint');
+
+  grunt.loadTasks('tasks');
 
   grunt.registerTask('default', ['test', 'build-contrib']);
 };

@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-watch",
   "description": "Run predefined tasks whenever watched file patterns are added, changed or deleted",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
@@ -16,18 +16,18 @@
     "test": "grunt test -v"
   },
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^3.1.0",
     "gaze": "^1.1.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "tiny-lr": "^1.1.1"
   },
   "devDependencies": {
-    "grunt": "^1.0.2",
+    "grunt": "^1.0.4",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-internal": "^2.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-nodeunit": "^1.0.0",
-    "grunt-jscs": "^3.0.0",
+    "grunt-contrib-internal": "^3.1.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-nodeunit": "^2.0.0",
+    "grunt-eslint": "^21.1.0",
     "underscore.string": "^3.2.2"
   },
   "keywords": [

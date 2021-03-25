@@ -1,4 +1,4 @@
-# grunt-contrib-watch v1.1.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/olyu3uhcq59avm8v/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-watch/branch/master)
+# grunt-contrib-watch v1.1.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-watch.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-watch) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/olyu3uhcq59avm8v/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-watch/branch/master)
 
 > Run predefined tasks whenever watched file patterns are added, changed or deleted
 
@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt](https://gruntjs.com/) before, be sure to check out the [Getting Started](https://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](https://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install grunt-contrib-watch --save-dev
@@ -483,6 +483,7 @@ You'll have the `connect` web server on separate port ex: port 9000 from your ma
 
 ## Release History
 
+ * 2019-09-24   v1.1.1   Replace jscs with eslint due to security issue in used lodash version
  * 2018-05-12   v1.1.0   Update to `tiny-lr@1.1.1`, `lodash@4.17.10`, `async@2.6.0`
  * 2018-04-20   v1.0.1   Update to `gaze@1.1`, `lodash@4`
  * 2016-03-12   v1.0.0   Updated tiny-lr, gaze, async and lodash dependencies. Fix endless loop issue with `atBegin`/`nospawn`. Expose hostname parameter of tiny-lr. Support `cwd.event` to emit events relative to path. Removed peerDependencies setting.
@@ -513,4 +514,4 @@ You'll have the `connect` web server on separate port ex: port 9000 from your ma
 
 Task submitted by [Kyle Robinson Young](http://dontkry.com)
 
-*This file was generated on Sat May 12 2018 21:15:02.*
+*This file was generated on Tue Sep 24 2019 12:44:44.*
