@@ -3,10 +3,10 @@ sudo: false
 language: node_js
 
 node_js:
-  - "4"
-  - "6"
-  - "8"
-  - "9"
+  - "10"
+  - "12"
+  - "14"
+  - "16"
 
 matrix:
   fast_finish: true
