@@ -13,7 +13,7 @@ environment:
       platform: x86
     - nodejs_version: "14"
       platform: x86
-    - nodejs_version: "15"
+    - nodejs_version: "16"
       platform: x86
 
 install:
