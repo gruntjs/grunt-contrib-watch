@@ -27,7 +27,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "async": "^3.1.0",
+    "async": "^3.2.4",
     "chokidar": "^3.0.2",
     "lodash": "^4.17.15",
     "tiny-lr": "^1.1.1"
