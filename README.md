@@ -108,7 +108,7 @@ The `interval` is passed to `fs.watchFile`. Since `interval` is only used by `fs
 Type: `String|Array`  
 Default: `'all'`
 
-Specify the type of watch events that triggers the specified task. This option can be one or many of: `'all'`, `'changed'`, `'added'` and `'deleted'`.
+Specify the type of watch events that triggers the specified task. This option can be one or many of: `'all'`, `'changed'`, `'added'`, `'renamed'` and `'deleted'`.
 
 Example:
 ```js
