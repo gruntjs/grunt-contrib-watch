@@ -24,8 +24,8 @@
   "devDependencies": {
     "grunt": "^1.6.1",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-internal": "^2.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-internal": "^8.0.2",
+    "grunt-contrib-jshint": "^3.2.0",
     "grunt-contrib-nodeunit": "^5.0.0",
     "grunt-jscs": "^3.0.1",
     "underscore.string": "^3.2.2"
